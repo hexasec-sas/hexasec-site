@@ -3,39 +3,56 @@
 // Año automático
 document.getElementById('year').textContent = String(new Date().getFullYear());
 
-// Formulario: no envía datos a un servidor.
-// Solo prepara un correo (mailto) con los campos del usuario.
 const form = document.getElementById('contactForm');
 const statusEl = document.getElementById('formStatus');
 
 function cleanText(input) {
-  // Limpieza básica para evitar caracteres raros en el mailto.
   return String(input || '').replace(/[\r\n]+/g, ' ').trim();
 }
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  statusEl.textContent = 'Enviando...';
 
   const formData = new FormData(form);
+
+  // Limpieza básica
   const name = cleanText(formData.get('name'));
   const email = cleanText(formData.get('email'));
   const message = cleanText(formData.get('message'));
+
+  // Honeypot anti-spam
+  const gotcha = cleanText(formData.get('_gotcha'));
+  if (gotcha) {
+    statusEl.textContent = 'Enviado.'; // no revelar detección
+    form.reset();
+    return;
+  }
 
   if (!name || !email || !message) {
     statusEl.textContent = 'Por favor completa todos los campos.';
     return;
   }
 
-  const subject = encodeURIComponent(`Solicitud desde web - ${name}`);
-  const body = encodeURIComponent(
-    `Hola HexaSec,\n\n` +
-    `Mi nombre es: ${name}\n` +
-    `Mi correo es: ${email}\n\n` +
-    `Mensaje:\n${message}\n\n` +
-    `Gracias.`
-  );
+  // Asegura que enviamos valores limpios
+  formData.set('name', name);
+  formData.set('email', email);
+  formData.set('message', message);
 
-  const mailto = `mailto:contacto@hexasecsas.com?subject=${subject}&body=${body}`;
-  window.location.href = mailto;
-  statusEl.textContent = 'Abriendo tu correo con el mensaje listo…';
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      statusEl.textContent = '✅ Mensaje enviado. ¡Gracias!';
+      form.reset();
+    } else {
+      statusEl.textContent = '❌ No se pudo enviar. Intenta nuevamente.';
+    }
+  } catch (err) {
+    statusEl.textContent = '❌ Error de red. Revisa tu conexión.';
+  }
 });
