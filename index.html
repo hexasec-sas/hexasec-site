@@ -9,7 +9,14 @@
 
   <!-- Seguridad básica del navegador (CSP sencilla para sitio estático) -->
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+        content="default-src 'self';
+               img-src 'self' data:;
+               style-src 'self';
+               script-src 'self';
+               connect-src 'self' https://formspree.io;
+               base-uri 'self';
+               form-action 'self' https://formspree.io;
+               frame-ancestors 'none'">
 
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="favicon-32.png" type="image/png" />
@@ -197,29 +204,33 @@
             </div>
           </div>
 
-          <form class="form" id="contactForm" autocomplete="on">
-            <label>
-              Nombre
-              <input name="name" type="text" maxlength="80" required />
-            </label>
+         <form class="form" id="contactForm"
+      action="https://formspree.io/f/contactForm"
+      method="POST"
+      autocomplete="on">
 
-            <label>
-              Correo
-              <input name="email" type="email" maxlength="120" required />
-            </label>
+ 		 <label>
+  		  Nombre
+  			  <input name="name" type="text" maxlength="80" required />
+		  </label>
 
-            <label>
-              Mensaje
-              <textarea name="message" rows="5" maxlength="1000" required></textarea>
-            </label>
+  		<label>
+   		 Correo
+  		<input name="email" type="email" maxlength="120" required />
+		</label>
 
-            <button class="btn" type="submit">Preparar mensaje</button>
-            <p class="small muted" id="formStatus" aria-live="polite"></p>
+ 		 <label>
+    			Mensaje
+    			<textarea name="message" rows="5" maxlength="1000" required></textarea>
+  		</label>
 
-            <p class="small muted">
-              Al enviar, se abrirá tu correo (Gmail/Outlook) con el mensaje listo.
-            </p>
-          </form>
+  		<!-- Honeypot anti-spam (si lo llenan, es bot) -->
+  		<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+  		<button class="btn" type="submit">Enviar mensaje</button>
+ 		 <p class="small muted" id="formStatus" aria-live="polite"></p>
+	</form>
+
         </div>
       </div>
     </section>
@@ -239,5 +250,3 @@
   <script src="script.js" defer></script>
 </body>
 </html>
-
-
