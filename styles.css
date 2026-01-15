@@ -209,6 +209,19 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
 .footer__inner{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#3b4250;font-size:13px}
 .footer__links{display:flex;gap:12px}
 
+/* ================================
+   ANIMACIÓN BOTÓN CONTACTO
+   ================================ */
+@keyframes pulseSoft {
+  0%   { box-shadow: 0 0 0 0 rgba(37,99,235,.35); }
+  70%  { box-shadow: 0 0 0 10px rgba(37,99,235,0); }
+  100% { box-shadow: 0 0 0 0 rgba(37,99,235,0); }
+}
+
+.nav__contacto{
+  animation: pulseSoft 3s ease-in-out infinite;
+}
+
 @media (max-width: 900px){
   .hero__grid{grid-template-columns:1fr}
   h1{font-size:34px}
@@ -216,4 +229,5 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
   .steps{grid-template-columns:1fr}
   .contact{grid-template-columns:1fr}
 }
+
 
