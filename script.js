@@ -39,6 +39,13 @@ form.addEventListener('submit', async (e) => {
   formData.set('email', email);
   formData.set('message', message);
 
+  const humanCheck = document.getElementById('humanCheck');
+
+if (!humanCheck.checked) {
+  statusEl.textContent = 'Por favor confirma que eres humano.';
+  return;
+}
+  
   try {
     const res = await fetch(form.action, {
       method: 'POST',
@@ -56,3 +63,4 @@ form.addEventListener('submit', async (e) => {
     statusEl.textContent = '❌ Error de red. Revisa tu conexión.';
   }
 });
+
