@@ -47,6 +47,9 @@ img{max-width:100%;height:auto}
 .nav{display:flex;align-items:center;gap:14px}
 .nav a{font-size:14px;color:var(--text);opacity:.9}
 .nav a:hover{opacity:1}
+.nav__contacto{
+  color:#F4F4F4 !important; /* color del texto */
+}
 
 .btn{
   display:inline-flex;align-items:center;justify-content:center;
@@ -213,3 +216,4 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
   .steps{grid-template-columns:1fr}
   .contact{grid-template-columns:1fr}
 }
+
