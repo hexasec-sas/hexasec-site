@@ -222,6 +222,23 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
   animation: pulseSoft 3s ease-in-out infinite;
 }
 
+/* Logos */
+.logos{
+  display:grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap:10px;
+}
+.logoBox{
+  height:56px;
+  border-radius:16px;
+  border:1px dashed rgba(15,23,42,.18);
+  background:#fff;
+  display:grid;
+  place-items:center;
+  color:#64748b;
+  font-weight:800;
+}
+
 @media (max-width: 900px){
   .hero__grid{grid-template-columns:1fr}
   h1{font-size:34px}
@@ -235,6 +252,7 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
   left:-9999px;
   visibility:hidden;
 }
+
 
 
 
