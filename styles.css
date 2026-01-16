@@ -68,9 +68,22 @@ img{max-width:100%;height:auto}
 .btn--small{padding:10px 14px;font-size:13px}
 
 .hero{
+  position: relative;
   padding:56px 0 28px;
   background:linear-gradient(180deg,#ffffff 0%, #f6f7fb 100%);
+  overflow:hidden;
 }
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: url("H.png") no-repeat center;
+  background-size: 420px;     /* tamaño de la marca de agua */
+  opacity: 0.035;             /* MUY IMPORTANTE: que sea sutil */
+  pointer-events:none;
+}
+
 .hero__grid{
   display:grid;grid-template-columns: 1.15fr .85fr;
   gap:22px;align-items:stretch;
@@ -233,6 +246,7 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
   .grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr}
   .contact{grid-template-columns:1fr}
+  .hero::before{background-size: 260px;}
 }
 
 .hp-field{
@@ -240,6 +254,7 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
   left:-9999px;
   visibility:hidden;
 }
+
 
 
 
