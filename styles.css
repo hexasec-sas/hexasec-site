@@ -36,18 +36,14 @@ img{max-width:100%;height:auto}
 .header__inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
 
 .brand{display:flex;align-items:center;gap:12px}
-.brand__mark{
-  width:40px;height:40px;border-radius:12px;
-  display:grid;place-items:center;
-  background:var(--bg);color:#fff;font-weight:800;
-  /* LOGO REAL (imagen) */
+/* LOGO EN HEADER */
 .brand__logo{
-  width:40px;
-  height:40px;
-  border-radius:12px;   /* opcional: para que quede similar al estilo */
-  object-fit: contain;
+  width:34px;          /* tamaño correcto */
+  height:34px;
+  object-fit:contain;
   display:block;
 }
+
 }
 .brand__name{font-weight:800;letter-spacing:.2px}
 .brand__tag{font-size:12px;color:var(--muted);margin-top:2px}
@@ -244,6 +240,7 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
   left:-9999px;
   visibility:hidden;
 }
+
 
 
 
