@@ -239,6 +239,37 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
   animation: pulseSoft 3s ease-in-out infinite;
 }
 
+/* ================================
+   MARCA DE AGUA GLOBAL HEXASEC
+   ================================ */
+
+body{
+  position: relative;
+}
+
+body::before{
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 600px;              /* TAMAÑO GRANDE */
+  height: 600px;
+  background: url("H.png") no-repeat center;
+  background-size: contain;
+  transform: translate(-50%, -50%);
+  opacity: 0.035;            /* SUTIL Y ELEGANTE */
+  pointer-events: none;      /* no bloquea clics */
+  z-index: 0;
+}
+
+/* Asegura que el contenido quede encima */
+.header,
+main,
+.footer{
+  position: relative;
+  z-index: 1;
+}
+
 
 @media (max-width: 900px){
   .hero__grid{grid-template-columns:1fr}
@@ -254,6 +285,7 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
   left:-9999px;
   visibility:hidden;
 }
+
 
 
 
