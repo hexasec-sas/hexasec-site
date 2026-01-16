@@ -38,8 +38,8 @@ img{max-width:100%;height:auto}
 .brand{display:flex;align-items:center;gap:12px}
 /* LOGO EN HEADER */
 .brand__logo{
-  width:34px;          /* tamaño correcto */
-  height:34px;
+  width:40px;          /* tamaño correcto */
+  height:40px;
   object-fit:contain;
   display:block;
 }
@@ -240,6 +240,7 @@ input:focus, textarea:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,1
   left:-9999px;
   visibility:hidden;
 }
+
 
 
 
