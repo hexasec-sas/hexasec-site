@@ -447,3 +447,4 @@ window.addEventListener("resize", () => {
     drawRadar({ labels, values });
   }
 });
+
