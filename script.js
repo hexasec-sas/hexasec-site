@@ -144,6 +144,7 @@ const gapSummaryEl = document.getElementById('gapSummary');
 const gapFindingsEl = document.getElementById('gapFindings');
 const gapCTA = document.getElementById('gapCTA');
 const gapHint = document.getElementById('gapHint');
+const radarCanvas = document.getElementById('gapRadar');
 
 const gapResetBtn = document.getElementById('gapResetBtn');
 
@@ -151,7 +152,7 @@ const hScore = document.getElementById('gap_score');
 const hTop = document.getElementById('gap_top_gaps');
 const hAnswers = document.getElementById('gap_answers');
 
-const radarCanvas = document.getElementById('gapRadar');
+
 
 const radarCtx = radarCanvas?.getContext('2d');
 
