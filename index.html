@@ -27,12 +27,7 @@
   <header class="header">
     <div class="container header__inner">
       <div class="brand" aria-label="HexaSec S.A.S">
-        <img
-          src="H.png"
-          alt="Logo HexaSec S.A.S"
-          class="brand__logo"
-          loading="eager"
-        />
+        <img src="H.png" alt="Logo HexaSec S.A.S" class="brand__logo" loading="eager" />
         <div class="brand__text">
           <div class="brand__name">HexaSec S.A.S</div>
           <div class="brand__tag">Ciberseguridad • Auditoría • ISO 27001</div>
@@ -186,13 +181,10 @@
       </div>
     </section>
 
-    <!-- Ancla para el nav (el contenido real está en el modal) -->
     <section id="diagnostico" class="section">
       <div class="container">
         <h2>Diagnóstico GAP (muestra)</h2>
-        <p class="muted">
-          Haz clic en el botón para responder 12 controles clave y ver un gráfico de araña.
-        </p>
+        <p class="muted">Haz clic en el botón para responder 12 controles clave y ver un gráfico de araña.</p>
         <button class="btn" type="button" id="openGapModalBtn2">Abrir diagnóstico</button>
       </div>
     </section>
@@ -238,6 +230,7 @@
               <textarea name="message" rows="5" maxlength="1000" required></textarea>
             </label>
 
+            <!-- honeypot -->
             <input type="text" name="company" tabindex="-1" autocomplete="off" class="hp-field">
 
             <!-- Campos ocultos del diagnóstico -->
@@ -270,9 +263,7 @@
     </div>
   </footer>
 
-  <!-- ============================
-       MODAL DIAGNÓSTICO GAP
-       ============================ -->
+  <!-- MODAL DIAGNOSTICO GAP -->
   <div class="modal" id="gapModal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal__overlay" data-close="true"></div>
 
@@ -286,31 +277,31 @@
       </div>
 
       <div class="modal__body">
-        <form class="gapForm" id="gapForm">
-          <div class="gapGrid" id="gapGrid"></div>
+        <form class="gapForm" id="gapFormModal">
+          <div class="gapGrid" id="gapGridModal"></div>
 
           <div class="gapActions">
             <button class="btn" type="submit">Ver resultado</button>
             <button class="btn btn--ghost" type="button" id="gapResetBtn">Reiniciar</button>
           </div>
 
-          <p class="small muted" id="gapHint" aria-live="polite"></p>
+          <p class="small muted" id="gapHintModal" aria-live="polite"></p>
         </form>
 
-        <div class="gapPreview" id="gapPreview" hidden aria-live="polite">
+        <div class="gapPreview" id="gapPreviewModal" hidden aria-live="polite">
           <div class="gapCard">
             <div class="gapTop">
               <div>
                 <div class="gapLabel">Resultado preliminar</div>
-                <div class="gapScore"><span id="gapScore">0</span>/100</div>
+                <div class="gapScore"><span id="gapScoreModal">0</span>/100</div>
               </div>
-              <div class="gapBadge" id="gapBadge">Riesgo</div>
+              <div class="gapBadge" id="gapBadgeModal">Riesgo</div>
             </div>
 
-            <p class="muted" id="gapSummary" style="margin-top:10px"></p>
+            <p class="muted" id="gapSummaryModal" style="margin-top:10px"></p>
 
             <div class="radarWrap" aria-label="Gráfico de araña">
-              <canvas id="gapRadar" width="520" height="420"></canvas>
+              <canvas id="gapRadarModal" width="520" height="420"></canvas>
               <div class="small muted" style="margin-top:8px">
                 Ejes: controles (ID) • Escala 0–100 • N/A se excluye del promedio.
               </div>
@@ -318,7 +309,7 @@
 
             <div class="gapTeaser">
               <h3 style="margin:12px 0 8px;font-size:16px">Brechas principales (muestra)</h3>
-              <ul id="gapFindings"></ul>
+              <ul id="gapFindingsModal"></ul>
             </div>
 
             <div class="gapLock">
@@ -326,9 +317,7 @@
                 <strong>Informe completo (PDF):</strong> GAP detallado + priorización + plan de acción 30/60/90 días.
               </div>
 
-              <a class="btn" href="#contacto" id="gapCTA">
-                Solicitar cotización para ver el informe completo
-              </a>
+              <a class="btn" href="#contacto" id="gapCTAModal">Solicitar cotización para ver el informe completo</a>
 
               <p class="small muted" style="margin-top:10px">
                 *La muestra no incluye evidencias ni recomendaciones detalladas por control.
