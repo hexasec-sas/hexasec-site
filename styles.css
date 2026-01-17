@@ -32,7 +32,7 @@ img{max-width:100%;height:auto}
 .header__inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
 
 .brand{display:flex;align-items:center;gap:6px}
-.brand__logo{width:34px;height:34px;object-fit:contain;display:block;}
+.brand__logo{width:46px;height:46px;object-fit:contain;display:block;}
 .brand__name{font-weight:800;letter-spacing:.2px}
 .brand__tag{font-size:12px;color:var(--muted);margin-top:2px}
 
