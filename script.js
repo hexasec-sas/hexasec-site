@@ -135,28 +135,30 @@ const GAP_CONTROLS = [
   { id: '8.13', title: 'Backups',                   question: '¿Backups 3-2-1, cifrados, acceso restringido y pruebas de restauración?' },
 ];
 
-const gapForm = document.getElementById('gapFormModal');
-const gapGrid = document.getElementById('gapGridModal');
-const gapPreview = document.getElementById('gapPreviewModal');
-const gapScoreEl = document.getElementById('gapScoreModal');
-const gapBadgeEl = document.getElementById('gapBadgeModal');
-const gapSummaryEl = document.getElementById('gapSummaryModal');
-const gapFindingsEl = document.getElementById('gapFindingsModal');
-const gapCTA = document.getElementById('gapCTAModal');
-const gapHint = document.getElementById('gapHintModal');
+const gapForm = document.getElementById('gapForm');
+const gapGrid = document.getElementById('gapGrid');
+const gapPreview = document.getElementById('gapPreview');
+const gapScoreEl = document.getElementById('gapScore');
+const gapBadgeEl = document.getElementById('gapBadge');
+const gapSummaryEl = document.getElementById('gapSummary');
+const gapFindingsEl = document.getElementById('gapFindings');
+const gapCTA = document.getElementById('gapCTA');
+const gapHint = document.getElementById('gapHint');
+
 const gapResetBtn = document.getElementById('gapResetBtn');
 
 const hScore = document.getElementById('gap_score');
 const hTop = document.getElementById('gap_top_gaps');
 const hAnswers = document.getElementById('gap_answers');
 
-const radarCanvas = document.getElementById('gapRadarModal');
+const radarCanvas = document.getElementById('gapRadar');
+
 const radarCtx = radarCanvas?.getContext('2d');
 
 // Render preguntas dentro del modal
 (function renderGap() {
   if (!gapGrid) return;
-
+  gapGrid.innerHTML = ''; // ✅ evita duplicados
   const makeSelect = (name) => {
     const sel = document.createElement('select');
     sel.name = name;
