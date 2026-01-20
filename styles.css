@@ -36,9 +36,11 @@ img{max-width:100%;height:auto}
 .skip-link:focus{left:18px;top:18px;width:auto;height:auto;background:#fff;padding:10px 12px;border:1px solid var(--line);border-radius:10px;}
 
 .header{
-  position: sticky;
+  position: fixed;        /* ✅ en móvil SIEMPRE funciona */
   top: 0;
-  z-index: 1000; /* 🔥 siempre arriba */
+  left: 0;
+  right: 0;
+  z-index: 1000;
   width: 100%;
 
   background: rgba(255,255,255,.92);
@@ -46,22 +48,23 @@ img{max-width:100%;height:auto}
   -webkit-backdrop-filter: saturate(180%) blur(10px);
 
   border-bottom: 1px solid var(--line);
-
-}
-body{
-  padding-top: 74px; /* ajusta si tu header es más alto */
 }
 
-@media (max-width: 600px){
-  body{
-    padding-top: 92px;
-  }
-}
 
 .header__inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
 /* Evita saltos y quiebres en móvil */
 .header__inner{
   flex-wrap: nowrap;
+}
+
+main{
+  padding-top: 92px; /* ✅ deja espacio para el header fijo */
+}
+
+@media (max-width: 600px){
+  main{
+    padding-top: 104px; /* un poco más en móvil */
+  }
 }
 
 .brand{display:flex;align-items:center;gap:6px}
