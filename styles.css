@@ -11,356 +11,144 @@
   --shadow: 0 12px 30px rgba(0,0,0,.10);
   --container: 1100px;
 
-  /* Header height (para separar el contenido) */
-  --headerH: 74px;
-  --headerHMobile: 86px;
+  /* Header height (para compensar el fixed) */
+  --header-h: 74px;
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
-a{color:inherit;text-decoration:none}
-a:hover{text-decoration:underline}
-img{max-width:100%;height:auto}
-.container{max-width:var(--container);margin:0 auto;padding:0 18px}
-
-.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;}
-.skip-link:focus{left:18px;top:18px;width:auto;height:auto;background:#fff;padding:10px 12px;border:1px solid var(--line);border-radius:10px;z-index:99999}
-
-/* ✅ Empuja el contenido debajo del header fijo */
-body{padding-top: var(--headerH);}
-@media (max-width: 700px){
-  body{padding-top: var(--headerHMobile);}
+html,body{
+  margin:0;padding:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:#fff;
 }
 
 /* ================================
-   HEADER FIJO (NO SE VA CON SCROLL)
+   MARCA DE AGUA GLOBAL FIJA (NO SE MUEVE)
+   (más estable en móvil si va en html)
+   ================================ */
+html::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: url("H.png") no-repeat center;
+  background-size: min(860px, 92vw);
+  opacity:.035;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Todo el contenido encima de la marca de agua */
+body, .header, main, .footer{
+  position:relative;
+  z-index:1;
+}
+
+/* Compensa header fixed */
+body{ padding-top: var(--header-h); }
+
+/* Ajuste para anclas al hacer click en menú */
+main{ scroll-margin-top: calc(var(--header-h) + 16px); }
+
+/* ================================
+   LINKS / IMG / LAYOUT
+   ================================ */
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;height:auto}
+
+.container{max-width:var(--container);margin:0 auto;padding:0 18px}
+
+.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;}
+.skip-link:focus{left:18px;top:18px;width:auto;height:auto;background:#fff;padding:10px 12px;border:1px solid var(--line);border-radius:10px;}
+
+/* ================================
+   HEADER (FIJO SIEMPRE)
    ================================ */
 .header{
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 9998;
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:1000;
+  width:100%;
+
   background: rgba(255,255,255,.92);
   backdrop-filter: saturate(180%) blur(10px);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
   border-bottom: 1px solid var(--line);
 }
+
+/* Más compacto (reduce espacio) */
 .header__inner{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:16px;
-  padding:14px 0;
-  min-height: var(--headerH);
+  gap:14px;
+  padding:10px 0;  /* antes 14px */
+  flex-wrap:nowrap;
 }
 
-/* Brand premium */
 .brand{
   display:flex;
   align-items:center;
-  gap:10px;
-  min-width: 220px;
+  gap:10px; /* un poco más premium */
+  min-width: 0;
 }
 .brand__logo{
-  width:42px;height:42px;
+  width:44px;height:44px;
   object-fit:contain;
   display:block;
+  flex:0 0 auto;
 }
-.brand__text{display:flex;flex-direction:column;line-height:1.05}
+.brand__text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.05;
+  min-width:0;
+}
 .brand__name{
   font-weight:900;
   letter-spacing:.2px;
-  font-size:16px;
+  font-size:15px;
+  white-space:nowrap;
 }
 .brand__tag{
   font-size:12px;
   color:var(--muted);
-  margin-top:3px;
+  margin-top:2px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width: 52vw;
 }
 
-/* NAV desktop */
-.nav{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.nav{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
 .nav a{font-size:14px;color:var(--text);opacity:.9}
 .nav a:hover{opacity:1}
 .nav__contacto{color:#F4F4F4 !important;}
 
-/* Botón */
+/* ================================
+   BOTONES
+   ================================ */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;
   border-radius:999px;padding:12px 16px;
   background:var(--btn);color:var(--btnText);
   border:1px solid var(--btn);
-  font-weight:800;font-size:14px;
+  font-weight:700;font-size:14px;
   box-shadow:0 8px 18px rgba(0,0,0,.12);
   cursor:pointer;
-  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 .btn:hover{text-decoration:none;transform:translateY(-1px)}
 .btn--ghost{background:transparent;color:var(--btn);box-shadow:none}
 .btn--small{padding:10px 14px;font-size:13px}
 
-/* Animación CTA */
+/* Animación botón contacto */
 @keyframes pulseSoft {
   0%   { box-shadow: 0 0 0 0 rgba(37,99,235,.35); }
-  70%  { box-shadow: 0 0 0 10px rgba(37,99,235,0); }
-  100% { box-shadow: 0 0 0 0 rgba(37,99,235,0); }
-}
-.nav__contacto{animation:pulseSoft 3s ease-in-out infinite}
-
-/* ================================
-   HAMBURGUESA + NAV MÓVIL
-   ================================ */
-.navToggle{
-  display:none;
-  width:44px;height:44px;
-  border-radius:14px;
-  border:1px solid var(--line);
-  background:#fff;
-  cursor:pointer;
-  align-items:center;
-  justify-content:center;
-}
-.navToggle__lines{
-  width:18px;height:2px;background:#0b1220;
-  position:relative;display:block;border-radius:2px;
-}
-.navToggle__lines::before,
-.navToggle__lines::after{
-  content:"";
-  position:absolute;left:0;
-  width:18px;height:2px;background:#0b1220;border-radius:2px;
-}
-.navToggle__lines::before{top:-6px}
-.navToggle__lines::after{top:6px}
-
-/* overlay móvil */
-.navOverlay{
-  display:none;
-  position:fixed;inset:0;
-  background: rgba(11,18,32,.40);
-  z-index: 9997;
-}
-
-/* Móvil: nav se vuelve drawer */
-@media (max-width: 900px){
-  .header__inner{min-height: var(--headerHMobile);}
-  .brand__logo{width:44px;height:44px}
-  .brand__name{font-size:15px}
-  .brand__tag{font-size:11px}
-
-  .navToggle{display:inline-flex}
-
-  .nav{
-    position: fixed;
-    top: 12px;
-    right: 12px;
-    width: min(320px, calc(100vw - 24px));
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.20);
-    padding: 14px;
-    display: none;         /* cerrado por defecto */
-    flex-direction: column;
-    gap: 10px;
-    z-index: 9999;
-  }
-  .nav a{padding:10px 12px;border-radius:12px}
-  .nav a:hover{background:#f6f7fb;text-decoration:none}
-  .nav .btn{width:100%}
-  .nav.is-open{display:flex}
-  .navOverlay.is-open{display:block}
-}
-
-/* ================================
-   HERO (menos espacio arriba)
-   ================================ */
-.hero{
-  padding: 28px 0 22px;  /* 🔥 antes era muy alto */
-  background:linear-gradient(180deg,#ffffff 0%, #f6f7fb 100%);
-}
-.hero__grid{
-  display:grid;
-  grid-template-columns: 1.15fr .85fr;
-  gap:22px;
-  align-items:stretch;
-}
-.hero__content{
-  padding:22px;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  background:#fff;
-  box-shadow:var(--shadow);
-}
-
-.pill{
-  display:inline-flex;gap:8px;align-items:center;
-  font-size:12px;color:#1f2a44;
-  background:#eef2ff;border:1px solid #d9e0ff;
-  padding:6px 10px;border-radius:999px;margin:0 0 12px;
-}
-h1{margin:0 0 10px;font-size:40px;line-height:1.08;letter-spacing:-.4px}
-.lead{margin:0 0 14px;color:#23304b;font-size:16px;line-height:1.55}
-.hero__actions{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 10px}
-.checks{margin:12px 0 0;padding-left:18px;color:#1f2a44}
-.checks li{margin:8px 0}
-
-.hero__card .card{
-  height:100%;
-  border-radius:var(--radius);
-  background:var(--bg);
-  color:#fff;
-  padding:22px;
-  box-shadow:var(--shadow);
-  border:1px solid rgba(255,255,255,.08);
-}
-.card__title{margin:0 0 8px;font-size:18px}
-.card__text{margin:0 0 16px;color:rgba(255,255,255,.86);line-height:1.6}
-
-.stats{display:grid;gap:10px;margin:16px 0}
-.stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:12px;}
-.stat__label{font-size:12px;color:rgba(255,255,255,.70)}
-.stat__value{font-weight:800;margin-top:4px}
-
-.notice{margin-top:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:12px;border-radius:14px;color:rgba(255,255,255,.90);}
-
-/* ================================
-   SECCIONES
-   ================================ */
-.section{padding:42px 0}
-.section--alt{background:#0b1220;color:#fff}
-.section--alt .muted{color:rgba(255,255,255,.72)}
-
-h2{margin:0 0 8px;font-size:28px}
-.muted{color:var(--muted);margin:0 0 18px}
-
-.grid{display:grid;grid-template-columns: repeat(2, minmax(0, 1fr));gap:16px;}
-.service{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 10px 20px rgba(0,0,0,.06);}
-.service h3{margin:0 0 8px}
-.service p{margin:0 0 12px;color:#26314a;line-height:1.55}
-.service ul{margin:0;padding-left:18px;color:#26314a}
-.service li{margin:7px 0}
-
-.section--alt .service{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);box-shadow:none;}
-.section--alt .service p,
-.section--alt .service ul{color:rgba(255,255,255,.86)}
-
-.steps{display:grid;grid-template-columns: repeat(2, minmax(0,1fr));gap:14px;margin-top:10px}
-.step{display:flex;gap:12px;padding:16px;border-radius:var(--radius);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);}
-.step__num{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.12);font-weight:900;}
-
-.contact{display:grid;grid-template-columns: .9fr 1.1fr;gap:16px;}
-.info-box{border:1px solid var(--line);border-radius:var(--radius);padding:16px;background:#fff;box-shadow:0 10px 20px rgba(0,0,0,.06);margin-bottom:12px;}
-.info-box h3{margin:0 0 8px}
-.info-box p{margin:0;color:#26314a}
-
-.form{border:1px solid var(--line);border-radius:var(--radius);padding:16px;background:#fff;box-shadow:0 10px 20px rgba(0,0,0,.06);}
-label{display:block;font-size:13px;font-weight:800;margin:10px 0 6px}
-input, textarea, select{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px;outline:none;}
-input:focus, textarea:focus, select:focus{border-color:#9aa7c7;box-shadow:0 0 0 4px rgba(154,167,199,.25)}
-.small{font-size:12px;margin-top:10px}
-.humanRow{display:flex;gap:8px;align-items:center;margin-top:10px;font-weight:700}
-
-.footer{border-top:1px solid var(--line);padding:18px 0;background:#fff;}
-.footer__inner{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#3b4250;font-size:13px}
-.footer__links{display:flex;gap:12px}
-
-.hp-field{position:absolute;left:-9999px;visibility:hidden;}
-
-/* ================================
-   MODAL GAP
-   ================================ */
-.modal{position: fixed; inset: 0; display: none; z-index: 10000;}
-.modal.is-open{display:block;}
-.modal__overlay{position:absolute; inset:0; background: rgba(11,18,32,.55); backdrop-filter: blur(6px);}
-
-.modal__panel{
-  position: relative;
-  max-width: 1100px;
-  width: calc(100% - 24px);
-  margin: 24px auto;
-  border-radius: 22px;
-  background: #fff;
-  border: 1px solid rgba(255,255,255,.6);
-  box-shadow: 0 20px 60px rgba(0,0,0,.25);
-  overflow: hidden;
-  max-height: calc(100vh - 48px);
-  display: flex;
-  flex-direction: column;
-}
-.modal__head{
-  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
-  padding:16px 16px 14px;border-bottom:1px solid var(--line);
-  background: rgba(255,255,255,.92);
-}
-.modal__title{font-weight:950;font-size:16px;color:#0b1220}
-.modal__sub{font-size:12px;color:var(--muted);margin-top:2px}
-.modal__close{width:36px;height:36px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:900;}
-
-/* Scroll interno del modal */
-.modal__body{
-  padding: 16px;
-  overflow: auto;
-  min-height: 0;
-}
-
-/* ✅ Este wrapper hace que el watermark “baje” con el scroll (porque está dentro del contenido scrolleable) */
-.modal__bodyInner{
-  position: relative;
-  display: grid;
-  grid-template-columns: 1.15fr .85fr;
-  gap: 16px;
-  align-items:start;
-}
-
-/* Marca de agua dentro del contenido (se mueve con el scroll del modal) */
-.modal__bodyInner::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("H.png") no-repeat center;
-  background-size: min(560px, 70%);
-  opacity: 0.435;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* el contenido encima */
-.modal__bodyInner > *{position: relative; z-index: 1;}
-
-/* GAP */
-.gapGrid{display:grid;grid-template-columns: 1fr 1fr;gap:12px;}
-.gapQ{display:block;border:1px solid var(--line);border-radius:16px;padding:12px;background:#fff;box-shadow:0 8px 18px rgba(0,0,0,.04);}
-.gapQ .gapMeta{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.gapId{font-size:12px;font-weight:900;color:#1f2a44;background:#eef2ff;border:1px solid #d9e0ff;padding:4px 8px;border-radius:999px;flex:0 0 auto;}
-.gapTitle{font-weight:850;font-size:13px;color:#1f2a44;}
-.gapQuestion{margin:6px 0 10px;font-size:13px;color:#26314a;line-height:1.45;}
-.gapActions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;}
-.gapCard{border:1px solid var(--line);border-radius:var(--radius);padding:16px;background:#fff;box-shadow:0 10px 20px rgba(0,0,0,.06);}
-.gapTop{display:flex;justify-content:space-between;align-items:center;gap:12px;}
-.gapLabel{font-size:12px;color:var(--muted);font-weight:900;}
-.gapScore{font-size:32px;font-weight:950;letter-spacing:-.3px;}
-.gapBadge{padding:8px 12px;border-radius:999px;border:1px solid var(--line);font-weight:950;font-size:12px;}
-.gapTeaser ul{margin:0;padding-left:18px}
-.gapTeaser li{margin:8px 0;color:#26314a}
-.radarWrap{margin-top:12px;border:1px solid var(--line);border-radius:18px;padding:12px;background:#fff;}
-canvas{max-width:100%;height:auto}
-
-@media (max-width: 980px){
-  .modal__bodyInner{grid-template-columns:1fr}
-  .gapGrid{grid-template-columns:1fr}
-}
-
-@media (max-width: 900px){
-  .hero__grid{grid-template-columns:1fr}
-  h1{font-size:34px}
-  .grid{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr}
-  .contact{grid-template-columns:1fr}
-}
-
-@media (max-width: 600px){
-  .modal__panel{
-    margin: 12px auto;
-    max-height: calc(100vh - 24px);
-  }
-}
+  70%  { box-shadow: 0 0 0 10px rgba(37,99,235,
