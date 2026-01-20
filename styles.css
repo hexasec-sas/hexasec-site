@@ -354,6 +354,94 @@ canvas{max-width:100%;height:auto}
   }
 }
 
-.hp-field{position:absolute;left:-9999px;visibility:hidden;}
+.hp-field{position:absolute;left:-9999px;visibility:
+
+  /* ================================
+   HAMBURGUESA MÓVIL (PRO)
+   ================================ */
+.nav-toggle{
+  display:none;
+  background:none;
+  border:0;
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  cursor:pointer;
+  position:relative;
+}
+
+.nav-toggle span{
+  position:absolute;
+  left:10px;
+  right:10px;
+  height:2px;
+  background:#0b1220;
+  border-radius:2px;
+  transition:.25s ease;
+}
+
+.nav-toggle span:nth-child(1){top:13px}
+.nav-toggle span:nth-child(2){top:20px}
+.nav-toggle span:nth-child(3){top:27px}
+
+/* Estado activo (X) */
+.nav-toggle.is-open span:nth-child(1){
+  transform:rotate(45deg);
+  top:20px;
+}
+.nav-toggle.is-open span:nth-child(2){
+  opacity:0;
+}
+.nav-toggle.is-open span:nth-child(3){
+  transform:rotate(-45deg);
+  top:20px;
+}
+
+/* ================================
+   NAV MÓVIL
+   ================================ */
+@media (max-width: 768px){
+
+  .nav-toggle{
+    display:block;
+  }
+
+  .nav{
+    position: fixed;
+    top: var(--headerH);
+    left: 0;
+    right: 0;
+
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px;
+
+    border-bottom: 1px solid var(--line);
+
+    transform: translateY(-120%);
+    transition: transform .3s ease;
+    z-index: 999;
+  }
+
+  .nav.is-open{
+    transform: translateY(0);
+  }
+
+  .nav a{
+    font-size:16px;
+    padding:8px 0;
+  }
+
+  .nav .btn{
+    width:100%;
+    justify-content:center;
+  }
+}
+  
 
 
