@@ -58,7 +58,7 @@ img{max-width:100%;height:auto}
 }
 
 main{
-  padding-top: 92px; /* ✅ deja espacio para el header fijo */
+  padding-top: 50px; /* ✅ deja espacio para el header fijo */
 }
 
 @media (max-width: 600px){
