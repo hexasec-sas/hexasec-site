@@ -46,8 +46,18 @@ img{max-width:100%;height:auto}
   -webkit-backdrop-filter: saturate(180%) blur(10px);
 
   border-bottom: 1px solid var(--line);
+
 }
+body{
+  padding-top: 74px; /* ajusta si tu header es más alto */
 }
+
+@media (max-width: 600px){
+  body{
+    padding-top: 92px;
+  }
+}
+
 .header__inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
 /* Evita saltos y quiebres en móvil */
 .header__inner{
