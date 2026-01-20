@@ -7,16 +7,6 @@
   <meta name="theme-color" content="#0b1220" />
   <title>HexaSec S.A.S. | Ciberseguridad e ISO 27001</title>
 
-  <!-- SEO / Social -->
-  <link rel="canonical" href="https://hexasecsas.com/" />
-  <meta property="og:title" content="HexaSec S.A.S. | Ciberseguridad e ISO 27001" />
-  <meta property="og:description" content="Auditorías, análisis de vulnerabilidades y preparación para ISO 27001 en Colombia." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hexasecsas.com/" />
-  <!-- Si tienes una imagen social, descomenta y ajusta -->
-  <!-- <meta property="og:image" content="https://hexasecsas.com/og.png" /> -->
-
-  <!-- CSP (ok para GitHub Pages) -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                img-src 'self' data:;
@@ -27,38 +17,46 @@
                form-action 'self' https://formspree.io;
                frame-ancestors 'none'">
 
-  <!-- Performance -->
-  <link rel="preload" href="styles.css" as="style" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="favicon.png" type="image/png">
-  <link rel="preconnect" href="https://formspree.io" crossorigin>
 </head>
 
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
+  <!-- HEADER FIJO -->
   <header class="header" role="banner">
     <div class="container header__inner">
-      <!-- Brand (ahora clickeable a inicio) -->
-      <a class="brand" aria-label="HexaSec S.A.S (Ir al inicio)" href="#contenido">
-        <img src="H.png" alt="Logo HexaSec S.A.S" class="brand__logo" loading="eager" decoding="async" />
-        <span class="brand__text">
-          <span class="brand__name">HexaSec S.A.S</span>
-          <span class="brand__tag">Ciberseguridad • Auditoría • ISO 27001</span>
-        </span>
+      <a class="brand" href="#contenido" aria-label="Ir al inicio - HexaSec S.A.S">
+        <img src="H.png" alt="Logo HexaSec S.A.S" class="brand__logo" loading="eager" />
+        <div class="brand__text">
+          <div class="brand__name">HexaSec S.A.S</div>
+          <div class="brand__tag">Ciberseguridad • Auditoría • ISO 27001</div>
+        </div>
       </a>
 
-      <nav class="nav" aria-label="Navegación principal">
+      <!-- Botón hamburguesa (solo móvil) -->
+      <button class="navToggle" type="button"
+              aria-label="Abrir menú"
+              aria-expanded="false"
+              aria-controls="siteNav">
+        <span class="navToggle__lines" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav" id="siteNav" aria-label="Navegación principal">
         <a href="#servicios">Servicios</a>
         <a href="#metodo">Método</a>
         <a href="#diagnostico" id="openGapFromNav">Diagnóstico GAP</a>
         <a href="#contacto" class="btn btn--small nav__contacto">Contacto</a>
       </nav>
     </div>
+
+    <!-- overlay móvil -->
+    <div class="navOverlay" data-nav-close="true" aria-hidden="true"></div>
   </header>
 
-  <main id="contenido" tabindex="-1">
-    <section class="hero" aria-label="Sección principal">
+  <main id="contenido">
+    <section class="hero">
       <div class="container hero__grid">
         <div class="hero__content">
           <p class="pill">Bogotá D.C. • Atención Colombia</p>
@@ -90,7 +88,7 @@
             <div class="stats" aria-label="Puntos clave">
               <div class="stat">
                 <div class="stat__label">Enfoque</div>
-                <div class="stat__value">Riesgo &amp; cumplimiento</div>
+                <div class="stat__value">Riesgo & cumplimiento</div>
               </div>
               <div class="stat">
                 <div class="stat__label">Entregables</div>
@@ -110,13 +108,13 @@
       </div>
     </section>
 
-    <section id="servicios" class="section" aria-label="Servicios">
+    <section id="servicios" class="section">
       <div class="container">
         <h2>Servicios</h2>
         <p class="muted">Paquetes claros, entregables definidos, enfoque profesional.</p>
 
-        <div class="grid" role="list">
-          <article class="service" role="listitem">
+        <div class="grid">
+          <article class="service">
             <h3>Auditoría de ciberseguridad</h3>
             <p>Revisión de controles, configuración, accesos y mejores prácticas.</p>
             <ul>
@@ -126,7 +124,7 @@
             </ul>
           </article>
 
-          <article class="service" role="listitem">
+          <article class="service">
             <h3>Análisis de vulnerabilidades</h3>
             <p>Escaneo y validación de fallas comunes (según alcance acordado).</p>
             <ul>
@@ -136,7 +134,7 @@
             </ul>
           </article>
 
-          <article class="service" role="listitem">
+          <article class="service">
             <h3>ISO 27001 (implementación por fases)</h3>
             <p>Ruta práctica para construir tu SGSI sin complicarte.</p>
             <ul>
@@ -146,7 +144,7 @@
             </ul>
           </article>
 
-          <article class="service" role="listitem">
+          <article class="service">
             <h3>Capacitación y asesorías</h3>
             <p>Sesiones para equipos técnicos y directivos, enfocadas en resultados.</p>
             <ul>
@@ -159,33 +157,33 @@
       </div>
     </section>
 
-    <section id="metodo" class="section section--alt" aria-label="Método de trabajo">
+    <section id="metodo" class="section section--alt">
       <div class="container">
         <h2>Método de trabajo</h2>
         <div class="steps">
           <div class="step">
-            <div class="step__num" aria-hidden="true">1</div>
+            <div class="step__num">1</div>
             <div>
               <h3>Alcance</h3>
               <p>Definimos qué se evalúa y qué NO, para evitar sorpresas.</p>
             </div>
           </div>
           <div class="step">
-            <div class="step__num" aria-hidden="true">2</div>
+            <div class="step__num">2</div>
             <div>
               <h3>Evaluación</h3>
               <p>Revisamos controles, superficies de ataque y configuraciones.</p>
             </div>
           </div>
           <div class="step">
-            <div class="step__num" aria-hidden="true">3</div>
+            <div class="step__num">3</div>
             <div>
               <h3>Reporte</h3>
               <p>Hallazgos, evidencias y plan de mejora priorizado.</p>
             </div>
           </div>
           <div class="step">
-            <div class="step__num" aria-hidden="true">4</div>
+            <div class="step__num">4</div>
             <div>
               <h3>Acompañamiento</h3>
               <p>Si quieres, te apoyamos en la remediación y el cumplimiento.</p>
@@ -195,7 +193,7 @@
       </div>
     </section>
 
-    <section id="diagnostico" class="section" aria-label="Diagnóstico GAP">
+    <section id="diagnostico" class="section">
       <div class="container">
         <h2>Diagnóstico GAP (muestra)</h2>
         <p class="muted">Haz clic en el botón para responder 12 controles clave y ver un gráfico de araña.</p>
@@ -203,13 +201,13 @@
       </div>
     </section>
 
-    <section id="contacto" class="section" aria-label="Contacto">
+    <section id="contacto" class="section">
       <div class="container">
         <h2>Contacto</h2>
         <p class="muted">Envíanos un mensaje. Este formulario no guarda datos en el servidor (es estático).</p>
 
         <div class="contact">
-          <div class="contact__info" aria-label="Información de contacto">
+          <div class="contact__info">
             <div class="info-box">
               <h3>Correo</h3>
               <p><a href="mailto:admin@hexasecsas.com">admin@hexasecsas.com</a></p>
@@ -231,12 +229,12 @@
 
             <label>
               Nombre
-              <input name="name" type="text" maxlength="80" required autocomplete="name" />
+              <input name="name" type="text" maxlength="80" required />
             </label>
 
             <label>
               Correo
-              <input name="email" type="email" maxlength="120" required autocomplete="email" />
+              <input name="email" type="email" maxlength="120" required />
             </label>
 
             <label>
@@ -252,7 +250,7 @@
             <input type="hidden" name="gap_top_gaps" id="gap_top_gaps">
             <input type="hidden" name="gap_answers" id="gap_answers">
 
-            <label style="display:flex;gap:8px;align-items:center;margin-top:10px">
+            <label class="humanRow">
               <input type="checkbox" id="humanCheck" required>
               Confirmo que soy humano
             </label>
@@ -267,10 +265,10 @@
 
   </main>
 
-  <footer class="footer" role="contentinfo">
+  <footer class="footer">
     <div class="container footer__inner">
       <div>© <span id="year"></span> HexaSec S.A.S.</div>
-      <div class="footer__links" aria-label="Enlaces">
+      <div class="footer__links">
         <a href="#servicios">Servicios</a>
         <a href="#contacto">Contacto</a>
       </div>
@@ -290,56 +288,59 @@
         <button class="modal__close" type="button" aria-label="Cerrar" data-close="true">✕</button>
       </div>
 
+      <!-- Scroll interno del modal -->
       <div class="modal__body">
-        <form class="gapForm" id="gapFormModal">
-          <div class="gapGrid" id="gapGridModal"></div>
+        <!-- IMPORTANTE: wrapper para que la marca de agua “baje” con el scroll -->
+        <div class="modal__bodyInner">
+          <form class="gapForm" id="gapFormModal">
+            <div class="gapGrid" id="gapGridModal"></div>
 
-          <div class="gapActions">
-            <button class="btn" type="submit">Ver resultado</button>
-            <button class="btn btn--ghost" type="button" id="gapResetBtn">Reiniciar</button>
+            <div class="gapActions">
+              <button class="btn" type="submit">Ver resultado</button>
+              <button class="btn btn--ghost" type="button" id="gapResetBtn">Reiniciar</button>
+            </div>
+
+            <p class="small muted" id="gapHintModal" aria-live="polite"></p>
+          </form>
+
+          <div class="gapPreview" id="gapPreviewModal" hidden aria-live="polite">
+            <div class="gapCard">
+              <div class="gapTop">
+                <div>
+                  <div class="gapLabel">Resultado preliminar</div>
+                  <div class="gapScore"><span id="gapScoreModal">0</span>/100</div>
+                </div>
+                <div class="gapBadge" id="gapBadgeModal">Riesgo</div>
+              </div>
+
+              <p class="muted" id="gapSummaryModal" style="margin-top:10px"></p>
+
+              <div class="radarWrap" aria-label="Gráfico de araña">
+                <canvas id="gapRadarModal" width="520" height="420"></canvas>
+                <div class="small muted" style="margin-top:8px">
+                  Ejes: controles (ID) • Escala 0–100 • N/A se excluye del promedio.
+                </div>
+              </div>
+
+              <div class="gapTeaser">
+                <h3 style="margin:12px 0 8px;font-size:16px">Brechas principales (muestra)</h3>
+                <ul id="gapFindingsModal"></ul>
+              </div>
+
+              <div class="gapLock">
+                <div class="notice" role="note" style="color:inherit">
+                  <strong>Informe completo (PDF):</strong> GAP detallado + priorización + plan de acción 30/60/90 días.
+                </div>
+
+                <a class="btn" href="#contacto" id="gapCTAModal">Solicitar cotización para ver el informe completo</a>
+
+                <p class="small muted" style="margin-top:10px">
+                  *La muestra no incluye evidencias ni recomendaciones detalladas por control.
+                </p>
+              </div>
+            </div>
           </div>
-
-          <p class="small muted" id="gapHintModal" aria-live="polite"></p>
-        </form>
-
-        <div class="gapPreview" id="gapPreviewModal" hidden aria-live="polite">
-          <div class="gapCard">
-            <div class="gapTop">
-              <div>
-                <div class="gapLabel">Resultado preliminar</div>
-                <div class="gapScore"><span id="gapScoreModal">0</span>/100</div>
-              </div>
-              <div class="gapBadge" id="gapBadgeModal">Riesgo</div>
-            </div>
-
-            <p class="muted" id="gapSummaryModal" style="margin-top:10px"></p>
-
-            <div class="radarWrap" aria-label="Gráfico de araña">
-              <canvas id="gapRadarModal" width="520" height="420"></canvas>
-              <div class="small muted" style="margin-top:8px">
-                Ejes: controles (ID) • Escala 0–100 • N/A se excluye del promedio.
-              </div>
-            </div>
-
-            <div class="gapTeaser">
-              <h3 style="margin:12px 0 8px;font-size:16px">Brechas principales (muestra)</h3>
-              <ul id="gapFindingsModal"></ul>
-            </div>
-
-            <div class="gapLock">
-              <div class="notice" role="note" style="color:inherit">
-                <strong>Informe completo (PDF):</strong> GAP detallado + priorización + plan de acción 30/60/90 días.
-              </div>
-
-              <a class="btn" href="#contacto" id="gapCTAModal">Solicitar cotización para ver el informe completo</a>
-
-              <p class="small muted" style="margin-top:10px">
-                *La muestra no incluye evidencias ni recomendaciones detalladas por control.
-              </p>
-            </div>
-          </div>
-        </div>
-
+        </div><!-- /modal__bodyInner -->
       </div>
     </div>
   </div>
