@@ -319,7 +319,7 @@ input:focus, textarea:focus, select:focus{border-color:#9aa7c7;box-shadow:0 0 0 
   inset: 0;
   background: url("H.png") no-repeat center;
   background-size: min(560px, 70%);
-  opacity: 0.035;
+  opacity: 0.435;
   pointer-events: none;
   z-index: 0;
 }
