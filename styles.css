@@ -63,7 +63,7 @@ main{
 
 @media (max-width: 600px){
   main{
-    padding-top: 104px; /* un poco más en móvil */
+    padding-top: 90px; /* un poco más en móvil */
   }
 }
 
