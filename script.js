@@ -447,3 +447,26 @@ window.addEventListener('resize', () => {
     drawRadar({ labels, values });
   }
 });
+
+// ================================
+//  HAMBURGUESA MÓVIL
+// ================================
+const navToggle = document.querySelector('.nav-toggle');
+const nav = document.querySelector('.nav');
+
+if(navToggle && nav){
+  navToggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    navToggle.classList.toggle('is-open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Cerrar menú al hacer click en un link
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('is-open');
+      navToggle.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded','false');
+    });
+  });
+}
