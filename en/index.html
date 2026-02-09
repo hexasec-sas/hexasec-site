@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#0b1220" />
   <title>GAP Assessment (Free Sample) | HexaSec</title>
 
-  <!-- ✅ Correct paths from /en/ -->
+  <!-- CSS global -->
   <link rel="stylesheet" href="/styles.css?v=6" />
   <link rel="icon" href="/favicon.png" type="image/png" />
 
@@ -20,62 +20,61 @@
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
 
-  <!-- HEADER -->
- <!-- HEADER FIXED -->
-<header class="header">
-  <div class="container header__inner">
+  <!-- HEADER FIXED (EN) -->
+  <header class="header" role="banner">
+    <div class="container header__inner">
 
-    <!-- Brand -->
-    <a class="brand" href="#content" aria-label="HexaSec">
-      <img src="../H.png" alt="HexaSec logo" class="brand__logo" loading="eager" />
-      <div class="brand__text">
-        <div class="brand__name">HexaSec S.A.S</div>
-        <div class="brand__tag">Cybersecurity • Audit • ISO 27001</div>
+      <!-- Brand -->
+      <a class="brand" href="#content" aria-label="HexaSec Home">
+        <img src="/H.png" alt="HexaSec logo" class="brand__logo" loading="eager" />
+        <div class="brand__text">
+          <div class="brand__name">HexaSec S.A.S</div>
+          <div class="brand__tag">Cybersecurity • Audit • ISO 27001</div>
+        </div>
+      </a>
+
+      <!-- Right side -->
+      <div class="header__right">
+
+        <!-- Language switch -->
+        <div class="lang-switch" aria-label="Language switch">
+          <a href="/">ES</a>
+          <span>·</span>
+          <a href="/en/" class="active" aria-current="page">EN</a>
+        </div>
+
+        <!-- Hamburger -->
+        <button
+          class="menu-btn"
+          id="menuBtn"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobileNav"
+        >
+          <span></span>
+        </button>
+
+        <!-- Nav (desktop) -->
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="#what">What you get</a>
+          <a href="#how">How it works</a>
+
+          <!-- abre modal -->
+          <a href="#gap" id="openGapFromNav">GAP Assessment</a>
+
+          <a href="#contact" class="btn btn--small nav__contacto">Contact</a>
+        </nav>
       </div>
-    </a>
-
-    <!-- Right side -->
-    <div class="header__right">
-
-      <!-- Language switch -->
-      <div class="lang-switch" aria-label="Language switch">
-        <a href="/">ES</a>
-        <span>·</span>
-        <a href="/en/" class="active" aria-current="page">EN</a>
-      </div>
-
-      <!-- Hamburger (mobile only by CSS) -->
-      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
-        <span></span>
-      </button>
-
-      <!-- Nav (desktop) -->
-      <nav class="nav" aria-label="Primary navigation">
-        <a href="#services">Services</a>
-        <a href="#method">Method</a>
-        <a href="/en/gap/">GAP Assessment</a>
-        <a href="#contact" class="btn btn--small nav__contacto">Contact</a>
-      </nav>
     </div>
 
-  </div>
-
-  <!-- NAV MOBILE (drawer) -->
-  <nav class="nav--mobile" id="mobileNav" hidden aria-label="Mobile menu">
-    <a href="#services">Services</a>
-    <a href="#method">Method</a>
-    <a href="/en/gap/">GAP Assessment</a>
-    <a href="#contact" class="btn nav__contacto">Contact</a>
-  </nav>
-</header>
-
-    <!-- Mobile nav -->
+    <!-- NAV MOBILE (drawer) -->
     <nav class="nav--mobile" id="mobileNav" hidden aria-label="Mobile menu">
-      <a href="#how">How it works</a>
       <a href="#what">What you get</a>
+      <a href="#how">How it works</a>
       <a href="#faq">FAQ</a>
 
-      <!-- ✅ Open modal from mobile nav -->
+      <!-- abre modal -->
       <a href="#gap" id="openGapFromNavMobile">GAP Assessment</a>
 
       <a href="#contact" class="btn nav__contacto">Contact</a>
@@ -98,15 +97,12 @@
             a preliminary score, and your <strong>top 3 gaps</strong>.
           </p>
 
-          <!-- ✅ Button opens the modal (id must match script-en.js) -->
           <div class="hero__actions">
             <button class="btn" type="button" id="openGapModalBtn">
               Start the free sample (3 minutes)
             </button>
 
-            <a class="btn btn--ghost" href="#what">
-              See what you get
-            </a>
+            <a class="btn btn--ghost" href="#what">See what you get</a>
           </div>
 
           <ul class="checks" aria-label="Key benefits">
@@ -417,7 +413,7 @@
     </div>
   </div>
 
-  <!-- ✅ EN script must be in /en/script-en.js -->
+  <!-- EN script -->
   <script src="/en/script-en.js" defer></script>
 </body>
 </html>
