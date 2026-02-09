@@ -40,7 +40,7 @@
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
   <!-- HEADER FIJO -->
- <header class="header">
+<header class="header">
   <div class="container header__inner">
 
     <!-- Brand -->
@@ -60,18 +60,31 @@
         <a href="/" class="active" aria-current="page">ES</a>
         <span>·</span>
         <a href="/en/">EN</a>
-      </div> 
+      </div>
 
-      <!-- Nav -->
+      <!-- Botón hamburguesa (solo móvil por CSS) -->
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false">
+        <span></span>
+      </button>
+
+      <!-- Nav (desktop) -->
       <nav class="nav" aria-label="Navegación principal">
         <a href="#servicios">Servicios</a>
         <a href="#metodo">Método</a>
         <a href="#diagnostico" id="openGapFromNav">Diagnóstico GAP</a>
         <a href="#contacto" class="btn btn--small nav__contacto">Contacto</a>
       </nav>
-    </div>
 
+    </div>
   </div>
+
+  <!-- NAV MÓVIL (drawer) -->
+  <nav class="nav--mobile" id="mobileNav" hidden aria-label="Menú móvil">
+    <a href="#servicios">Servicios</a>
+    <a href="#metodo">Método</a>
+    <a href="#diagnostico" id="openGapFromNavMobile">Diagnóstico GAP</a>
+    <a href="#contacto" class="btn nav__contacto">Contacto</a>
+  </nav>
 </header>
 
   <main id="contenido">
