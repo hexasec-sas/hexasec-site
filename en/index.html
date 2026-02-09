@@ -21,40 +21,53 @@
   <a class="skip-link" href="#content">Skip to content</a>
 
   <!-- HEADER -->
-  <header class="header">
-    <div class="container header__inner">
+ <!-- HEADER FIXED -->
+<header class="header">
+  <div class="container header__inner">
 
-      <a class="brand" href="/en/" aria-label="HexaSec">
-        <img src="/H.png" alt="HexaSec logo" class="brand__logo" loading="eager" />
-        <div class="brand__text">
-          <div class="brand__name">HexaSec S.A.S</div>
-          <div class="brand__tag">Cybersecurity • Audit • ISO 27001</div>
-        </div>
-      </a>
-
-      <div class="header__right">
-        <div class="lang-switch" aria-label="Language switch">
-          <a href="/" aria-label="Spanish">ES</a>
-          <span>·</span>
-          <a href="/en/" class="active" aria-current="page" aria-label="English">EN</a>
-        </div>
-
-        <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
-          <span></span>
-        </button>
-
-        <nav class="nav" aria-label="Primary navigation">
-          <a href="#how">How it works</a>
-          <a href="#what">What you get</a>
-          <a href="#faq">FAQ</a>
-
-          <!-- ✅ Open modal from header (not a separate page) -->
-          <a href="#gap" id="openGapFromNav">GAP Assessment</a>
-
-          <a href="#contact" class="btn btn--small nav__contacto">Contact</a>
-        </nav>
+    <!-- Brand -->
+    <a class="brand" href="#content" aria-label="HexaSec">
+      <img src="../H.png" alt="HexaSec logo" class="brand__logo" loading="eager" />
+      <div class="brand__text">
+        <div class="brand__name">HexaSec S.A.S</div>
+        <div class="brand__tag">Cybersecurity • Audit • ISO 27001</div>
       </div>
+    </a>
+
+    <!-- Right side -->
+    <div class="header__right">
+
+      <!-- Language switch -->
+      <div class="lang-switch" aria-label="Language switch">
+        <a href="/">ES</a>
+        <span>·</span>
+        <a href="/en/" class="active" aria-current="page">EN</a>
+      </div>
+
+      <!-- Hamburger (mobile only by CSS) -->
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+      </button>
+
+      <!-- Nav (desktop) -->
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#services">Services</a>
+        <a href="#method">Method</a>
+        <a href="/en/gap/">GAP Assessment</a>
+        <a href="#contact" class="btn btn--small nav__contacto">Contact</a>
+      </nav>
     </div>
+
+  </div>
+
+  <!-- NAV MOBILE (drawer) -->
+  <nav class="nav--mobile" id="mobileNav" hidden aria-label="Mobile menu">
+    <a href="#services">Services</a>
+    <a href="#method">Method</a>
+    <a href="/en/gap/">GAP Assessment</a>
+    <a href="#contact" class="btn nav__contacto">Contact</a>
+  </nav>
+</header>
 
     <!-- Mobile nav -->
     <nav class="nav--mobile" id="mobileNav" hidden aria-label="Mobile menu">
