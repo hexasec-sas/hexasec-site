@@ -30,6 +30,22 @@ img{max-width:100%;height:auto}
 .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;}
 .skip-link:focus{left:18px;top:18px;width:auto;height:auto;background:#fff;padding:10px 12px;border:1px solid var(--line);border-radius:10px;}
 
+.lang-switch{
+  display:flex;
+  gap:6px;
+  align-items:center;
+  font-weight:800;
+  font-size:13px;
+}
+
+.lang{
+  opacity:.6;
+}
+.lang.active{
+  opacity:1;
+  text-decoration:underline;
+}
+
 /* ================================
    MARCA DE AGUA GLOBAL FIJA (NO SE MUEVE)
    ================================ */
