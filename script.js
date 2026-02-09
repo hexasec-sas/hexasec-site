@@ -480,4 +480,45 @@ window.addEventListener('resize', () => {
     const values = answers.map((a) => (typeof a.numeric === 'number' ? a.numeric : 0));
     drawRadar({ labels, values });
   }, 120);
+  
+  // ================================
+//  MENÚ MÓVIL (HAMBURGUESA)
+// ================================
+const menuBtn = document.getElementById('menuBtn');
+const mobileNav = document.getElementById('mobileNav');
+
+function closeMobileNav(){
+  if (!mobileNav || !menuBtn) return;
+  mobileNav.hidden = true;
+  menuBtn.setAttribute('aria-expanded', 'false');
+}
+
+function toggleMobileNav(){
+  if (!mobileNav || !menuBtn) return;
+  const willOpen = mobileNav.hidden;
+  mobileNav.hidden = !willOpen;
+  menuBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+}
+
+menuBtn?.addEventListener('click', toggleMobileNav);
+
+// Cierra al hacer click en cualquier link del menú móvil
+mobileNav?.addEventListener('click', (e) => {
+  const a = e.target?.closest?.('a');
+  if (a) closeMobileNav();
+});
+
+// Cierra con ESC
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobileNav();
+});
+
+// Si el link del GAP en móvil debe abrir modal:
+document.getElementById('openGapFromNavMobile')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  closeMobileNav();
+  // Reusa tu función openModal() si existe en tu script
+  if (typeof openModal === 'function') openModal();
+});
+  
 });
