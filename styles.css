@@ -565,7 +565,7 @@ canvas{max-width:100%;height:auto}
   .nav--mobile{
     display:block;
     position:fixed;
-    top:72px; /* altura aproximada del header */
+    top:var(--header-h); /* altura aproximada del header */
     right:12px;
     left:12px;
     background:#fff;
