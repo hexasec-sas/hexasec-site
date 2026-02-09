@@ -1,57 +1,54 @@
 'use strict';
 
+/* =========================
+   Helpers
+========================= */
 const $ = (sel, root = document) => root.querySelector(sel);
 
 /* =========================
    Año automático
 ========================= */
-const yearEl = $('#year');
-if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+(() => {
+  const yearEl = $('#year');
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+})();
 
 /* =========================
-   MENÚ MÓVIL (HAMBURGUESA) - FIX
-   Usa: #menuBtn y #mobileNav (los tienes en HTML)
+   MENÚ MÓVIL (HAMBURGUESA) - tu HTML: #menuBtn + #mobileNav
 ========================= */
-(function hamburgerMenu(){
+(() => {
   const menuBtn = $('#menuBtn');
   const mobileNav = $('#mobileNav');
   if (!menuBtn || !mobileNav) return;
 
-  const open = () => {
-    mobileNav.hidden = false;
-    menuBtn.setAttribute('aria-expanded', 'true');
-    document.documentElement.style.overflow = 'hidden';
+  const setOpen = (open) => {
+    mobileNav.hidden = !open;
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   };
 
-  const close = () => {
-    mobileNav.hidden = true;
-    menuBtn.setAttribute('aria-expanded', 'false');
-    document.documentElement.style.overflow = '';
-  };
+  const isOpen = () => !mobileNav.hidden;
 
-  const toggle = () => {
-    const willOpen = mobileNav.hidden;
-    willOpen ? open() : close();
-  };
+  const toggle = () => setOpen(!isOpen());
+  const close = () => setOpen(false);
 
   menuBtn.addEventListener('click', (e) => {
     e.preventDefault();
     toggle();
   });
 
-  // Cierra al hacer click en un link
+  // Cierra al hacer click en cualquier link del menú móvil
   mobileNav.addEventListener('click', (e) => {
-    const a = e.target.closest('a');
-    if (!a) return;
-    close();
+    const a = e.target?.closest?.('a');
+    if (a) close();
   });
 
-  // Cierra si haces click fuera
+  // Cierra al hacer click fuera del drawer (si está abierto)
   document.addEventListener('click', (e) => {
-    if (mobileNav.hidden) return;
-    const clickedInsideNav = mobileNav.contains(e.target);
-    const clickedBtn = menuBtn.contains(e.target);
-    if (!clickedInsideNav && !clickedBtn) close();
+    if (!isOpen()) return;
+    const t = e.target;
+    if (t === menuBtn || menuBtn.contains(t)) return;
+    if (t === mobileNav || mobileNav.contains(t)) return;
+    close();
   });
 
   // Cierra con ESC
@@ -59,27 +56,25 @@ if (yearEl) yearEl.textContent = String(new Date().getFullYear());
     if (e.key === 'Escape') close();
   });
 
-  // Si el link GAP del menú móvil debe abrir el modal:
-  const openGapMobile = $('#openGapFromNavMobile');
-  openGapMobile?.addEventListener('click', (e) => {
-    e.preventDefault();
-    close();
-    // Se abre más abajo con openModal()
-    openModal();
+  // Si paso a desktop, cierro drawer
+  window.addEventListener('resize', () => {
+    if (window.matchMedia('(min-width: 781px)').matches) close();
   });
+
+  // Exponer close para que otras secciones lo usen (GAP)
+  window.__closeMobileNav = close;
 })();
 
 /* =========================
    FORMSPREE CONTACTO
 ========================= */
-const form = $('#contactForm');
-const statusEl = $('#formStatus');
+(() => {
+  const form = $('#contactForm');
+  const statusEl = $('#formStatus');
+  if (!form) return;
 
-function cleanText(input) {
-  return String(input || '').replace(/[\r\n]+/g, ' ').trim();
-}
+  const cleanText = (input) => String(input || '').replace(/[\r\n]+/g, ' ').trim();
 
-if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (statusEl) statusEl.textContent = 'Enviando...';
@@ -90,7 +85,7 @@ if (form) {
     const email = cleanText(formData.get('email'));
     const message = cleanText(formData.get('message'));
 
-    // Honeypot
+    // Honeypot (input "company")
     const gotcha = cleanText(formData.get('company'));
     if (gotcha) {
       if (statusEl) statusEl.textContent = 'Enviado.';
@@ -130,15 +125,12 @@ if (form) {
       if (statusEl) statusEl.textContent = '❌ Error de red. Revisa tu conexión.';
     }
   });
-}
+})();
 
 /* =========================
    MODAL DIAGNÓSTICO GAP
 ========================= */
 const gapModal = $('#gapModal');
-const openBtn = $('#openGapModalBtn');
-const openBtn2 = $('#openGapModalBtn2');
-const openFromNav = $('#openGapFromNav');
 
 function openModal() {
   if (!gapModal) return;
@@ -146,28 +138,41 @@ function openModal() {
   gapModal.setAttribute('aria-hidden', 'false');
   document.documentElement.style.overflow = 'hidden';
 }
+
 function closeModal() {
   if (!gapModal) return;
   gapModal.classList.remove('is-open');
   gapModal.setAttribute('aria-hidden', 'true');
   document.documentElement.style.overflow = '';
 }
-function interceptOpen(e) {
-  if (e) e.preventDefault();
-  openModal();
-}
 
-openBtn?.addEventListener('click', interceptOpen);
-openBtn2?.addEventListener('click', interceptOpen);
-openFromNav?.addEventListener('click', interceptOpen);
+(() => {
+  const openBtn = $('#openGapModalBtn');
+  const openBtn2 = $('#openGapModalBtn2');
+  const openFromNav = $('#openGapFromNav');
+  const openFromNavMobile = $('#openGapFromNavMobile');
 
-gapModal?.addEventListener('click', (e) => {
-  const t = e.target;
-  if (t?.dataset?.close === 'true') closeModal();
-});
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && gapModal?.classList.contains('is-open')) closeModal();
-});
+  const interceptOpen = (e) => {
+    if (e) e.preventDefault();
+    if (typeof window.__closeMobileNav === 'function') window.__closeMobileNav();
+    openModal();
+  };
+
+  openBtn?.addEventListener('click', interceptOpen);
+  openBtn2?.addEventListener('click', interceptOpen);
+  openFromNav?.addEventListener('click', interceptOpen);
+  openFromNavMobile?.addEventListener('click', interceptOpen);
+
+  // click overlay / botón cerrar (data-close="true")
+  gapModal?.addEventListener('click', (e) => {
+    const t = e.target;
+    if (t?.dataset?.close === 'true') closeModal();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && gapModal?.classList.contains('is-open')) closeModal();
+  });
+})();
 
 /* =========================
    DIAGNÓSTICO GAP (12 controles)
@@ -197,282 +202,310 @@ const GAP_CONTROLS = [
   { id: '8.13', title: 'Backups',                   question: '¿Backups 3-2-1, cifrados, acceso restringido y pruebas de restauración?' },
 ];
 
-const gapForm = $('#gapFormModal');
-const gapGrid = $('#gapGridModal');
-const gapPreview = $('#gapPreviewModal');
-const gapScoreEl = $('#gapScoreModal');
-const gapBadgeEl = $('#gapBadgeModal');
-const gapSummaryEl = $('#gapSummaryModal');
-const gapFindingsEl = $('#gapFindingsModal');
-const gapCTA = $('#gapCTAModal');
-const gapHint = $('#gapHintModal');
-const radarCanvas = $('#gapRadarModal');
-const radarCtx = radarCanvas?.getContext('2d');
-const gapResetBtn = $('#gapResetBtn');
+(() => {
+  const gapForm = $('#gapFormModal');
+  const gapGrid = $('#gapGridModal');
+  const gapPreview = $('#gapPreviewModal');
+  const gapScoreEl = $('#gapScoreModal');
+  const gapBadgeEl = $('#gapBadgeModal');
+  const gapSummaryEl = $('#gapSummaryModal');
+  const gapFindingsEl = $('#gapFindingsModal');
+  const gapCTA = $('#gapCTAModal');
+  const gapHint = $('#gapHintModal');
+  const radarCanvas = $('#gapRadarModal');
+  const radarCtx = radarCanvas?.getContext('2d');
+  const gapResetBtn = $('#gapResetBtn');
 
-const hScore = $('#gap_score');
-const hTop = $('#gap_top_gaps');
-const hAnswers = $('#gap_answers');
+  // hidden fields para Formspree
+  const hScore = $('#gap_score');
+  const hTop = $('#gap_top_gaps');
+  const hAnswers = $('#gap_answers');
 
-(function renderGap() {
-  if (!gapGrid) return;
-  gapGrid.innerHTML = '';
+  if (!gapForm || !gapGrid) return;
 
-  const makeSelect = (name) => {
-    const sel = document.createElement('select');
-    sel.name = name;
-    sel.required = true;
+  /* Render preguntas (una sola vez) */
+  (() => {
+    gapGrid.innerHTML = '';
 
-    const opt0 = document.createElement('option');
-    opt0.value = '';
-    opt0.textContent = 'Selecciona';
-    sel.appendChild(opt0);
+    const makeSelect = (name) => {
+      const sel = document.createElement('select');
+      sel.name = name;
+      sel.required = true;
 
-    for (const o of GAP_OPTIONS) {
-      const opt = document.createElement('option');
-      opt.value = String(o.value);
-      opt.textContent = o.label;
-      sel.appendChild(opt);
-    }
-    return sel;
-  };
+      const opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = 'Selecciona';
+      sel.appendChild(opt0);
 
-  GAP_CONTROLS.forEach((c, i) => {
-    const label = document.createElement('label');
-    label.className = 'gapQ';
+      for (const o of GAP_OPTIONS) {
+        const opt = document.createElement('option');
+        opt.value = String(o.value);
+        opt.textContent = o.label;
+        sel.appendChild(opt);
+      }
+      return sel;
+    };
 
-    const meta = document.createElement('div');
-    meta.className = 'gapMeta';
+    GAP_CONTROLS.forEach((c, i) => {
+      const label = document.createElement('label');
+      label.className = 'gapQ';
 
-    const left = document.createElement('div');
-    left.style.display = 'flex';
-    left.style.gap = '10px';
-    left.style.alignItems = 'center';
+      const meta = document.createElement('div');
+      meta.className = 'gapMeta';
 
-    const id = document.createElement('div');
-    id.className = 'gapId';
-    id.textContent = c.id;
+      const left = document.createElement('div');
+      left.style.display = 'flex';
+      left.style.gap = '10px';
+      left.style.alignItems = 'center';
 
-    const title = document.createElement('div');
-    title.className = 'gapTitle';
-    title.textContent = c.title;
+      const id = document.createElement('div');
+      id.className = 'gapId';
+      id.textContent = c.id;
 
-    left.appendChild(id);
-    left.appendChild(title);
-    meta.appendChild(left);
+      const title = document.createElement('div');
+      title.className = 'gapTitle';
+      title.textContent = c.title;
 
-    const q = document.createElement('div');
-    q.className = 'gapQuestion';
-    q.textContent = c.question;
+      left.appendChild(id);
+      left.appendChild(title);
+      meta.appendChild(left);
 
-    const select = makeSelect(`gap_${i + 1}`);
+      const q = document.createElement('div');
+      q.className = 'gapQuestion';
+      q.textContent = c.question;
 
-    label.appendChild(meta);
-    label.appendChild(q);
-    label.appendChild(select);
-    gapGrid.appendChild(label);
-  });
-})();
+      const select = makeSelect(`gap_${i + 1}`);
 
-function scoreToBadge(score) {
-  if (score >= 80) return { txt: 'Bajo', note: 'Base sólida. Enfoque en mejoras puntuales y formalización.' };
-  if (score >= 55) return { txt: 'Medio', note: 'Brechas importantes. Recomendable plan 30/60/90 días.' };
-  return { txt: 'Alto', note: 'Riesgo elevado. Priorizar quick wins (accesos, backups, vulnerabilidades, monitoreo).' };
-}
+      label.appendChild(meta);
+      label.appendChild(q);
+      label.appendChild(select);
+      gapGrid.appendChild(label);
+    });
+  })();
 
-function getGapResults() {
-  const data = new FormData(gapForm);
+  function scoreToBadge(score) {
+    if (score >= 80) return { txt: 'Bajo', note: 'Base sólida. Enfoque en mejoras puntuales y formalización.' };
+    if (score >= 55) return { txt: 'Medio', note: 'Brechas importantes. Recomendable plan 30/60/90 días.' };
+    return { txt: 'Alto', note: 'Riesgo elevado. Priorizar quick wins (accesos, backups, vulnerabilidades, monitoreo).' };
+  }
 
-  const answers = [];
-  let sum = 0;
-  let countApplicable = 0;
+  function getGapResults() {
+    const data = new FormData(gapForm);
 
-  GAP_CONTROLS.forEach((c, i) => {
-    const raw = data.get(`gap_${i + 1}`);
-    if (raw === 'NA') { answers.push({ ...c, value: 'NA', numeric: null }); return; }
+    const answers = [];
+    let sum = 0;
+    let countApplicable = 0;
 
-    const n = Number(raw);
-    if (Number.isNaN(n)) { answers.push({ ...c, value: '', numeric: null }); return; }
+    GAP_CONTROLS.forEach((c, i) => {
+      const raw = data.get(`gap_${i + 1}`);
 
-    answers.push({ ...c, value: n, numeric: n });
-    sum += n;
-    countApplicable += 1;
-  });
+      if (raw === 'NA') {
+        answers.push({ ...c, value: 'NA', numeric: null });
+        return;
+      }
 
-  const score = countApplicable > 0 ? Math.round(sum / countApplicable) : 0;
-  const worst = answers
-    .filter((a) => typeof a.numeric === 'number')
-    .sort((a, b) => a.numeric - b.numeric)
-    .slice(0, 3);
+      const n = Number(raw);
+      if (Number.isNaN(n)) {
+        answers.push({ ...c, value: '', numeric: null });
+        return;
+      }
 
-  return { score, answers, worst, applicable: countApplicable };
-}
+      answers.push({ ...c, value: n, numeric: n });
+      sum += n;
+      countApplicable += 1;
+    });
 
-function drawRadar({ labels, values }) {
-  if (!radarCtx || !radarCanvas) return;
+    const score = countApplicable > 0 ? Math.round(sum / countApplicable) : 0;
+    const worst = answers
+      .filter((a) => typeof a.numeric === 'number')
+      .sort((a, b) => a.numeric - b.numeric)
+      .slice(0, 3);
 
-  const dpr = window.devicePixelRatio || 1;
-  const cssWidth = radarCanvas.clientWidth || 520;
-  const cssHeight = radarCanvas.clientHeight || 420;
+    return { score, answers, worst, applicable: countApplicable };
+  }
 
-  radarCanvas.width = Math.floor(cssWidth * dpr);
-  radarCanvas.height = Math.floor(cssHeight * dpr);
-  radarCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  /* Radar canvas */
+  function drawRadar({ labels, values }) {
+    if (!radarCtx || !radarCanvas) return;
 
-  const w = cssWidth, h = cssHeight;
-  radarCtx.clearRect(0, 0, w, h);
+    const dpr = window.devicePixelRatio || 1;
+    const cssWidth = radarCanvas.clientWidth || 520;
+    const cssHeight = radarCanvas.clientHeight || 420;
 
-  const cx = w / 2, cy = h / 2;
-  const radius = Math.min(w, h) * 0.36;
-  const n = labels.length;
-  const angleStep = (Math.PI * 2) / n;
+    radarCanvas.width = Math.floor(cssWidth * dpr);
+    radarCanvas.height = Math.floor(cssHeight * dpr);
+    radarCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-  radarCtx.strokeStyle = 'rgba(11,18,32,.12)';
-  radarCtx.lineWidth = 1;
+    const w = cssWidth;
+    const h = cssHeight;
+    radarCtx.clearRect(0, 0, w, h);
 
-  [20,40,60,80,100].forEach((rVal) => {
-    const r = (rVal / 100) * radius;
-    radarCtx.beginPath();
+    const cx = w / 2;
+    const cy = h / 2;
+    const radius = Math.min(w, h) * 0.36;
+
+    const n = labels.length;
+    const angleStep = (Math.PI * 2) / n;
+
+    // Grid
+    radarCtx.strokeStyle = 'rgba(11,18,32,.12)';
+    radarCtx.lineWidth = 1;
+    [20, 40, 60, 80, 100].forEach((rVal) => {
+      const r = (rVal / 100) * radius;
+      radarCtx.beginPath();
+      for (let i = 0; i < n; i++) {
+        const a = -Math.PI / 2 + i * angleStep;
+        const x = cx + Math.cos(a) * r;
+        const y = cy + Math.sin(a) * r;
+        if (i === 0) radarCtx.moveTo(x, y);
+        else radarCtx.lineTo(x, y);
+      }
+      radarCtx.closePath();
+      radarCtx.stroke();
+    });
+
+    // Axes + labels
+    radarCtx.strokeStyle = 'rgba(11,18,32,.18)';
+    radarCtx.fillStyle = 'rgba(11,18,32,.72)';
+    radarCtx.font = '12px system-ui, -apple-system, Segoe UI, Roboto, Arial';
+    radarCtx.textAlign = 'center';
+    radarCtx.textBaseline = 'middle';
+
     for (let i = 0; i < n; i++) {
       const a = -Math.PI / 2 + i * angleStep;
-      const x = cx + Math.cos(a) * r;
-      const y = cy + Math.sin(a) * r;
-      if (i === 0) radarCtx.moveTo(x, y);
-      else radarCtx.lineTo(x, y);
+      const x = cx + Math.cos(a) * radius;
+      const y = cy + Math.sin(a) * radius;
+
+      radarCtx.beginPath();
+      radarCtx.moveTo(cx, cy);
+      radarCtx.lineTo(x, y);
+      radarCtx.stroke();
+
+      const lx = cx + Math.cos(a) * (radius + 18);
+      const ly = cy + Math.sin(a) * (radius + 18);
+      radarCtx.fillText(labels[i], lx, ly);
     }
+
+    // Data polygon
+    const pts = [];
+    for (let i = 0; i < n; i++) {
+      const v = Math.max(0, Math.min(100, values[i] ?? 0));
+      const r = (v / 100) * radius;
+      const a = -Math.PI / 2 + i * angleStep;
+      pts.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]);
+    }
+
+    radarCtx.fillStyle = 'rgba(11,18,32,.10)';
+    radarCtx.strokeStyle = 'rgba(11,18,32,.85)';
+    radarCtx.lineWidth = 2;
+
+    radarCtx.beginPath();
+    pts.forEach(([x, y], idx) => (idx === 0 ? radarCtx.moveTo(x, y) : radarCtx.lineTo(x, y)));
     radarCtx.closePath();
-    radarCtx.stroke();
-  });
-
-  radarCtx.strokeStyle = 'rgba(11,18,32,.18)';
-  radarCtx.fillStyle = 'rgba(11,18,32,.72)';
-  radarCtx.font = '12px system-ui, -apple-system, Segoe UI, Roboto, Arial';
-  radarCtx.textAlign = 'center';
-  radarCtx.textBaseline = 'middle';
-
-  for (let i = 0; i < n; i++) {
-    const a = -Math.PI / 2 + i * angleStep;
-    const x = cx + Math.cos(a) * radius;
-    const y = cy + Math.sin(a) * radius;
-
-    radarCtx.beginPath();
-    radarCtx.moveTo(cx, cy);
-    radarCtx.lineTo(x, y);
-    radarCtx.stroke();
-
-    const lx = cx + Math.cos(a) * (radius + 18);
-    const ly = cy + Math.sin(a) * (radius + 18);
-    radarCtx.fillText(labels[i], lx, ly);
-  }
-
-  const pts = [];
-  for (let i = 0; i < n; i++) {
-    const v = Math.max(0, Math.min(100, values[i] ?? 0));
-    const r = (v / 100) * radius;
-    const a = -Math.PI / 2 + i * angleStep;
-    pts.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]);
-  }
-
-  radarCtx.fillStyle = 'rgba(11,18,32,.10)';
-  radarCtx.strokeStyle = 'rgba(11,18,32,.85)';
-  radarCtx.lineWidth = 2;
-
-  radarCtx.beginPath();
-  pts.forEach(([x,y], idx) => (idx === 0 ? radarCtx.moveTo(x,y) : radarCtx.lineTo(x,y)));
-  radarCtx.closePath();
-  radarCtx.fill();
-  radarCtx.stroke();
-
-  radarCtx.fillStyle = 'rgba(11,18,32,.85)';
-  pts.forEach(([x,y]) => {
-    radarCtx.beginPath();
-    radarCtx.arc(x, y, 3, 0, Math.PI * 2);
     radarCtx.fill();
-  });
-}
+    radarCtx.stroke();
 
-function setSuggestedMessage(score, topText) {
-  const msg = $('textarea[name="message"]');
-  if (msg && !msg.value.trim()) {
-    msg.value =
+    // Points
+    radarCtx.fillStyle = 'rgba(11,18,32,.85)';
+    pts.forEach(([x, y]) => {
+      radarCtx.beginPath();
+      radarCtx.arc(x, y, 3, 0, Math.PI * 2);
+      radarCtx.fill();
+    });
+  }
+
+  function setSuggestedMessage(score, topText) {
+    const msg = $('textarea[name="message"]');
+    if (msg && !msg.value.trim()) {
+      msg.value =
 `Hola HexaSec, quiero el informe completo (PDF) del GAP + plan 30/60/90 días.
 
 Resultado preliminar: ${score}/100
 Brechas principales: ${topText}
 
 Mi objetivo es recibir una cotización y agendar una llamada.`;
-  }
-}
-
-gapResetBtn?.addEventListener('click', () => {
-  gapForm?.reset();
-  if (gapPreview) gapPreview.hidden = true;
-  if (gapHint) gapHint.textContent = '';
-  if (radarCtx && radarCanvas) radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
-});
-
-gapForm?.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  const { score, answers, worst, applicable } = getGapResults();
-  if (applicable === 0) { if (gapHint) gapHint.textContent = 'Selecciona al menos un control aplicable (que no sea N/A).'; return; }
-  if (gapHint) gapHint.textContent = '';
-
-  const badge = scoreToBadge(score);
-  if (gapScoreEl) gapScoreEl.textContent = String(score);
-  if (gapBadgeEl) gapBadgeEl.textContent = `Riesgo: ${badge.txt}`;
-  if (gapSummaryEl) gapSummaryEl.textContent = badge.note;
-
-  if (gapFindingsEl) {
-    gapFindingsEl.innerHTML = '';
-    worst.forEach((w) => {
-      const li = document.createElement('li');
-      const level =
-        w.numeric === 0 ? 'No implementado' :
-        w.numeric <= 40 ? 'Parcial' :
-        w.numeric <= 60 ? 'En progreso' :
-        w.numeric <= 80 ? 'Implementado' : 'Optimizado';
-      li.textContent = `${w.id} ${w.title}: ${level} (${w.numeric}%).`;
-      gapFindingsEl.appendChild(li);
-    });
+    }
   }
 
-  const labels = GAP_CONTROLS.map((c) => c.id);
-  const values = answers.map((a) => (typeof a.numeric === 'number' ? a.numeric : 0));
-  drawRadar({ labels, values });
+  /* Reset */
+  gapResetBtn?.addEventListener('click', () => {
+    gapForm.reset();
+    if (gapPreview) gapPreview.hidden = true;
+    if (gapHint) gapHint.textContent = '';
+    if (radarCtx && radarCanvas) radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
+  });
 
-  const topText = worst.map((w) => `${w.id} ${w.title} (${w.numeric}%)`).join(' | ');
-  const answersText = answers.map((a) => {
-    const v = a.value === 'NA' ? 'N/A' : `${a.value}%`;
-    return `${a.id} ${a.title}: ${v}`;
-  }).join(' || ');
+  /* Submit GAP */
+  gapForm.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  if (hScore) hScore.value = String(score);
-  if (hTop) hTop.value = topText;
-  if (hAnswers) hAnswers.value = answersText;
+    const { score, answers, worst, applicable } = getGapResults();
 
-  if (gapCTA) {
-    gapCTA.onclick = (ev) => {
-      ev.preventDefault();
-      setSuggestedMessage(score, topText);
-      closeModal();
-      setTimeout(() => {
-        document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
-    };
-  }
+    if (applicable === 0) {
+      if (gapHint) gapHint.textContent = 'Selecciona al menos un control aplicable (que no sea N/A).';
+      return;
+    }
+    if (gapHint) gapHint.textContent = '';
 
-  if (gapPreview) gapPreview.hidden = false;
-});
+    const badge = scoreToBadge(score);
+    if (gapScoreEl) gapScoreEl.textContent = String(score);
+    if (gapBadgeEl) gapBadgeEl.textContent = `Riesgo: ${badge.txt}`;
+    if (gapSummaryEl) gapSummaryEl.textContent = badge.note;
 
-let resizeT;
-window.addEventListener('resize', () => {
-  if (!gapPreview || gapPreview.hidden) return;
-  clearTimeout(resizeT);
-  resizeT = setTimeout(() => {
-    const { answers } = getGapResults();
+    if (gapFindingsEl) {
+      gapFindingsEl.innerHTML = '';
+      worst.forEach((w) => {
+        const li = document.createElement('li');
+        const level =
+          w.numeric === 0 ? 'No implementado' :
+          w.numeric <= 40 ? 'Parcial' :
+          w.numeric <= 60 ? 'En progreso' :
+          w.numeric <= 80 ? 'Implementado' : 'Optimizado';
+        li.textContent = `${w.id} ${w.title}: ${level} (${w.numeric}%).`;
+        gapFindingsEl.appendChild(li);
+      });
+    }
+
+    // Radar
     const labels = GAP_CONTROLS.map((c) => c.id);
     const values = answers.map((a) => (typeof a.numeric === 'number' ? a.numeric : 0));
     drawRadar({ labels, values });
-  }, 120);
-});
+
+    // Datos para Formspree
+    const topText = worst.map((w) => `${w.id} ${w.title} (${w.numeric}%)`).join(' | ');
+    const answersText = answers.map((a) => {
+      const v = a.value === 'NA' ? 'N/A' : `${a.value}%`;
+      return `${a.id} ${a.title}: ${v}`;
+    }).join(' || ');
+
+    if (hScore) hScore.value = String(score);
+    if (hTop) hTop.value = topText;
+    if (hAnswers) hAnswers.value = answersText;
+
+    if (gapCTA) {
+      gapCTA.onclick = (ev) => {
+        ev.preventDefault();
+        setSuggestedMessage(score, topText);
+        closeModal();
+        setTimeout(() => {
+          document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      };
+    }
+
+    if (gapPreview) gapPreview.hidden = false;
+  });
+
+  /* Resize radar (throttle) */
+  let resizeT;
+  window.addEventListener('resize', () => {
+    if (!gapPreview || gapPreview.hidden) return;
+    clearTimeout(resizeT);
+    resizeT = setTimeout(() => {
+      const { answers } = getGapResults();
+      const labels = GAP_CONTROLS.map((c) => c.id);
+      const values = answers.map((a) => (typeof a.numeric === 'number' ? a.numeric : 0));
+      drawRadar({ labels, values });
+    }, 120);
+  });
+})();
