@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Diagnóstico GAP ISO 27001 | HexaSec S.A.S</title>
+
+  <meta name="description"
+        content="Evalúa el nivel de seguridad de tu organización frente a ISO 27001. Diagnóstico GAP gratuito con resultado inmediato y gráfico de araña." />
+
+  <meta name="theme-color" content="#0b1220" />
+
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="icon" href="../favicon.png" type="image/png">
+</head>
+
+<body>
+
+<!-- HEADER SIMPLE (sin distracciones) -->
+<header class="header">
+  <div class="container header__inner">
+    <div class="brand">
+      <img src="../H.png" alt="HexaSec" class="brand__logo" />
+      <div class="brand__text">
+        <div class="brand__name">HexaSec S.A.S</div>
+        <div class="brand__tag">Ciberseguridad • ISO 27001</div>
+      </div>
+    </div>
+
+    <a href="../#contacto" class="btn btn--small">Hablar con un experto</a>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="section">
+  <div class="container" style="max-width:900px">
+
+    <p class="pill">Diagnóstico ejecutivo • ISO/IEC 27001</p>
+
+    <h1>
+      ¿Tu organización realmente cumple<br>
+      con los controles de seguridad que dice tener?
+    </h1>
+
+    <p class="lead">
+      Evalúa en menos de <strong>3 minutos</strong> el nivel real de seguridad de tu empresa frente
+      a los controles clave de ISO 27001.
+    </p>
+
+    <div class="hero__actions">
+      <button class="btn" id="openGapModalBtn">
+        Iniciar diagnóstico GAP gratuito
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="section section--alt">
+  <div class="container" style="max-width:900px">
+
+    <h2>El problema real</h2>
+
+    <ul class="checks">
+      <li>Políticas existen, pero no se aplican</li>
+      <li>Accesos sin control ni revisiones periódicas</li>
+      <li>Backups que nunca se han probado</li>
+      <li>Riesgos que solo se descubren después del incidente</li>
+    </ul>
+
+    <p class="muted">
+      La mayoría de las empresas <strong>cree</strong> que está segura… hasta que ocurre un incidente.
+    </p>
+
+  </div>
+</section>
+
+<!-- QUE EVALUA -->
+<section class="section">
+  <div class="container" style="max-width:900px">
+
+    <h2>¿Qué evalúa este diagnóstico GAP?</h2>
+
+    <div class="grid">
+      <div class="service">
+        <h3>Gobierno y políticas</h3>
+        <p>Roles, responsabilidades y políticas mínimas de seguridad.</p>
+      </div>
+
+      <div class="service">
+        <h3>Protección técnica</h3>
+        <p>Accesos, autenticación, backups, malware y configuración segura.</p>
+      </div>
+
+      <div class="service">
+        <h3>Gestión del riesgo</h3>
+        <p>Vulnerabilidades, continuidad del negocio y concienciación.</p>
+      </div>
+
+      <div class="service">
+        <h3>Madurez real</h3>
+        <p>No teoría. Estado actual medido en porcentaje.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA DIAGNOSTICO -->
+<section class="section section--alt">
+  <div class="container" style="max-width:900px;text-align:center">
+
+    <h2>Obtén tu resultado ahora</h2>
+
+    <p class="lead">
+      Responde 12 controles clave y recibe un
+      <strong>resultado inmediato con gráfico de araña</strong>.
+    </p>
+
+    <button class="btn" id="openGapModalBtn2">
+      Realizar diagnóstico GAP
+    </button>
+
+  </div>
+</section>
+
+<!-- GRATIS VS COMPLETO -->
+<section class="section">
+  <div class="container" style="max-width:900px">
+
+    <h2>¿Qué obtienes?</h2>
+
+    <div class="grid">
+      <div class="service">
+        <h3>Diagnóstico gratuito</h3>
+        <ul>
+          <li>Resultado general (%)</li>
+          <li>Gráfico de araña</li>
+          <li>Principales brechas</li>
+        </ul>
+      </div>
+
+      <div class="service">
+        <h3>Informe completo (PDF)</h3>
+        <ul>
+          <li>GAP detallado por control</li>
+          <li>Riesgos priorizados</li>
+          <li>Plan de acción 30 / 60 / 90 días</li>
+          <li>Recomendaciones ejecutivas</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AUTORIDAD -->
+<section class="section section--alt">
+  <div class="container" style="max-width:900px">
+
+    <h2>¿Por qué HexaSec?</h2>
+
+    <ul class="checks">
+      <li>Especialistas en ciberseguridad y gestión de riesgos</li>
+      <li>Enfoque práctico, no burocrático</li>
+      <li>Alineado a ISO/IEC 27001:2022</li>
+      <li>Lenguaje claro para directivos</li>
+    </ul>
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section">
+  <div class="container" style="max-width:900px;text-align:center">
+
+    <h2>La seguridad no se asume, se mide</h2>
+
+    <p class="lead">
+      Comienza con el diagnóstico gratuito y decide con información real.
+    </p>
+
+    <button class="btn" id="openGapModalBtn3">
+      Medir mi nivel de seguridad
+    </button>
+
+  </div>
+</section>
+
+</main>
+
+<!-- reutiliza tu MODAL GAP existente -->
+<script src="../script.js" defer></script>
+
+</body>
+</html>
