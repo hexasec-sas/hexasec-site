@@ -469,5 +469,139 @@ canvas{max-width:100%;height:auto}
   .lang-switch{font-size:12px;}
 }
 
+/* =========================
+   HEADER RESPONSIVE (MÓVIL)
+   ========================= */
+
+/* Mantener header fijo */
+.header{
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+}
+
+/* Contenedor del header */
+.header__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  flex-wrap:nowrap;
+}
+
+/* Branding más compacto en móvil */
+.brand{display:flex;align-items:center;gap:10px;min-width:0;}
+.brand__logo{width:40px;height:40px;}
+.brand__text{min-width:0;}
+.brand__name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.brand__tag{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* Switch ES/EN */
+.lang-switch{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+  font-weight:800;
+  color:var(--text);
+  opacity:.9;
+}
+.lang-switch a{opacity:.65}
+.lang-switch a.active{opacity:1;text-decoration:underline}
+
+/* Botón hamburguesa */
+.menu-btn{
+  width:42px;height:42px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#fff;
+  display:inline-grid;
+  place-items:center;
+  cursor:pointer;
+}
+.menu-btn span{
+  width:18px;height:2px;
+  background:var(--text);
+  display:block;
+  position:relative;
+}
+.menu-btn span::before,
+.menu-btn span::after{
+  content:"";
+  position:absolute;left:0;
+  width:18px;height:2px;
+  background:var(--text);
+}
+.menu-btn span::before{top:-6px}
+.menu-btn span::after{top:6px}
+
+/* Wrapper derecha (ES/EN + hamburguesa) */
+.header__right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* NAV DESKTOP por defecto */
+.nav{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+/* =========================
+   MÓVIL: ocultar nav y usar drawer
+   ========================= */
+@media (max-width: 780px){
+  .brand__logo{width:34px;height:34px;}
+  .brand__name{font-size:15px;}
+  .brand__tag{font-size:11px;}
+
+  /* Ocultamos menú horizontal */
+  .nav{display:none;}
+
+  /* El drawer (menú móvil) */
+  .nav--mobile{
+    display:block;
+    position:fixed;
+    top:72px; /* altura aproximada del header */
+    right:12px;
+    left:12px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:0 18px 40px rgba(0,0,0,.14);
+    padding:12px;
+    z-index:2500;
+    transform: translateY(-8px);
+  }
+
+  .nav--mobile[hidden]{display:none;}
+
+  .nav--mobile a{
+    display:block;
+    padding:12px 10px;
+    border-radius:12px;
+    font-weight:700;
+  }
+
+  .nav--mobile a:hover{
+    background:rgba(11,18,32,.05);
+    text-decoration:none;
+  }
+
+  .nav--mobile .btn{
+    width:100%;
+    margin-top:8px;
+    justify-content:center;
+  }
+}
+
+/* En desktop escondemos el botón hamburguesa */
+@media (min-width: 781px){
+  .menu-btn{display:none;}
+  .header__right{gap:14px;}
+}
   
 }
