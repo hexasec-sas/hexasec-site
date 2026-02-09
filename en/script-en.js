@@ -6,7 +6,7 @@
 const $ = (sel, root = document) => root.querySelector(sel);
 
 /* =========================
-   Año automático
+   Year
 ========================= */
 (() => {
   const yearEl = $('#year');
@@ -14,7 +14,7 @@ const $ = (sel, root = document) => root.querySelector(sel);
 })();
 
 /* =========================
-   MENÚ MÓVIL (HAMBURGUESA) - tu HTML: #menuBtn + #mobileNav
+   MOBILE NAV (Hamburger) - #menuBtn + #mobileNav
 ========================= */
 (() => {
   const menuBtn = $('#menuBtn');
@@ -35,11 +35,13 @@ const $ = (sel, root = document) => root.querySelector(sel);
     toggle();
   });
 
+  // Close when clicking any link
   mobileNav.addEventListener('click', (e) => {
     const a = e.target?.closest?.('a');
     if (a) close();
   });
 
+  // Close when clicking outside
   document.addEventListener('click', (e) => {
     if (!isOpen()) return;
     const t = e.target;
@@ -48,19 +50,22 @@ const $ = (sel, root = document) => root.querySelector(sel);
     close();
   });
 
+  // ESC closes
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') close();
   });
 
+  // If switching to desktop, close
   window.addEventListener('resize', () => {
     if (window.matchMedia('(min-width: 781px)').matches) close();
   });
 
+  // Expose close for GAP open action
   window.__closeMobileNav = close;
 })();
 
 /* =========================
-   FORMSPREE CONTACTO (ES)
+   CONTACT FORM (Formspree) - English
 ========================= */
 (() => {
   const form = $('#contactForm');
@@ -71,7 +76,7 @@ const $ = (sel, root = document) => root.querySelector(sel);
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (statusEl) statusEl.textContent = 'Enviando...';
+    if (statusEl) statusEl.textContent = 'Sending...';
 
     const formData = new FormData(form);
 
@@ -79,21 +84,22 @@ const $ = (sel, root = document) => root.querySelector(sel);
     const email = cleanText(formData.get('email'));
     const message = cleanText(formData.get('message'));
 
+    // Honeypot (input "company")
     const gotcha = cleanText(formData.get('company'));
     if (gotcha) {
-      if (statusEl) statusEl.textContent = 'Enviado.';
+      if (statusEl) statusEl.textContent = 'Sent.';
       form.reset();
       return;
     }
 
     if (!name || !email || !message) {
-      if (statusEl) statusEl.textContent = 'Por favor completa todos los campos.';
+      if (statusEl) statusEl.textContent = 'Please complete all fields.';
       return;
     }
 
     const humanCheck = $('#humanCheck');
     if (humanCheck && !humanCheck.checked) {
-      if (statusEl) statusEl.textContent = 'Por favor confirma que eres humano.';
+      if (statusEl) statusEl.textContent = 'Please confirm you are human.';
       return;
     }
 
@@ -109,19 +115,19 @@ const $ = (sel, root = document) => root.querySelector(sel);
       });
 
       if (res.ok) {
-        if (statusEl) statusEl.textContent = '✅ Mensaje enviado. ¡Gracias!';
+        if (statusEl) statusEl.textContent = '✅ Message sent. Thank you!';
         form.reset();
       } else {
-        if (statusEl) statusEl.textContent = '❌ No se pudo enviar. Intenta nuevamente.';
+        if (statusEl) statusEl.textContent = '❌ Could not send. Please try again.';
       }
     } catch {
-      if (statusEl) statusEl.textContent = '❌ Error de red. Revisa tu conexión.';
+      if (statusEl) statusEl.textContent = '❌ Network error. Check your connection.';
     }
   });
 })();
 
 /* =========================
-   MODAL DIAGNÓSTICO GAP
+   GAP MODAL
 ========================= */
 const gapModal = $('#gapModal');
 
@@ -167,8 +173,7 @@ function closeModal() {
 })();
 
 /* =========================
-   DIAGNÓSTICO GAP (12 controles) - EN VERSION
-   (This file is intended for /en/ - keep ES file separate if you want.)
+   GAP (12 controls) - English
 ========================= */
 const GAP_OPTIONS = [
   { label: 'N/A (Not applicable)', value: 'NA' },
@@ -181,18 +186,18 @@ const GAP_OPTIONS = [
 ];
 
 const GAP_CONTROLS = [
-  { id: '5.1',  title: 'Information Security policies', question: 'Do you have approved and communicated policies (at minimum: access control, backups, incident handling, acceptable use)?' },
-  { id: '5.2',  title: 'Roles and responsibilities',    question: 'Are roles defined for security, IT, asset owners and approvals?' },
-  { id: '5.9',  title: 'Asset inventory',               question: 'Do you maintain an up-to-date asset inventory (devices, apps, data) with assigned owners?' },
-  { id: '5.15', title: 'Access control',                question: 'Role-based access, least privilege, periodic reviews, and prompt revocation on exit?' },
-  { id: '5.17', title: 'Authentication',                question: 'MFA/password standards/credential management and control of shared accounts?' },
-  { id: '5.23', title: 'Cloud security',                question: 'If you use cloud: are permissions, secure configurations, logs, and security reviews defined?' },
-  { id: '5.30', title: 'ICT continuity',                question: 'Do you have RTO/RPO, a continuity plan, and contingency tests (at least annually)?' },
-  { id: '6.3',  title: 'Awareness',                      question: 'Do you run periodic security awareness training (phishing, data, best practices) with evidence of completion?' },
-  { id: '8.7',  title: 'Anti-malware',                  question: 'Is anti-malware/EDR up to date, with execution/download controls enforced?' },
-  { id: '8.8',  title: 'Vulnerability management',      question: 'Do you scan regularly, prioritize, and remediate vulnerabilities within defined timelines?' },
-  { id: '8.9',  title: 'Secure configuration',          question: 'Do you use baselines/hardening and change control for systems and networks?' },
-  { id: '8.13', title: 'Backups',                       question: 'Do you follow 3-2-1 backups, with encryption, restricted access, and restore tests?' },
+  { id: '5.1',  title: 'Information security policies', question: 'Do you have approved and communicated policies (at minimum: access, backups, incidents, acceptable use)?' },
+  { id: '5.2',  title: 'Roles & responsibilities',      question: 'Are security, IT, asset owners, and approvals clearly assigned?' },
+  { id: '5.9',  title: 'Asset inventory',               question: 'Is there an up-to-date asset inventory (devices, apps, data) with assigned owners?' },
+  { id: '5.15', title: 'Access control',                question: 'Role-based access, least privilege, periodic review, and revocation upon exit?' },
+  { id: '5.17', title: 'Authentication',                question: 'MFA/password policy/credential management and control of shared accounts?' },
+  { id: '5.23', title: 'Cloud security',                question: 'If you use cloud: permissions, configurations, logging, and security reviews defined?' },
+  { id: '5.30', title: 'ICT continuity',                question: 'RTO/RPO, continuity plan, and contingency tests (at least annually)?' },
+  { id: '6.3',  title: 'Awareness training',             question: 'Regular training (phishing, data, best practices) with evidence/records?' },
+  { id: '8.7',  title: 'Anti-malware',                  question: 'Up-to-date anti-malware/EDR and execution/download policies?' },
+  { id: '8.8',  title: 'Vulnerability management',      question: 'Periodic scanning, prioritization, and remediation with defined timelines?' },
+  { id: '8.9',  title: 'Secure configuration',          question: 'Baseline/hardening and change control for systems and network?' },
+  { id: '8.13', title: 'Backups',                       question: '3-2-1 backups, encrypted, restricted access, and restore testing?' },
 ];
 
 (() => {
@@ -209,14 +214,14 @@ const GAP_CONTROLS = [
   const radarCtx = radarCanvas?.getContext('2d');
   const gapResetBtn = $('#gapResetBtn');
 
-  // hidden fields for Formspree
+  // Hidden fields to send to Formspree (optional if form exists)
   const hScore = $('#gap_score');
   const hTop = $('#gap_top_gaps');
   const hAnswers = $('#gap_answers');
 
   if (!gapForm || !gapGrid) return;
 
-  /* Render questions (one time) */
+  /* Render questions (once) */
   (() => {
     gapGrid.innerHTML = '';
 
@@ -277,8 +282,8 @@ const GAP_CONTROLS = [
   })();
 
   function scoreToBadge(score) {
-    if (score >= 80) return { txt: 'Low', note: 'Solid baseline. Focus on targeted improvements and formalization.' };
-    if (score >= 55) return { txt: 'Medium', note: 'Relevant gaps. A 30/60/90-day plan is recommended.' };
+    if (score >= 80) return { txt: 'Low', note: 'Strong foundation. Focus on small improvements and formalization.' };
+    if (score >= 55) return { txt: 'Medium', note: 'Relevant gaps found. Recommended: a 30/60/90-day action plan.' };
     return { txt: 'High', note: 'Elevated risk. Prioritize quick wins (access, backups, vulnerabilities, monitoring).' };
   }
 
@@ -317,7 +322,6 @@ const GAP_CONTROLS = [
     return { score, answers, worst, applicable: countApplicable };
   }
 
-  /* Radar canvas */
   function drawRadar({ labels, values }) {
     if (!radarCtx || !radarCanvas) return;
 
@@ -340,9 +344,9 @@ const GAP_CONTROLS = [
     const n = labels.length;
     const angleStep = (Math.PI * 2) / n;
 
-    // Grid
     radarCtx.strokeStyle = 'rgba(11,18,32,.12)';
     radarCtx.lineWidth = 1;
+
     [20, 40, 60, 80, 100].forEach((rVal) => {
       const r = (rVal / 100) * radius;
       radarCtx.beginPath();
@@ -357,7 +361,6 @@ const GAP_CONTROLS = [
       radarCtx.stroke();
     });
 
-    // Axes + labels
     radarCtx.strokeStyle = 'rgba(11,18,32,.18)';
     radarCtx.fillStyle = 'rgba(11,18,32,.72)';
     radarCtx.font = '12px system-ui, -apple-system, Segoe UI, Roboto, Arial';
@@ -379,7 +382,6 @@ const GAP_CONTROLS = [
       radarCtx.fillText(labels[i], lx, ly);
     }
 
-    // Data polygon
     const pts = [];
     for (let i = 0; i < n; i++) {
       const v = Math.max(0, Math.min(100, values[i] ?? 0));
@@ -398,7 +400,6 @@ const GAP_CONTROLS = [
     radarCtx.fill();
     radarCtx.stroke();
 
-    // Points
     radarCtx.fillStyle = 'rgba(11,18,32,.85)';
     pts.forEach(([x, y]) => {
       radarCtx.beginPath();
@@ -411,7 +412,7 @@ const GAP_CONTROLS = [
     const msg = $('textarea[name="message"]');
     if (msg && !msg.value.trim()) {
       msg.value =
-`Hello HexaSec, I’d like the full GAP report (PDF) and a 30/60/90-day action plan.
+`Hello HexaSec, I would like the full GAP report (PDF) + a 30/60/90-day action plan.
 
 Preliminary result: ${score}/100
 Top gaps: ${topText}
@@ -420,7 +421,6 @@ My goal is to receive a quote and schedule a call.`;
     }
   }
 
-  /* Reset */
   gapResetBtn?.addEventListener('click', () => {
     gapForm.reset();
     if (gapPreview) gapPreview.hidden = true;
@@ -428,7 +428,6 @@ My goal is to receive a quote and schedule a call.`;
     if (radarCtx && radarCanvas) radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
   });
 
-  /* Submit GAP */
   gapForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
