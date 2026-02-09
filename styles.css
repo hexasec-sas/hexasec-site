@@ -358,4 +358,116 @@ canvas{max-width:100%;height:auto}
     margin: 12px auto;
     max-height: calc(100vh - 24px);
   }
+
+/* ===== Header layout fix (evita duplicados visuales y alinea todo) ===== */
+
+.header{
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+  width: 100%;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:12px 0;
+}
+
+/* Brand como link, sin subrayado */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  min-width: 260px;
+}
+
+.brand__logo{
+  width:42px;
+  height:42px;
+  object-fit:contain;
+  display:block;
+}
+
+.brand__name{font-weight:900; letter-spacing:.2px;}
+.brand__tag{font-size:12px; color:var(--muted); margin-top:2px;}
+
+/* Contenedor derecho */
+.header__right{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-left:auto;
+}
+
+/* Idiomas */
+.lang-switch{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.lang-switch a{
+  color:#5b6473;
+  text-decoration:none;
+}
+
+.lang-switch a.active{
+  color:#0b1220;
+}
+
+.lang-switch a:hover{
+  text-decoration:underline;
+}
+
+/* Nav alineado a la derecha */
+.nav{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:nowrap;
+}
+
+.nav a{font-size:14px; opacity:.9;}
+.nav a:hover{opacity:1;}
+
+/* Evita “pastilla vacía” del Contacto */
+.nav__contacto{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width: 110px;
+}
+
+/* Si tienes botones hamburguesa, ocúltalos en desktop */
+.nav-toggle,
+.menu-toggle,
+.hamburger{
+  display:none !important;
+}
+
+/* Ajustes mobile: comprime el brand y mantiene el header limpio */
+@media (max-width: 820px){
+  .brand__tag{display:none;}
+  .brand{min-width:auto;}
+  .nav{gap:10px;}
+}
+
+@media (max-width: 600px){
+  .brand__name{font-size:15px;}
+  .brand__logo{width:38px;height:38px;}
+  .lang-switch{font-size:12px;}
+}
+
+  
 }
