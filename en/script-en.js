@@ -148,6 +148,7 @@ function closeModal() {
 (() => {
   const openBtn = $('#openGapModalBtn');
   const openBtn2 = $('#openGapModalBtn2');
+  const openBtn3 = $('#openGapModalBtn3');
   const openFromNav = $('#openGapFromNav');
   const openFromNavMobile = $('#openGapFromNavMobile');
 
@@ -159,6 +160,7 @@ function closeModal() {
 
   openBtn?.addEventListener('click', interceptOpen);
   openBtn2?.addEventListener('click', interceptOpen);
+  openBtn3?.addEventListener('click', interceptOpen); 
   openFromNav?.addEventListener('click', interceptOpen);
   openFromNavMobile?.addEventListener('click', interceptOpen);
 
