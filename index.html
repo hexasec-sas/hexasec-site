@@ -6,19 +6,22 @@
   <meta name="description" content="Free cybersecurity GAP assessment (ISO 27001 aligned)" />
   <title>GAP Assessment | HexaSec</title>
 
-  <link rel="stylesheet" href="/styles.css?v=PRO" />
+  <link rel="stylesheet" href="/styles.css?v=7" />
 </head>
 
 <body>
 
+<a class="skip-link" href="#content">Skip to content</a>
+
+<!-- HEADER -->
 <header class="header">
   <div class="container header__inner">
 
     <a class="brand" href="#">
       <img src="/H.png" class="brand__logo">
-      <div>
+      <div class="brand__text">
         <div class="brand__name">HexaSec S.A.S</div>
-        <div class="brand__tag">Cybersecurity • ISO 27001</div>
+        <div class="brand__tag">Cybersecurity • Audit • ISO 27001</div>
       </div>
     </a>
 
@@ -30,73 +33,117 @@
         <a href="/en/" class="active">EN</a>
       </div>
 
-      <button id="menuBtn" class="menu-btn"><span></span></button>
+      <button class="menu-btn" id="menuBtn">
+        <span></span>
+      </button>
 
       <nav class="nav">
         <a href="#services">Services</a>
-        <a href="#gap">GAP</a>
+        <a href="#method">Method</a>
         <a href="#contact" class="btn btn--small">Contact</a>
       </nav>
 
     </div>
   </div>
 
+  <!-- MOBILE NAV -->
   <nav id="mobileNav" class="nav--mobile" hidden>
     <a href="#services">Services</a>
-    <a href="#gap">GAP</a>
+    <a href="#method">Method</a>
     <a href="#contact" class="btn">Contact</a>
   </nav>
 </header>
 
-<main>
+<main id="content">
 
+<!-- HERO -->
 <section class="hero">
   <div class="container hero__grid">
 
-    <div>
+    <div class="hero__content">
       <h1>Cybersecurity GAP Assessment</h1>
-      <p class="lead">Evaluate your security maturity in 3 minutes.</p>
+
+      <p class="lead">
+        Evaluate your security maturity in <strong>3 minutes</strong> and identify your top risks.
+      </p>
 
       <div class="hero__actions">
-        <button class="btn" id="openGapModalBtn">Start assessment</button>
-        <a class="btn btn--ghost" href="#services">Learn more</a>
-      </div>
-    </div>
+        <button class="btn" id="openGapModalBtn">
+          Start free assessment
+        </button>
 
-    <div class="card">
-      <h3>What you get</h3>
-      <ul>
-        <li>Score (0–100)</li>
-        <li>Radar chart</li>
-        <li>Top 3 gaps</li>
+        <a class="btn btn--ghost" href="#services">
+          Learn more
+        </a>
+      </div>
+
+      <ul class="checks">
+        <li>ISO 27001 aligned</li>
+        <li>Instant results</li>
+        <li>Top 3 gaps identified</li>
       </ul>
     </div>
 
+    <div class="hero__card">
+      <div class="card">
+        <h3>What you get</h3>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat__label">Time</div>
+            <div class="stat__value">~3 minutes</div>
+          </div>
+          <div class="stat">
+            <div class="stat__label">Output</div>
+            <div class="stat__value">Score + Radar</div>
+          </div>
+          <div class="stat">
+            <div class="stat__label">Next step</div>
+            <div class="stat__value">Action plan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
+<!-- SERVICES -->
 <section id="services" class="section">
   <div class="container">
     <h2>Services</h2>
+
     <div class="grid">
-      <div class="service">ISO 27001 Audit</div>
-      <div class="service">Vulnerability Assessment</div>
+      <div class="service">
+        <h3>ISO 27001 Audit</h3>
+        <p>Assess your compliance and readiness.</p>
+      </div>
+
+      <div class="service">
+        <h3>Vulnerability Assessment</h3>
+        <p>Identify and prioritize security weaknesses.</p>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact" class="section">
   <div class="container">
     <h2>Contact</h2>
 
-    <form id="contactForm" action="https://formspree.io/f/xgoovpkq" method="POST">
+    <form id="contactForm"
+          action="https://formspree.io/f/xgoovpkq"
+          method="POST">
+
       <input name="name" placeholder="Name" required>
       <input name="email" type="email" placeholder="Email" required>
       <textarea name="message" placeholder="Message"></textarea>
 
+      <!-- GAP hidden -->
       <input type="hidden" name="gap_score" id="gap_score">
 
-      <button class="btn">Send</button>
+      <button class="btn">Send message</button>
       <p id="formStatus"></p>
     </form>
   </div>
@@ -110,31 +157,42 @@
   </div>
 </footer>
 
-<!-- MODAL -->
+<!-- GAP MODAL -->
 <div class="modal" id="gapModal">
+
   <div class="modal__overlay" data-close="true"></div>
 
   <div class="modal__panel">
+
     <div class="modal__head">
       <strong>GAP Assessment</strong>
       <button data-close="true">✕</button>
     </div>
 
     <div class="modal__body">
+
       <form id="gapFormModal">
-        <select name="q1">
+
+        <label>Access control maturity</label>
+        <select name="q1" required>
           <option value="">Select</option>
-          <option value="0">0%</option>
-          <option value="50">50%</option>
-          <option value="100">100%</option>
+          <option value="0">0% - None</option>
+          <option value="40">40% - Partial</option>
+          <option value="80">80% - Implemented</option>
+          <option value="100">100% - Optimized</option>
         </select>
 
-        <button class="btn">Calculate</button>
+        <div style="margin-top:12px">
+          <button class="btn">Calculate</button>
+        </div>
+
       </form>
 
       <div id="gapPreviewModal" hidden>
-        Score: <span id="gapScoreModal">0</span>
+        <h3>Result</h3>
+        <p>Score: <strong><span id="gapScoreModal">0</span>/100</strong></p>
       </div>
+
     </div>
   </div>
 </div>
