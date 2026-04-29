@@ -1,23 +1,17 @@
 'use strict';
 
 const $ = (selector, root = document) => root.querySelector(selector);
-const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
-/* =========================
-   YEAR
-========================= */
+/* Año */
 (() => {
   const year = $('#year');
   if (year) year.textContent = new Date().getFullYear();
 })();
 
-/* =========================
-   MOBILE MENU
-========================= */
+/* Menú móvil */
 (() => {
   const menuBtn = $('#menuBtn');
   const mobileNav = $('#mobileNav');
-
   if (!menuBtn || !mobileNav) return;
 
   const closeMenu = () => {
@@ -26,9 +20,9 @@ const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selec
   };
 
   const toggleMenu = () => {
-    const willOpen = mobileNav.hidden;
-    mobileNav.hidden = !willOpen;
-    menuBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    const open = mobileNav.hidden;
+    mobileNav.hidden = !open;
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   };
 
   menuBtn.addEventListener('click', (e) => {
@@ -50,25 +44,15 @@ const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selec
     if (e.key === 'Escape') closeMenu();
   });
 
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 780) closeMenu();
-  });
-
   window.__closeMobileNav = closeMenu;
 })();
 
-/* =========================
-   GAP MODAL
-========================= */
+/* Modal GAP */
 const gapModal = $('#gapModal');
 
 function openGapModal() {
   if (!gapModal) return;
-
-  if (typeof window.__closeMobileNav === 'function') {
-    window.__closeMobileNav();
-  }
-
+  if (typeof window.__closeMobileNav === 'function') window.__closeMobileNav();
   gapModal.classList.add('is-open');
   gapModal.setAttribute('aria-hidden', 'false');
   document.documentElement.style.overflow = 'hidden';
@@ -76,25 +60,15 @@ function openGapModal() {
 
 function closeGapModal() {
   if (!gapModal) return;
-
   gapModal.classList.remove('is-open');
   gapModal.setAttribute('aria-hidden', 'true');
   document.documentElement.style.overflow = '';
 }
 
 (() => {
-  const openIds = [
-    '#openGapModalBtn',
-    '#openGapModalBtn2',
-    '#openGapModalBtn3',
-    '#openGapFromNav',
-    '#openGapFromNavMobile'
-  ];
-
-  openIds.forEach((id) => {
+  ['#openGapModalBtn', '#openGapModalBtn2', '#openGapFromNav', '#openGapFromNavMobile'].forEach((id) => {
     const el = $(id);
     if (!el) return;
-
     el.addEventListener('click', (e) => {
       e.preventDefault();
       openGapModal();
@@ -102,96 +76,153 @@ function closeGapModal() {
   });
 
   gapModal?.addEventListener('click', (e) => {
-    if (e.target?.dataset?.close === 'true') {
-      closeGapModal();
-    }
+    if (e.target?.dataset?.close === 'true') closeGapModal();
   });
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && gapModal?.classList.contains('is-open')) {
-      closeGapModal();
-    }
+    if (e.key === 'Escape' && gapModal?.classList.contains('is-open')) closeGapModal();
   });
 })();
 
-/* =========================
-   GAP ASSESSMENT
-========================= */
+/* GAP */
 (() => {
   const gapForm = $('#gapFormModal');
   const gapPreview = $('#gapPreviewModal');
   const gapScore = $('#gapScoreModal');
+  const gapSummary = $('#gapSummaryModal');
+  const gapFindings = $('#gapFindingsModal');
   const hiddenScore = $('#gap_score');
+  const hiddenTop = $('#gap_top_gaps');
+  const hiddenAnswers = $('#gap_answers');
+  const cta = $('#gapCTAModal');
 
   if (!gapForm || !gapPreview || !gapScore) return;
+
+  const controls = [
+    'Políticas de seguridad',
+    'Roles y responsabilidades',
+    'Inventario de activos',
+    'Control de acceso',
+    'Autenticación',
+    'Seguridad en nube',
+    'Continuidad TIC',
+    'Concienciación',
+    'Anti-malware / EDR',
+    'Gestión de vulnerabilidades',
+    'Configuración segura',
+    'Backups'
+  ];
 
   gapForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const formData = new FormData(gapForm);
+    const data = new FormData(gapForm);
+    const answers = [];
     let total = 0;
     let count = 0;
 
-    for (const [, value] of formData.entries()) {
-      if (value === '' || value === 'NA') continue;
+    controls.forEach((name, index) => {
+      const raw = data.get(`q${index + 1}`);
+      const value = Number(raw || 0);
+      answers.push({ name, value });
 
-      const numberValue = Number(value);
-      if (!Number.isNaN(numberValue)) {
-        total += numberValue;
+      if (!Number.isNaN(value)) {
+        total += value;
         count++;
       }
-    }
+    });
 
-    const score = count > 0 ? Math.round(total / count) : 0;
+    const score = count ? Math.round(total / count) : 0;
+    const worst = answers.slice().sort((a, b) => a.value - b.value).slice(0, 3);
 
     gapScore.textContent = String(score);
     gapPreview.hidden = false;
 
-    if (hiddenScore) hiddenScore.value = String(score);
+    if (gapSummary) {
+      gapSummary.textContent =
+        score >= 80 ? 'Base sólida. Se recomiendan mejoras puntuales y formalización.' :
+        score >= 55 ? 'Brechas relevantes. Se recomienda un plan 30/60/90 días.' :
+        'Riesgo elevado. Prioriza accesos, backups, vulnerabilidades y monitoreo.';
+    }
 
-    const message = $('textarea[name="message"]');
-    if (message && !message.value.trim()) {
-      message.value =
+    if (gapFindings) {
+      gapFindings.innerHTML = '';
+      worst.forEach((w) => {
+        const li = document.createElement('li');
+        li.textContent = `${w.name}: ${w.value}%`;
+        gapFindings.appendChild(li);
+      });
+    }
+
+    const topText = worst.map(w => `${w.name} (${w.value}%)`).join(' | ');
+    const answersText = answers.map(w => `${w.name}: ${w.value}%`).join(' || ');
+
+    if (hiddenScore) hiddenScore.value = String(score);
+    if (hiddenTop) hiddenTop.value = topText;
+    if (hiddenAnswers) hiddenAnswers.value = answersText;
+
+    if (cta) {
+      cta.onclick = (ev) => {
+        ev.preventDefault();
+
+        const msg = $('textarea[name="message"]');
+        if (msg && !msg.value.trim()) {
+          msg.value =
 `Hola HexaSec, quiero solicitar el informe completo del diagnóstico GAP.
 
 Resultado preliminar: ${score}/100
+Brechas principales: ${topText}
 
 Deseo recibir una cotización y conocer el plan de acción recomendado.`;
+        }
+
+        closeGapModal();
+        setTimeout(() => {
+          document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      };
     }
   });
 })();
 
-/* =========================
-   CONTACT FORM
-========================= */
+/* Formulario contacto */
 (() => {
   const contactForm = $('#contactForm');
   const formStatus = $('#formStatus');
-
   if (!contactForm) return;
 
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    if (formStatus) formStatus.textContent = 'Enviando...';
-
     const formData = new FormData(contactForm);
-
     const name = String(formData.get('name') || '').trim();
     const email = String(formData.get('email') || '').trim();
+    const message = String(formData.get('message') || '').trim();
+    const gotcha = String(formData.get('company') || '').trim();
+    const humanCheck = $('#humanCheck');
 
-    if (!name || !email) {
-      if (formStatus) formStatus.textContent = 'Completa nombre y correo.';
+    if (gotcha) {
+      contactForm.reset();
       return;
     }
+
+    if (!name || !email || !message) {
+      if (formStatus) formStatus.textContent = 'Completa nombre, correo y mensaje.';
+      return;
+    }
+
+    if (!humanCheck || !humanCheck.checked) {
+      if (formStatus) formStatus.textContent = 'Debes confirmar que eres humano antes de enviar.';
+      return;
+    }
+
+    if (formStatus) formStatus.textContent = 'Enviando...';
 
     try {
       const res = await fetch(contactForm.action, {
         method: 'POST',
         body: formData,
-        headers: {
-          Accept: 'application/json'
-        }
+        headers: { Accept: 'application/json' }
       });
 
       if (res.ok) {
