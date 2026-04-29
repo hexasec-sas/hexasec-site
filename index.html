@@ -289,153 +289,63 @@
     <div class="modal__head">
       <div>
         <strong>Diagnóstico GAP de ciberseguridad</strong>
-        <p class="modal__sub">12 controles clave • resultado preliminar • score inmediato</p>
+        <p class="modal__sub">12 controles clave • escala N/A, 0–100 • gráfico de araña inmediato</p>
       </div>
       <button type="button" class="modal__close" data-close="true" aria-label="Cerrar">✕</button>
     </div>
 
     <div class="modal__body">
       <form class="gapForm" id="gapFormModal">
-        <div class="gapGrid">
-          <label class="gapQ">Políticas de seguridad de la información
-            <select name="q1" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Roles y responsabilidades
-            <select name="q2" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Inventario de activos
-            <select name="q3" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Control de acceso
-            <select name="q4" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Autenticación
-            <select name="q5" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Seguridad en nube
-            <select name="q6" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Continuidad TIC
-            <select name="q7" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Concienciación
-            <select name="q8" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Anti-malware / EDR
-            <select name="q9" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Gestión de vulnerabilidades
-            <select name="q10" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Configuración segura
-            <select name="q11" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-
-          <label class="gapQ">Backups
-            <select name="q12" required>
-              <option value="">Selecciona</option>
-              <option value="0">0% - No implementado</option>
-              <option value="40">40% - Parcial</option>
-              <option value="80">80% - Implementado</option>
-              <option value="100">100% - Optimizado</option>
-            </select>
-          </label>
-        </div>
+        <div class="gapGrid" id="gapGridModal"></div>
 
         <div class="gapActions">
           <button class="btn" type="submit">Ver resultado</button>
+          <button class="btn btn--ghost" type="button" id="gapResetBtn">Reiniciar</button>
         </div>
+
+        <p class="small muted" id="gapHintModal" aria-live="polite"></p>
       </form>
 
-      <div class="gapPreview" id="gapPreviewModal" hidden>
+      <div class="gapPreview" id="gapPreviewModal" hidden aria-live="polite">
         <div class="gapCard">
-          <h3>Resultado preliminar</h3>
-          <p class="gapScore"><span id="gapScoreModal">0</span>/100</p>
-          <p class="muted" id="gapSummaryModal">Para el informe completo solicita el análisis detallado y plan 30/60/90 días.</p>
-          <ul id="gapFindingsModal"></ul>
-          <a href="#contacto" class="btn" id="gapCTAModal">Solicitar informe completo</a>
+          <div class="gapTop">
+            <div>
+              <div class="gapLabel">Resultado preliminar</div>
+              <div class="gapScore"><span id="gapScoreModal">0</span>/100</div>
+            </div>
+            <div class="gapBadge" id="gapBadgeModal">Riesgo</div>
+          </div>
+
+          <p class="muted" id="gapSummaryModal" style="margin-top:10px"></p>
+
+          <div class="radarWrap" aria-label="Gráfico de araña">
+            <canvas id="gapRadarModal" width="520" height="420"></canvas>
+            <div class="small muted" style="margin-top:8px">
+              Ejes: controles (ID) • Escala 0–100 • N/A se excluye del promedio.
+            </div>
+          </div>
+
+          <div class="gapTeaser">
+            <h3 style="margin:12px 0 8px;font-size:16px">Brechas principales</h3>
+            <ul id="gapFindingsModal"></ul>
+          </div>
+
+          <div class="gapLock">
+            <div class="notice" role="note" style="color:inherit">
+              <strong>Informe completo PDF:</strong> GAP detallado + priorización + plan de acción 30/60/90 días.
+            </div>
+
+            <a href="#contacto" class="btn" id="gapCTAModal">Solicitar informe completo</a>
+
+            <p class="small muted" style="margin-top:10px">
+              *La muestra no incluye revisión de evidencias ni recomendaciones detalladas por control.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <script src="/script.js?v=9" defer></script>
 </body>
 </html>
