@@ -2,6 +2,36 @@
 
 const $ = (selector, root = document) => root.querySelector(selector);
 
+/* Header premium + scroll reveal */
+(() => {
+  const header = document.querySelector('[data-header]') || document.querySelector('.header');
+  const onScroll = () => {
+    if (!header) return;
+    header.classList.toggle('is-scrolled', window.scrollY > 12);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    items.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+
+  items.forEach((el) => io.observe(el));
+})();
+
+
 /* Año */
 (() => {
   const year = $('#year');
@@ -298,7 +328,7 @@ const GAP_CONTROLS = [
     const n = labels.length;
     const angleStep = (Math.PI * 2) / n;
 
-    radarCtx.strokeStyle = 'rgba(11,18,32,.12)';
+    radarCtx.strokeStyle = 'rgba(56,189,248,.18)';
     radarCtx.lineWidth = 1;
 
     [20, 40, 60, 80, 100].forEach((level) => {
@@ -318,8 +348,8 @@ const GAP_CONTROLS = [
       radarCtx.stroke();
     });
 
-    radarCtx.strokeStyle = 'rgba(11,18,32,.20)';
-    radarCtx.fillStyle = 'rgba(11,18,32,.72)';
+    radarCtx.strokeStyle = 'rgba(37,99,235,.20)';
+    radarCtx.fillStyle = 'rgba(15,23,42,.72)';
     radarCtx.font = '12px system-ui, -apple-system, Segoe UI, Roboto, Arial';
     radarCtx.textAlign = 'center';
     radarCtx.textBaseline = 'middle';
@@ -346,8 +376,8 @@ const GAP_CONTROLS = [
       return [cx + Math.cos(a) * r, cy + Math.sin(a) * r];
     });
 
-    radarCtx.fillStyle = 'rgba(11,18,32,.10)';
-    radarCtx.strokeStyle = 'rgba(11,18,32,.85)';
+    radarCtx.fillStyle = 'rgba(56,189,248,.16)';
+    radarCtx.strokeStyle = 'rgba(37,99,235,.90)';
     radarCtx.lineWidth = 2;
 
     radarCtx.beginPath();
@@ -359,7 +389,7 @@ const GAP_CONTROLS = [
     radarCtx.fill();
     radarCtx.stroke();
 
-    radarCtx.fillStyle = 'rgba(11,18,32,.85)';
+    radarCtx.fillStyle = 'rgba(56,189,248,.95)';
     points.forEach(([x, y]) => {
       radarCtx.beginPath();
       radarCtx.arc(x, y, 3, 0, Math.PI * 2);
