@@ -1,351 +1,263 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="HexaSec S.A.S. - Ciberseguridad, auditoría, análisis de vulnerabilidades e ISO 27001 en Colombia." />
-  <meta name="theme-color" content="#0b1220" />
-  <title>HexaSec S.A.S | Ciberseguridad e ISO 27001</title>
-
-  <link rel="stylesheet" href="/styles.css?v=9" />
-  <link rel="icon" href="/favicon.png" type="image/png" />
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="HexaSec S.A.S. - Ciberseguridad, auditoría, análisis de vulnerabilidades e ISO 27001 en Colombia." name="description"/>
+<meta content="#050b18" name="theme-color"/>
+<title>HexaSec S.A.S | Ciberseguridad e ISO 27001</title>
+<link href="./css/styles.css?v=16" rel="stylesheet"/>
+<link href="./img/favicon.png" rel="icon" type="image/png"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/></head>
 <body>
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
-
 <header class="header">
-  <div class="container header__inner">
-    <a class="brand" href="#contenido" aria-label="HexaSec S.A.S inicio">
-      <img src="/H.png" alt="Logo HexaSec S.A.S" class="brand__logo" loading="eager">
-      <div class="brand__text">
-        <div class="brand__name">HexaSec S.A.S</div>
-        <div class="brand__tag">Ciberseguridad • Auditoría • ISO 27001</div>
-      </div>
-    </a>
-
-    <div class="header__right">
-      <div class="lang-switch" aria-label="Selector de idioma">
-        <a href="/" class="active" aria-current="page">ES</a>
-        <span>·</span>
-        <a href="/en/">EN</a>
-      </div>
-
-      <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">
-        <span></span>
-      </button>
-
-      <nav class="nav" aria-label="Navegación principal">
-        <a href="#servicios">Servicios</a>
-        <a href="#metodo">Método</a>
-        <a href="#diagnostico" id="openGapFromNav">Diagnóstico GAP</a>
-        <a href="#contacto" class="btn btn--small nav__contacto">Contacto</a>
-      </nav>
-    </div>
-  </div>
-
-  <nav id="mobileNav" class="nav--mobile" hidden aria-label="Menú móvil">
-    <a href="#servicios">Servicios</a>
-    <a href="#metodo">Método</a>
-    <a href="#diagnostico" id="openGapFromNavMobile">Diagnóstico GAP</a>
-    <a href="#contacto" class="btn nav__contacto">Contacto</a>
-  </nav>
+<div class="container header__inner">
+<a aria-label="HexaSec S.A.S inicio" class="brand" href="./index.html">
+<img alt="Logo HexaSec S.A.S" class="brand__logo" loading="eager" src="./img/H.png"/>
+<div class="brand__text">
+<div class="brand__name">HexaSec S.A.S</div>
+<div class="brand__tag">Ciberseguridad • Auditoría • ISO 27001</div>
+</div>
+</a>
+<div class="header__right">
+<div aria-label="Selector de idioma" class="lang-switch">
+<a aria-current="page" class="active" href="./index.html">ES</a>
+<span>·</span>
+<a href="./en/index.html">EN</a>
+</div>
+<button aria-controls="mobileNav" aria-expanded="false" aria-label="Abrir menú" class="menu-btn" id="menuBtn" type="button">
+<span></span>
+</button>
+<nav aria-label="Navegación principal" class="nav">
+<a href="#servicios">Servicios</a>
+<a href="#metodo">Método</a>
+<a href="#diagnostico" id="openGapFromNav">Diagnóstico GAP</a>
+<a class="btn btn--small nav__contacto btn--motion" href="#contacto">Contacto</a>
+</nav>
+</div>
+</div>
+<nav aria-label="Menú móvil" class="nav--mobile" hidden="" id="mobileNav">
+<a href="#servicios">Servicios</a>
+<a href="#metodo">Método</a>
+<a href="#diagnostico" id="openGapFromNavMobile">Diagnóstico GAP</a>
+<a class="btn nav__contacto btn--motion" href="#contacto">Contacto</a>
+</nav>
 </header>
-
 <main id="contenido">
-
-  <section class="hero">
-    <div class="container hero__grid">
-      <div class="hero__content">
-        <p class="pill">Bogotá D.C. • Atención Colombia</p>
-        <h1>Identificamos riesgos reales y te damos un plan claro para reducirlos.</h1>
-        <p class="lead">
+<section class="hero hero--premium hero--motion"><span aria-hidden="true" class="hero__orb hero__orb--cyan"></span><span aria-hidden="true" class="hero__orb hero__orb--violet"></span>
+<div class="container hero__grid">
+<div class="hero__content">
+<p class="pill" data-hero-item="1">Bogotá D.C. • Atención Colombia</p>
+<h1 data-hero-item="2">Identificamos riesgos reales y te damos un <span class="text-gradient">plan claro para reducirlos.</span></h1>
+<p class="lead" data-hero-item="3">
           Ayudamos a organizaciones a fortalecer su seguridad con auditorías, análisis de vulnerabilidades
           y preparación práctica para <strong>ISO 27001</strong>.
         </p>
-
-        <div class="hero__actions">
-          <button class="btn" type="button" id="openGapModalBtn">Evaluar mi seguridad en 3 minutos</button>
-          <a class="btn btn--ghost" href="#servicios">Ver servicios</a>
-        </div>
-
-        <ul class="checks">
-          <li>Resultados claros y accionables</li>
-          <li>Enfoque práctico para pymes y empresas en crecimiento</li>
-          <li>Buenas prácticas alineadas a ISO 27001:2022</li>
-        </ul>
-      </div>
-
-      <div class="hero__card">
-        <div class="card">
-          <h2>Diagnóstico GAP de muestra</h2>
-          <p>Responde controles clave y obtén un resultado preliminar con puntaje y brechas principales.</p>
-
-          <div class="stats">
-            <div class="stat">
-              <span class="stat__label">Tiempo</span>
-              <strong class="stat__value">~3 minutos</strong>
-            </div>
-            <div class="stat">
-              <span class="stat__label">Resultado</span>
-              <strong class="stat__value">Score 0–100</strong>
-            </div>
-            <div class="stat">
-              <span class="stat__label">Siguiente paso</span>
-              <strong class="stat__value">Plan 30/60/90 días</strong>
-            </div>
-          </div>
-
-          <div class="notice">
-            <strong>Consejo:</strong> identifica brechas antes de invertir en herramientas o auditorías completas.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="servicios" class="section">
-    <div class="container">
-      <h2>Servicios</h2>
-      <p class="muted">Servicios claros, entregables definidos y enfoque práctico en reducción de riesgo.</p>
-
-      <div class="grid">
-        <article class="service">
-          <h3>Auditoría de ciberseguridad</h3>
-          <p>Revisión de controles, configuraciones, accesos y buenas prácticas de seguridad.</p>
-          <ul>
-            <li>Evaluación basada en riesgo</li>
-            <li>Recomendaciones priorizadas</li>
-            <li>Plan de remediación</li>
-          </ul>
-        </article>
-
-        <article class="service">
-          <h3>Análisis de vulnerabilidades</h3>
-          <p>Identificación y priorización de debilidades técnicas sobre el alcance acordado.</p>
-          <ul>
-            <li>Hallazgos claros</li>
-            <li>Severidad e impacto</li>
-            <li>Guía de remediación</li>
-          </ul>
-        </article>
-
-        <article class="service">
-          <h3>Preparación ISO 27001</h3>
-          <p>Ruta práctica para fortalecer tu SGSI y avanzar hacia ISO 27001.</p>
-          <ul>
-            <li>Diagnóstico GAP</li>
-            <li>Políticas mínimas</li>
-            <li>Plan de implementación</li>
-          </ul>
-        </article>
-
-        <article class="service">
-          <h3>Capacitación y asesoría</h3>
-          <p>Sesiones para equipos técnicos, operativos y directivos.</p>
-          <ul>
-            <li>Concientización</li>
-            <li>Buenas prácticas</li>
-            <li>Respuesta a incidentes</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="metodo" class="section section--dark">
-    <div class="container">
-      <h2>Método de trabajo</h2>
-      <p class="muted">Un camino simple: alcance, evaluación, reporte y acompañamiento.</p>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step__num">1</div>
-          <div>
-            <h3>Alcance</h3>
-            <p>Definimos qué se evalúa, criterios, límites y evidencias requeridas.</p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step__num">2</div>
-          <div>
-            <h3>Evaluación</h3>
-            <p>Revisamos controles, riesgos, configuraciones y prácticas actuales.</p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step__num">3</div>
-          <div>
-            <h3>Reporte</h3>
-            <p>Entregamos hallazgos, prioridades y plan de mejora accionable.</p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step__num">4</div>
-          <div>
-            <h3>Acompañamiento</h3>
-            <p>Apoyamos la implementación para reducir riesgo y fortalecer cumplimiento.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="diagnostico" class="section">
-    <div class="container">
-      <h2>Diagnóstico GAP de ciberseguridad</h2>
-      <p class="muted">
-        Obtén una visión inicial de tu madurez frente a controles clave alineados a ISO 27001.
-      </p>
-
-      <div class="grid">
-        <article class="service">
-          <h3>Score de madurez</h3>
-          <p>Resultado preliminar de 0 a 100 con base en tus respuestas.</p>
-        </article>
-
-        <article class="service">
-          <h3>Brechas principales</h3>
-          <p>Identifica los controles con menor madurez y por dónde empezar.</p>
-        </article>
-      </div>
-
-      <div class="section__cta">
-        <button class="btn" type="button" id="openGapModalBtn2">Iniciar diagnóstico gratuito</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="contacto" class="section">
-    <div class="container">
-      <h2>Contacto</h2>
-      <p class="muted">Solicita el informe completo, una propuesta de auditoría o una asesoría.</p>
-
-      <div class="contact">
-        <div class="contact__info">
-          <div class="info-box">
-            <h3>Correo</h3>
-            <p><a href="mailto:admin@hexasecsas.com">admin@hexasecsas.com</a></p>
-          </div>
-          <div class="info-box">
-            <h3>Ubicación</h3>
-            <p>Bogotá D.C., Colombia</p>
-          </div>
-          <div class="info-box">
-            <h3>Enfoque</h3>
-            <p>Ciberseguridad • Auditoría • ISO 27001</p>
-          </div>
-        </div>
-
-        <form class="form" id="contactForm" action="https://formspree.io/f/xgoovpkq" method="POST">
-          <label>Nombre
-            <input name="name" type="text" maxlength="80" required>
-          </label>
-
-          <label>Correo
-            <input name="email" type="email" maxlength="120" required>
-          </label>
-
-          <label>Mensaje
-            <textarea name="message" rows="5" maxlength="1000" required></textarea>
-          </label>
-
-          <input type="text" name="company" tabindex="-1" autocomplete="off" class="hp-field">
-          <input type="hidden" name="gap_score" id="gap_score">
-          <input type="hidden" name="gap_top_gaps" id="gap_top_gaps">
-          <input type="hidden" name="gap_answers" id="gap_answers">
-
-          <label class="humanRow">
-            <input type="checkbox" id="humanCheck" required>
+<div class="hero__actions" data-hero-item="4">
+<button class="btn btn--motion" id="openGapModalBtn" type="button">Evaluar mi seguridad en 3 minutos</button>
+<a class="btn btn--ghost btn--motion" href="#servicios">Ver servicios</a>
+</div>
+<ul class="checks" data-hero-item="5">
+<li>Resultados claros y accionables</li>
+<li>Enfoque práctico para pymes y empresas en crecimiento</li>
+<li>Buenas prácticas alineadas a ISO 27001:2022</li>
+</ul>
+</div>
+<div class="hero__card" data-hero-visual=""><div aria-label="Vista previa de un informe de seguridad" class="security-preview motion-tilt">
+<div class="preview__top"><span class="preview__eyebrow">HEXASEC SECURITY OVERVIEW</span><span class="status-dot">En evaluación</span></div>
+<div class="preview__score"><div><span>Nivel de madurez</span><strong>68</strong><small>/100</small></div><div aria-hidden="true" class="score-ring"><span>68%</span></div></div>
+<div class="preview__bars">
+<div><span>Gobierno y riesgo</span><i style="--value:72%"></i><b>72%</b></div>
+<div><span>Gestión de accesos</span><i style="--value:58%"></i><b>58%</b></div>
+<div><span>Continuidad</span><i style="--value:76%"></i><b>76%</b></div>
+</div>
+<div class="preview__finding"><span class="finding-icon">!</span><div><strong>Prioridad identificada</strong><p>Fortalecer revisión de privilegios y evidencia de controles.</p></div></div>
+</div></div>
+</div>
+</section><section aria-label="Marcos y capacidades" class="trust-bar" data-reveal="">
+<div class="container trust-bar__inner"><span>Evaluaciones alineadas con</span><strong>ISO/IEC 27001:2022</strong><strong>ISO 9001:2015</strong><strong>Gestión de riesgos</strong></div>
+</section>
+<section class="section" id="servicios">
+<div class="container">
+<h2 data-reveal="">Servicios</h2>
+<p class="muted" data-reveal="">Servicios claros, entregables definidos y enfoque práctico en reducción de riesgo.</p>
+<div class="grid">
+<article class="service service--featured" data-reveal="" style="--reveal-delay:0ms"><div aria-hidden="true" class="service__icon service__icon--shield-check"></div><div class="service__category">AUDITORÍA Y CUMPLIMIENTO</div>
+<h3>Auditoría de ciberseguridad</h3>
+<p>Revisión de controles, configuraciones, accesos y buenas prácticas de seguridad.</p>
+<ul>
+<li>Evaluación basada en riesgo</li>
+<li>Recomendaciones priorizadas</li>
+<li>Plan de remediación</li>
+</ul>
+<a class="service__link" href="#contacto">Solicitar información <span aria-hidden="true">→</span></a></article>
+<article class="service" data-reveal="" style="--reveal-delay:80ms"><div aria-hidden="true" class="service__icon service__icon--radar"></div><div class="service__category">EVALUACIÓN TÉCNICA</div>
+<h3>Análisis de vulnerabilidades</h3>
+<p>Identificación y priorización de debilidades técnicas sobre el alcance acordado.</p>
+<ul>
+<li>Hallazgos claros</li>
+<li>Severidad e impacto</li>
+<li>Guía de remediación</li>
+</ul>
+<a class="service__link" href="#contacto">Solicitar información <span aria-hidden="true">→</span></a></article>
+<article class="service" data-reveal="" style="--reveal-delay:160ms"><div aria-hidden="true" class="service__icon service__icon--certificate"></div><div class="service__category">PREPARACIÓN Y MEJORA</div>
+<h3>Preparación ISO 27001</h3>
+<p>Ruta práctica para fortalecer tu SGSI y avanzar hacia ISO 27001.</p>
+<ul>
+<li>Diagnóstico GAP</li>
+<li>Políticas mínimas</li>
+<li>Plan de implementación</li>
+</ul>
+<a class="service__link" href="#contacto">Solicitar información <span aria-hidden="true">→</span></a></article>
+<article class="service" data-reveal="" style="--reveal-delay:240ms"><div aria-hidden="true" class="service__icon service__icon--users"></div><div class="service__category">CAPACIDADES Y CULTURA</div>
+<h3>Capacitación y asesoría</h3>
+<p>Sesiones para equipos técnicos, operativos y directivos.</p>
+<ul>
+<li>Concientización</li>
+<li>Buenas prácticas</li>
+<li>Respuesta a incidentes</li>
+</ul>
+<a class="service__link" href="#contacto">Solicitar información <span aria-hidden="true">→</span></a></article>
+</div>
+</div>
+</section>
+<section class="section section--dark" id="metodo">
+<div class="container">
+<h2 data-reveal="">Método de trabajo</h2>
+<p class="muted" data-reveal="">Un camino simple: alcance, evaluación, reporte y acompañamiento.</p>
+<div class="steps" data-reveal="">
+<div class="step" data-reveal="">
+<div class="step__num">1</div>
+<div>
+<div class="step__verb">DEFINIMOS</div><h3>Alcance</h3>
+<p>Definimos qué se evalúa, criterios, límites y evidencias requeridas.</p>
+</div>
+</div>
+<div class="step" data-reveal="">
+<div class="step__num">2</div>
+<div>
+<div class="step__verb">EVALUAMOS</div><h3>Evaluación</h3>
+<p>Revisamos controles, riesgos, configuraciones y prácticas actuales.</p>
+</div>
+</div>
+<div class="step" data-reveal="">
+<div class="step__num">3</div>
+<div>
+<div class="step__verb">PRIORIZAMOS</div><h3>Reporte</h3>
+<p>Entregamos hallazgos, prioridades y plan de mejora accionable.</p>
+</div>
+</div>
+<div class="step" data-reveal="">
+<div class="step__num">4</div>
+<div>
+<div class="step__verb">ACOMPAÑAMOS</div><h3>Acompañamiento</h3>
+<p>Apoyamos la implementación para reducir riesgo y fortalecer cumplimiento.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="diagnostico"><div class="container"><div class="gap-banner" data-reveal=""><div><span class="eyebrow">DIAGNÓSTICO GRATUITO</span><h2>Conoce tu nivel de madurez en menos de 5 minutos</h2><p>Responde 12 controles clave y recibe un puntaje inmediato, brechas principales y una orientación inicial.</p><div class="gap-banner__meta"><span>12 preguntas</span><span>Resultado inmediato</span><span>Sin registro obligatorio</span></div></div><div class="gap-banner__action"><div class="mini-score"><span>Vista de resultado</span><strong>0–100</strong><small>Madurez preliminar</small></div><button class="btn btn--accent btn--motion" id="openGapModalBtn2" type="button">Iniciar diagnóstico</button><a class="text-link" href="./gap/index.html">Abrir experiencia completa →</a></div></div></div></section>
+<section class="section" id="contacto">
+<div class="container">
+<h2 data-reveal="">Contacto</h2>
+<p class="muted" data-reveal="">Solicita el informe completo, una propuesta de auditoría o una asesoría.</p>
+<div class="contact">
+<div class="contact__info" data-reveal="">
+<div class="info-box" data-reveal="">
+<h3>Correo</h3>
+<p><a href="mailto:admin@hexasecsas.com">admin@hexasecsas.com</a></p>
+</div>
+<div class="info-box" data-reveal="">
+<h3>Ubicación</h3>
+<p>Bogotá D.C., Colombia</p>
+</div>
+<div class="info-box" data-reveal="">
+<h3>Enfoque</h3>
+<p>Ciberseguridad • Auditoría • ISO 27001</p>
+</div>
+</div>
+<form action="https://formspree.io/f/xgoovpkq" class="form" data-reveal="" id="contactForm" method="POST">
+<div class="form__intro"><span class="eyebrow">HABLEMOS DE TU NECESIDAD</span><h3>Solicita una evaluación</h3><p>Te responderemos en un plazo estimado de un día hábil.</p></div><label>Empresa<input maxlength="120" name="company_name" placeholder="Nombre de la organización" type="text"/></label><label>Nombre
+            <input maxlength="80" name="name" required="" type="text"/>
+</label>
+<label>Correo
+            <input maxlength="120" name="email" required="" type="email"/>
+</label><label>Servicio de interés<select name="service"><option value="">Selecciona una opción</option><option>Auditoría de ciberseguridad</option><option>Análisis de vulnerabilidades</option><option>Preparación ISO 27001</option><option>Capacitación y asesoría</option></select></label>
+<label>Mensaje
+            <textarea maxlength="1000" name="message" required="" rows="5"></textarea>
+</label>
+<input name="request_id" type="hidden" value=""/><input name="form_language" type="hidden" value="es"/><input name="_subject" type="hidden" value="Nueva solicitud desde el sitio web | HexaSec S.A.S."/><input name="source" type="hidden" value="hexasecsas.com"/><input autocomplete="off" class="hp-field" name="company" tabindex="-1" type="text"/>
+<input id="gap_score" name="gap_score" type="hidden"/>
+<input id="gap_top_gaps" name="gap_top_gaps" type="hidden"/>
+<input id="gap_answers" name="gap_answers" type="hidden"/>
+<label class="humanRow">
+<input id="humanCheck" required="" type="checkbox"/>
             Confirmo que soy humano
           </label>
-
-          <button class="btn" type="submit">Enviar mensaje</button>
-          <p class="small muted" id="formStatus" aria-live="polite"></p>
-        </form>
-      </div>
-    </div>
-  </section>
-
+<button class="btn btn--motion" type="submit">Enviar mensaje</button>
+<p aria-live="polite" class="small muted" id="formStatus"></p><div aria-live="polite" class="contact-confirmation" hidden="" id="contactConfirmation"><span aria-hidden="true" class="contact-confirmation__icon">✓</span><div><strong>Solicitud recibida</strong><p>Enviamos tu información a HexaSec. Conserva el número de referencia para seguimiento.</p><span class="contact-confirmation__reference">Referencia: <code id="contactReference"></code></span><small>Recibirás un correo de confirmación cuando la respuesta automática de Formspree esté habilitada.</small></div></div>
+</form>
+</div>
+</div>
+</section>
 </main>
-
-<footer class="footer">
-  <div class="container footer__inner">
-    <div>© <span id="year"></span> HexaSec S.A.S.</div>
-    <div class="footer__links">
-      <a href="#servicios">Servicios</a>
-      <a href="#contacto">Contacto</a>
-    </div>
-  </div>
-</footer>
-
-<div class="modal" id="gapModal" aria-hidden="true" role="dialog" aria-modal="true">
-  <div class="modal__overlay" data-close="true"></div>
-
-  <div class="modal__panel" role="document" aria-label="Diagnóstico GAP">
-    <div class="modal__head">
-      <div>
-        <strong>Diagnóstico GAP de ciberseguridad</strong>
-        <p class="modal__sub">12 controles clave • escala N/A, 0–100 • gráfico de araña inmediato</p>
-      </div>
-      <button type="button" class="modal__close" data-close="true" aria-label="Cerrar">✕</button>
-    </div>
-
-    <div class="modal__body">
-      <form class="gapForm" id="gapFormModal">
-        <div class="gapGrid" id="gapGridModal"></div>
-
-        <div class="gapActions">
-          <button class="btn" type="submit">Ver resultado</button>
-          <button class="btn btn--ghost" type="button" id="gapResetBtn">Reiniciar</button>
-        </div>
-
-        <p class="small muted" id="gapHintModal" aria-live="polite"></p>
-      </form>
-
-      <div class="gapPreview" id="gapPreviewModal" hidden aria-live="polite">
-        <div class="gapCard">
-          <div class="gapTop">
-            <div>
-              <div class="gapLabel">Resultado preliminar</div>
-              <div class="gapScore"><span id="gapScoreModal">0</span>/100</div>
-            </div>
-            <div class="gapBadge" id="gapBadgeModal">Riesgo</div>
-          </div>
-
-          <p class="muted" id="gapSummaryModal" style="margin-top:10px"></p>
-
-          <div class="radarWrap" aria-label="Gráfico de araña">
-            <canvas id="gapRadarModal" width="520" height="420"></canvas>
-            <div class="small muted" style="margin-top:8px">
+<footer class="footer"><div class="container footer__grid"><div class="footer__brand"><div class="brand brand--footer"><img alt="" class="brand__logo" src="./img/H.png"/><div><strong>HexaSec S.A.S.</strong><p>Ciberseguridad, auditoría y cumplimiento con enfoque práctico y basado en riesgo.</p></div></div></div><div><h3>Servicios</h3><a href="#servicios">Auditoría</a><a href="#servicios">Vulnerabilidades</a><a href="#servicios">ISO 27001</a></div><div><h3>Recursos</h3><a href="./gap/index.html">Diagnóstico GAP</a><a href="#metodo">Metodología</a></div><div><h3>Contacto</h3><a href="mailto:admin@hexasecsas.com">admin@hexasecsas.com</a><span>Bogotá D.C., Colombia</span><a href="./en/index.html">English version</a></div></div><div class="container footer__bottom"><span class="footer__legal">© <span id="year"></span> HexaSec S.A.S. · Bogotá D.C., Colombia · Todos los derechos reservados.</span></div></footer>
+<div aria-hidden="true" aria-modal="true" class="modal" id="gapModal" role="dialog">
+<div class="modal__overlay" data-close="true"></div>
+<div aria-label="Diagnóstico GAP" class="modal__panel" role="document">
+<div class="modal__head">
+<div>
+<div class="modal__identity"><span aria-hidden="true" class="modal__icon">⌁</span><div><span class="modal__kicker">EVALUACIÓN INTERACTIVA</span><strong>Diagnóstico GAP de ciberseguridad</strong>
+<p class="modal__sub">12 controles clave • resultado inmediato • prioridades de mejora</p></div></div>
+</div>
+<button aria-label="Cerrar" class="modal__close" data-close="true" type="button">✕</button>
+</div>
+<div class="modal__body">
+<form class="gapForm" id="gapFormModal">
+<div class="gapGrid" id="gapGridModal"></div>
+<div class="gapActions">
+<button class="btn btn--motion" type="submit">Ver resultado</button>
+<button class="btn btn--ghost btn--motion" id="gapResetBtn" type="button">Reiniciar</button>
+</div>
+<p aria-live="polite" class="small muted" id="gapHintModal"></p>
+</form>
+<div aria-live="polite" class="gapPreview" hidden="" id="gapPreviewModal">
+<div class="gapCard">
+<div class="gapTop">
+<div>
+<div class="gapLabel">Resultado preliminar</div>
+<div class="gapScore"><span id="gapScoreModal">0</span>/100</div>
+</div>
+<div class="gapBadge" id="gapBadgeModal">Riesgo</div>
+</div>
+<p class="gap-summary" id="gapSummaryModal"></p>
+<div aria-label="Gráfico de araña" class="radarWrap">
+<canvas height="420" id="gapRadarModal" width="520"></canvas>
+<div class="gap-note">
               Ejes: controles (ID) • Escala 0–100 • N/A se excluye del promedio.
             </div>
-          </div>
-
-          <div class="gapTeaser">
-            <h3 style="margin:12px 0 8px;font-size:16px">Brechas principales</h3>
-            <ul id="gapFindingsModal"></ul>
-          </div>
-
-          <div class="gapLock">
-            <div class="notice" role="note" style="color:inherit">
-              <strong>Informe completo PDF:</strong> GAP detallado + priorización + plan de acción 30/60/90 días.
+</div>
+<div class="gapTeaser">
+<h3 class="gap-findings-title">Brechas principales</h3>
+<ul id="gapFindingsModal"></ul>
+</div>
+<div class="gapLock">
+<div class="notice" role="note">
+<strong>Informe completo PDF:</strong> GAP detallado + priorización + plan de acción 30/60/90 días.
             </div>
-
-            <a href="#contacto" class="btn" id="gapCTAModal">Solicitar informe completo</a>
-
-            <p class="small muted" style="margin-top:10px">
+<a class="btn btn--motion" href="#contacto" id="gapCTAModal">Solicitar informe completo</a>
+<p class="gap-summary">
               *La muestra no incluye revisión de evidencias ni recomendaciones detalladas por control.
             </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
-<script src="/script.js?v=9" defer></script>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script defer="" src="./js/script.js?v=16"></script>
 </body>
 </html>
