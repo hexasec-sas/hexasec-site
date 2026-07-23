@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050b18">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Request received | HexaSec S.A.S.</title>
+  <link rel="stylesheet" href="../css/styles.css?v=20">
+  <link rel="icon" href="../img/favicon.png" type="image/png">
+</head>
+<body class="thankyou-page">
+  <main class="thankyou-shell">
+    <section class="thankyou-card" aria-labelledby="thanksTitle">
+      <a class="brand thankyou-brand" href="./index.html" aria-label="Back to HexaSec home">
+        <img class="brand__logo" src="../img/H.png" alt="HexaSec S.A.S. logo">
+        <span class="brand__name">HexaSec S.A.S.</span>
+      </a>
+      <div class="thankyou-icon" aria-hidden="true">✓</div>
+      <span class="eyebrow" id="thanksKicker">SUBMISSION CONFIRMATION</span>
+      <h1 id="thanksTitle">Thank you for contacting us.</h1>
+      <p class="lead" id="thanksLead">FormSubmit confirmed the submission. Our team will review your request within approximately one business day.</p>
+      <div class="thankyou-reference" id="referenceBox" hidden>
+        <span>Reference</span>
+        <strong id="referenceValue"></strong>
+      </div>
+      <p class="muted" id="thanksNote">You should also receive an automatic confirmation email at the address you provided.</p>
+      <div class="thankyou-actions">
+        <a class="btn btn--motion" href="./index.html">Back to home</a>
+        <a class="btn btn--ghost btn--motion" href="./gap/index.html">GAP Assessment</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const ref = new URLSearchParams(location.search).get('ref');
+    const box = document.getElementById('referenceBox');
+    if (ref) {
+      document.getElementById('referenceValue').textContent = ref;
+      box.hidden = false;
+    } else {
+      document.getElementById('thanksKicker').textContent = 'CONFIRMATION PAGE';
+      document.getElementById('thanksTitle').textContent = 'This page confirms submitted requests.';
+      document.getElementById('thanksLead').textContent = 'No submission reference was found in the URL. Please use the contact form to submit a request.';
+      document.getElementById('thanksNote').textContent = 'If you just submitted the form and arrived here without a reference, contact us at admin@hexasecsas.com.';
+    }
+  </script>
+</body>
+</html>

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#050b18">
   <meta name="robots" content="noindex,nofollow">
   <title>Solicitud recibida | HexaSec S.A.S.</title>
-  <link rel="stylesheet" href="./css/styles.css?v=19">
+  <link rel="stylesheet" href="./css/styles.css?v=20">
   <link rel="icon" href="./img/favicon.png" type="image/png">
 </head>
 <body class="thankyou-page">
@@ -17,14 +17,14 @@
         <span class="brand__name">HexaSec S.A.S.</span>
       </a>
       <div class="thankyou-icon" aria-hidden="true">✓</div>
-      <span class="eyebrow">SOLICITUD REGISTRADA</span>
+      <span class="eyebrow" id="thanksKicker">CONFIRMACIÓN DE ENVÍO</span>
       <h1 id="thanksTitle">Gracias por contactarnos.</h1>
-      <p class="lead">Recibimos tu solicitud y nuestro equipo la revisará en un plazo estimado de un día hábil.</p>
+      <p class="lead" id="thanksLead">FormSubmit confirmó el envío. Nuestro equipo revisará tu solicitud en un plazo estimado de un día hábil.</p>
       <div class="thankyou-reference" id="referenceBox" hidden>
         <span>Referencia</span>
         <strong id="referenceValue"></strong>
       </div>
-      <p class="muted">También recibirás un correo automático de confirmación en la dirección que registraste.</p>
+      <p class="muted" id="thanksNote">También deberías recibir un correo automático de confirmación en la dirección que registraste.</p>
       <div class="thankyou-actions">
         <a class="btn btn--motion" href="./index.html">Volver al inicio</a>
         <a class="btn btn--ghost btn--motion" href="./gap/index.html">Diagnóstico GAP</a>
@@ -33,9 +33,15 @@
   </main>
   <script>
     const ref = new URLSearchParams(location.search).get('ref');
+    const box = document.getElementById('referenceBox');
     if (ref) {
       document.getElementById('referenceValue').textContent = ref;
-      document.getElementById('referenceBox').hidden = false;
+      box.hidden = false;
+    } else {
+      document.getElementById('thanksKicker').textContent = 'PÁGINA DE CONFIRMACIÓN';
+      document.getElementById('thanksTitle').textContent = 'Esta página confirma solicitudes enviadas.';
+      document.getElementById('thanksLead').textContent = 'No encontramos una referencia de envío en la URL. Para registrar una solicitud, utiliza el formulario de contacto.';
+      document.getElementById('thanksNote').textContent = 'Si acabas de enviar el formulario y llegaste aquí sin referencia, contáctanos en admin@hexasecsas.com.';
     }
   </script>
 </body>

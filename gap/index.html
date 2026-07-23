@@ -12,13 +12,13 @@
           img-src 'self' data: https:;
           style-src 'self';
           script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-inline';
-          connect-src 'self' https://formspree.io https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com;
+          connect-src 'self' https://formsubmit.co https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com;
           base-uri 'self';
-          form-action 'self' https://formspree.io;
+          form-action 'self' https://formsubmit.co;
           frame-ancestors 'none';
         " http-equiv="Content-Security-Policy"/>
 <!-- IMPORTANTE: en /gap/ debes subir un nivel -->
-<link href="../css/styles.css?v=16" rel="stylesheet"/>
+<link href="../css/styles.css?v=20" rel="stylesheet"/>
 <link href="../img/favicon.png" rel="icon" type="image/png"/>
 <link href="https://hexasecsas.com/gap/" rel="canonical"/>
 <link href="https://hexasecsas.com/gap/" hreflang="es" rel="alternate"/>
@@ -265,7 +265,7 @@
 <p>Lun–Vie: 8:00–18:00</p>
 </div>
 </div>
-<form action="https://formspree.io/f/xgoovpkq" autocomplete="on" class="form" data-reveal="" id="contactForm" method="POST">
+<form action="https://formsubmit.co/admin@hexasecsas.com" accept-charset="UTF-8" autocomplete="on" class="form" data-reveal="" id="contactForm" method="POST">
 <label>
               Nombre
               <input maxlength="80" name="name" required="" type="text"/>
@@ -279,7 +279,7 @@
               <textarea maxlength="1000" name="message" required="" rows="5"></textarea>
 </label>
 <!-- honeypot -->
-<input name="request_id" type="hidden" value=""/><input name="form_language" type="hidden" value="es"/><input name="_subject" type="hidden" value="Nueva solicitud desde el diagnóstico GAP | HexaSec S.A.S."/><input name="source" type="hidden" value="hexasecsas.com/gap"/><input autocomplete="off" class="hp-field" name="company" tabindex="-1" type="text"/>
+<input name="request_id" type="hidden" value=""/><input name="form_language" type="hidden" value="es"/><input name="_subject" type="hidden" value="Nueva solicitud desde el diagnóstico GAP | HexaSec S.A.S."/><input name="source" type="hidden" value="https://hexasecsas.com/gap/"/><input name="_next" type="hidden" value="https://hexasecsas.com/gracias.html?origen=gap"/><input name="_url" type="hidden" value="https://hexasecsas.com/gap/"/><input name="_template" type="hidden" value="table"/><input name="_autoresponse" type="hidden" value="Hola. Hemos recibido correctamente tu solicitud en HexaSec S.A.S. Nuestro equipo revisará la información y se pondrá en contacto contigo en un plazo estimado de un día hábil. Ayudamos a las organizaciones a identificar riesgos, evaluar controles y fortalecer su seguridad mediante auditorías de ciberseguridad, análisis de vulnerabilidades, diagnósticos GAP y preparación para ISO/IEC 27001:2022. Conoce más en https://hexasecsas.com. Gracias por confiar en HexaSec S.A.S."/><input autocomplete="off" class="hp-field" name="_honey" tabindex="-1" type="text"/>
 <!-- Campos ocultos del diagnóstico -->
 <input id="gap_score" name="gap_score" type="hidden"/>
 <input id="gap_top_gaps" name="gap_top_gaps" type="hidden"/>
@@ -289,7 +289,7 @@
               Confirmo que soy humano
             </label>
 <button class="btn btn--motion" type="submit">Enviar mensaje</button>
-<p aria-live="polite" class="small muted" id="formStatus"></p><div aria-live="polite" class="contact-confirmation" hidden="" id="contactConfirmation"><span aria-hidden="true" class="contact-confirmation__icon">✓</span><div><strong>Solicitud recibida</strong><p>Enviamos tu información a HexaSec. Conserva el número de referencia para seguimiento.</p><span class="contact-confirmation__reference">Referencia: <code id="contactReference"></code></span><small>Recibirás un correo de confirmación cuando la respuesta automática de Formspree esté habilitada.</small></div></div>
+<p aria-live="polite" class="small muted" id="formStatus">Al enviar, recibirás un correo automático de confirmación.</p>
 </form>
 </div>
 </div>
@@ -359,6 +359,6 @@
 </div>
 </div>
 <!-- IMPORTANTE: en /gap/ debes subir un nivel -->
-<script defer="" src="../js/script.js?v=16"></script>
+<script defer="" src="../js/script.js?v=20"></script>
 </body>
 </html>

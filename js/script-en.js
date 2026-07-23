@@ -73,71 +73,67 @@ function createContactReference() {
 }
 
 /* =========================
-   CONTACT FORM (Formspree) - English
+   CONTACT FORM — FormSubmit V20
+   Success is only confirmed after FormSubmit redirects to thanks.html.
+   No AJAX is used because _autoresponse does not work with AJAX.
 ========================= */
 (() => {
   const form = $('#contactForm');
   const statusEl = $('#formStatus');
-  const confirmation = $('#contactConfirmation');
-  const referenceEl = $('#contactReference');
   if (!form) return;
 
-  const cleanText = (input) => String(input || '').replace(/[\r\n]+/g, ' ').trim();
+  const submitButton = form.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton?.textContent || 'Send message';
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (statusEl) statusEl.textContent = 'Sending...';
-    if (confirmation) confirmation.hidden = true;
-    const reference = createContactReference();
-    const requestInput = form.querySelector('[name="request_id"]');
-    if (requestInput) requestInput.value = reference;
+  const restoreButton = () => {
+    if (!submitButton) return;
+    submitButton.disabled = false;
+    submitButton.textContent = originalButtonText;
+  };
 
-    const formData = new FormData(form);
+  window.addEventListener('pageshow', restoreButton);
 
-    const name = cleanText(formData.get('name'));
-    const email = cleanText(formData.get('email'));
-    const message = cleanText(formData.get('message'));
-
-    // Honeypot (input "company")
-    const gotcha = cleanText(formData.get('company'));
-    if (gotcha) {
-      if (statusEl) statusEl.textContent = 'Sent.';
+  form.addEventListener('submit', (e) => {
+    const honey = String(form.querySelector('[name="_honey"]')?.value || '').trim();
+    if (honey) {
+      e.preventDefault();
       form.reset();
       return;
     }
 
-    if (!name || !email || !message) {
-      if (statusEl) statusEl.textContent = 'Please complete all fields.';
-      return;
-    }
-
-    const humanCheck = $('#humanCheck');
-    if (humanCheck && !humanCheck.checked) {
-      if (statusEl) statusEl.textContent = 'Please confirm you are human.';
-      return;
-    }
-
-    formData.set('name', name);
-    formData.set('email', email);
-    formData.set('message', message);
-
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (res.ok) {
-        if (statusEl) statusEl.textContent = '✅ Message sent. We will review your request within approximately one business day.';
-        if (referenceEl) referenceEl.textContent = reference;
-        if (confirmation) confirmation.hidden = false;
-        form.reset();
-      } else {
-        if (statusEl) statusEl.textContent = '❌ Could not send. Please try again.';
+    if (window.location.protocol === 'file:') {
+      e.preventDefault();
+      restoreButton();
+      if (statusEl) {
+        statusEl.textContent = 'To test the form, open the site from https://hexasecsas.com or a local web server (http://localhost). FormSubmit does not process forms opened with file:///.';
+        statusEl.classList.add('form-status--warning');
       }
-    } catch {
-      if (statusEl) statusEl.textContent = '❌ Network error. Check your connection.';
+      return;
+    }
+
+    const reference = createContactReference();
+    const requestInput = form.querySelector('[name="request_id"]');
+    if (requestInput) requestInput.value = reference;
+
+    const nextInput = form.querySelector('[name="_next"]');
+    if (nextInput) {
+      try {
+        const url = new URL(nextInput.value, window.location.href);
+        url.searchParams.set('ref', reference);
+        nextInput.value = url.toString();
+      } catch (_) {
+        // Keep original URL if it cannot be parsed.
+      }
+    }
+
+    if (statusEl) {
+      statusEl.classList.remove('form-status--warning');
+      statusEl.textContent = 'Sending to FormSubmit… On first use, check admin@hexasecsas.com to activate the form.';
+    }
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending…';
     }
   });
 })();

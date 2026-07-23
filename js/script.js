@@ -469,62 +469,66 @@ function createContactReference() {
   return `HEX-${year}-${stamp}-${random}`;
 }
 
-/* Formulario contacto */
+/* Formulario contacto — FormSubmit V20
+   Importante: el éxito solo lo confirma FormSubmit al redirigir a gracias.html.
+   No se usa AJAX porque _autoresponse no funciona con AJAX. */
 (() => {
   const contactForm = $('#contactForm');
   const formStatus = $('#formStatus');
-  const confirmation = $('#contactConfirmation');
-  const referenceEl = $('#contactReference');
   if (!contactForm) return;
 
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  const submitButton = contactForm.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton?.textContent || 'Enviar mensaje';
 
-    if (confirmation) confirmation.hidden = true;
-    const reference = createContactReference();
-    const requestInput = contactForm.querySelector('[name="request_id"]');
-    if (requestInput) requestInput.value = reference;
-    const formData = new FormData(contactForm);
-    const name = String(formData.get('name') || '').trim();
-    const email = String(formData.get('email') || '').trim();
-    const message = String(formData.get('message') || '').trim();
-    const gotcha = String(formData.get('company') || '').trim();
-    const humanCheck = $('#humanCheck');
+  const restoreButton = () => {
+    if (!submitButton) return;
+    submitButton.disabled = false;
+    submitButton.textContent = originalButtonText;
+  };
 
-    if (gotcha) {
+  window.addEventListener('pageshow', restoreButton);
+
+  contactForm.addEventListener('submit', (e) => {
+    const honey = String(contactForm.querySelector('[name="_honey"]')?.value || '').trim();
+    if (honey) {
+      e.preventDefault();
       contactForm.reset();
       return;
     }
 
-    if (!name || !email || !message) {
-      if (formStatus) formStatus.textContent = 'Completa nombre, correo y mensaje.';
-      return;
-    }
-
-    if (!humanCheck || !humanCheck.checked) {
-      if (formStatus) formStatus.textContent = 'Debes confirmar que eres humano antes de enviar.';
-      return;
-    }
-
-    if (formStatus) formStatus.textContent = 'Enviando...';
-
-    try {
-      const res = await fetch(contactForm.action, {
-        method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' }
-      });
-
-      if (res.ok) {
-        if (formStatus) formStatus.textContent = '✅ Mensaje enviado correctamente. Revisaremos tu solicitud en un plazo estimado de un día hábil.';
-        if (referenceEl) referenceEl.textContent = reference;
-        if (confirmation) confirmation.hidden = false;
-        contactForm.reset();
-      } else {
-        if (formStatus) formStatus.textContent = '❌ No se pudo enviar. Intenta nuevamente.';
+    if (window.location.protocol === 'file:') {
+      e.preventDefault();
+      restoreButton();
+      if (formStatus) {
+        formStatus.textContent = 'Para probar el envío abre el sitio desde https://hexasecsas.com o desde un servidor local (http://localhost). FormSubmit no procesa formularios abiertos con file:///.';
+        formStatus.classList.add('form-status--warning');
       }
-    } catch {
-      if (formStatus) formStatus.textContent = '❌ Error de conexión. Revisa tu internet.';
+      return;
+    }
+
+    const reference = createContactReference();
+    const requestInput = contactForm.querySelector('[name="request_id"]');
+    if (requestInput) requestInput.value = reference;
+
+    const nextInput = contactForm.querySelector('[name="_next"]');
+    if (nextInput) {
+      try {
+        const url = new URL(nextInput.value, window.location.href);
+        url.searchParams.set('ref', reference);
+        nextInput.value = url.toString();
+      } catch (_) {
+        // Si la URL no puede procesarse, FormSubmit usará el valor original.
+      }
+    }
+
+    if (formStatus) {
+      formStatus.classList.remove('form-status--warning');
+      formStatus.textContent = 'Enviando a FormSubmit… Si es la primera vez, revisa admin@hexasecsas.com para activar el formulario.';
+    }
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Enviando…';
     }
   });
 })();
