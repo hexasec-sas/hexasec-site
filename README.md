@@ -1,12 +1,12 @@
-# HexaSec sitio público v20
+# HexaSec sitio público v21
 
-Versión lista para GitHub Pages. El módulo MSPI no forma parte del sitio público.
+Versión pública v21 con identidad visual unificada, páginas ES/EN, diagnóstico GAP, formularios FormSubmit y widget HexaBot.
 
-## Formularios
-Los formularios usan FormSubmit sin AJAX para permitir `_autoresponse`. El endpoint público es `https://formsubmit.co/admin@hexasecsas.com`.
+## Producción
+- Inicio ES: `index.html`
+- Inicio EN: `en/index.html`
+- GAP ES: `gap/index.html`
+- GAP EN: `en/gap/index.html`
+- HexaBot: `https://chat.hexasecsas.com`
 
-**Primer uso:** envía el formulario desde `https://hexasecsas.com` y confirma el correo de activación que FormSubmit envía a `admin@hexasecsas.com`. Hasta completar esa activación, FormSubmit no entrega normalmente los mensajes.
-
-No pruebes el envío mediante `file:///`; usa GitHub Pages o un servidor local HTTP.
-
-Ver `FORMULARIOS-v20.md` y `QA-v20.md`.
+MSPI no forma parte de este paquete público.

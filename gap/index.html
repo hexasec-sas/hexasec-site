@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Diagnóstico GAP (muestra) – Evalúa tu madurez en ciberseguridad frente a ISO 27001 en minutos. Resultado con gráfico radar y brechas principales." name="description"/>
+<meta content="Diagnóstico GAP (muestra) – Evalúa tu madurez en ciberseguridad frente a ISO/IEC 27001 en minutos. Resultado con gráfico radar y brechas principales." name="description"/>
 <meta content="#050b18" name="theme-color"/>
 <title>Diagnóstico GAP | HexaSec S.A.S</title>
 <meta content="
@@ -15,10 +15,11 @@
           connect-src 'self' https://formsubmit.co https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com;
           base-uri 'self';
           form-action 'self' https://formsubmit.co;
+          frame-src https://chat.hexasecsas.com;
           frame-ancestors 'none';
         " http-equiv="Content-Security-Policy"/>
 <!-- IMPORTANTE: en /gap/ debes subir un nivel -->
-<link href="../css/styles.css?v=20" rel="stylesheet"/>
+<link href="../css/styles.css?v=22" rel="stylesheet"/>
 <link href="../img/favicon.png" rel="icon" type="image/png"/>
 <link href="https://hexasecsas.com/gap/" rel="canonical"/>
 <link href="https://hexasecsas.com/gap/" hreflang="es" rel="alternate"/>
@@ -42,7 +43,7 @@
 <img alt="Logo HexaSec S.A.S" class="brand__logo" loading="eager" src="../img/H.png"/>
 <div class="brand__text">
 <div class="brand__name">HexaSec S.A.S</div>
-<div class="brand__tag">Ciberseguridad • Auditoría • ISO 27001</div>
+<div class="brand__tag">Ciberseguridad • Auditoría • ISO/IEC 27001</div>
 </div>
 </a>
 <div class="header__right">
@@ -80,11 +81,11 @@
 <section class="hero hero--motion"><span aria-hidden="true" class="hero__orb hero__orb--cyan"></span><span aria-hidden="true" class="hero__orb hero__orb--violet"></span>
 <div class="container hero__grid">
 <div class="hero__content">
-<p class="pill" data-hero-item="1">ISO 27001 • Muestra gratuita • Resultado inmediato</p>
+<p class="pill" data-hero-item="1">ISO/IEC 27001 • Muestra gratuita • Resultado inmediato</p>
 <h1 data-hero-item="2">Diagnóstico GAP de madurez en ciberseguridad.</h1>
 <p class="lead" data-hero-item="3">
             En <strong>2–3 minutos</strong> identifica tu nivel real frente a buenas prácticas e
-            <strong>ISO 27001:2022</strong>. Obtén un puntaje (0–100), radar y brechas principales.
+            <strong>ISO/IEC 27001:2022</strong>. Obtén un puntaje (0–100), radar y brechas principales.
           </p>
 <div class="hero__actions" data-hero-item="4">
 <button class="btn btn--motion" id="openGapModalBtn" type="button">Iniciar diagnóstico (muestra)</button>
@@ -131,7 +132,7 @@
 <h2 data-reveal="">¿Qué es un Diagnóstico GAP?</h2>
 <p class="muted" data-reveal="">
           Un GAP identifica la diferencia entre lo que tu organización <strong>debería tener</strong>
-          (buenas prácticas / ISO 27001) y lo que <strong>realmente tiene</strong> hoy.
+          (buenas prácticas / ISO/IEC 27001) y lo que <strong>realmente tiene</strong> hoy.
         </p>
 <div class="grid">
 <article class="service" data-reveal="" style="--reveal-delay:0ms">
@@ -160,7 +161,7 @@
 <div class="container">
 <h2 data-reveal="">¿Qué evalúa esta muestra?</h2>
 <p class="muted" data-reveal="">
-          12 controles clave alineados a prácticas de ISO 27001:2022 (enfoque práctico para micro, pymes y empresas en crecimiento).
+          12 controles clave alineados a prácticas de ISO/IEC 27001:2022 (enfoque práctico para micro, pymes y empresas en crecimiento).
         </p>
 <div class="grid">
 <article class="service" data-reveal="" style="--reveal-delay:160ms">
@@ -359,6 +360,35 @@
 </div>
 </div>
 <!-- IMPORTANTE: en /gap/ debes subir un nivel -->
-<script defer="" src="../js/script.js?v=20"></script>
+<script defer="" src="../js/script.js?v=22"></script>
+
+<!-- HexaBot Widget v22 -->
+<div id="hexabot-widget" data-lang="es">
+  <button id="hexabot-toggle" type="button" aria-label="Abrir chat de HexaBot" aria-controls="hexabot-panel" aria-expanded="false">
+    <span class="hexabot-dot" aria-hidden="true"></span>
+    <span>Habla con HexaBot</span>
+  </button>
+  <section id="hexabot-panel" aria-hidden="true" aria-label="Chat con HexaBot">
+    <header id="hexabot-header">
+      <div class="hexabot-header__identity">
+        <span class="hexabot-header__mark" aria-hidden="true">H</span>
+        <div><strong>HexaBot</strong><p>HexaSec S.A.S. · Asistente técnico y comercial</p></div>
+      </div>
+      <div class="hexabot-header__actions">
+        <button id="hexabot-clear" type="button" aria-label="Nueva conversación" title="Nueva conversación">↻</button>
+        <button id="hexabot-close" type="button" aria-label="Cerrar chat">×</button>
+      </div>
+    </header>
+    <div class="hexabot-presence"><span class="hexabot-presence__dot" aria-hidden="true"></span><span id="hexabot-status" aria-live="polite">Listo para ayudarte</span></div>
+    <div id="hexabot-messages" class="hexabot-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <form id="hexabot-form" class="hexabot-form" autocomplete="off">
+      <label class="sr-only" for="hexabot-input">Mensaje para HexaBot</label>
+      <textarea id="hexabot-input" rows="1" maxlength="2000" placeholder="Escribe tu mensaje…" aria-label="Mensaje para HexaBot"></textarea>
+      <button id="hexabot-send" type="submit" aria-label="Enviar mensaje"><span aria-hidden="true">➤</span></button>
+    </form>
+    <p class="hexabot-disclaimer">HexaBot puede cometer errores. No sustituye una auditoría o evaluación profesional.</p>
+  </section>
+</div>
+<script defer src="../js/hexabot.js?v=22"></script>
 </body>
 </html>
