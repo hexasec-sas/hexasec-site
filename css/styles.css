@@ -357,3 +357,106 @@ body{background:linear-gradient(180deg,#fff 0%,#f8fbff 42%,#fff 100%)}
 @media(max-width:640px){.hexabot-toggle__avatar{width:30px;height:30px;flex-basis:30px}}
 @media(prefers-reduced-motion:reduce){.hexabot-eye,.hexabot-core__spark,#hexabot-widget[data-bot-state] .hexabot-core,#hexabot-widget[data-bot-state] .hexabot-face,#hexabot-panel.open .hexabot-header__mark .hexabot-core{animation:none!important}.hexabot-eye{transform:none!important}}
 \n\n/* HexaBot v24 · expressive cyber companion */\n.hexabot-face{display:block!important}\n.hexabot-eyes{position:absolute;left:18%;right:18%;top:36%;height:24%;display:flex;align-items:center;justify-content:center;gap:22%}\n.hexabot-eye{width:22%!important;height:34%!important}\n.hexabot-brow{position:absolute;top:28%;width:22%;height:5%;border-radius:999px;background:linear-gradient(90deg,rgba(108,244,255,.45),#6cf4ff);box-shadow:0 0 6px rgba(32,224,242,.55);opacity:.62;transition:transform .22s ease,opacity .22s ease,top .22s ease}\n.hexabot-brow--left{left:20%;transform:rotate(4deg)}\n.hexabot-brow--right{right:20%;transform:rotate(-4deg)}\n.hexabot-mouth{position:absolute;left:39%;bottom:21%;width:22%;height:9%;border-bottom:2px solid rgba(108,244,255,.8);border-radius:0 0 999px 999px;filter:drop-shadow(0 0 3px rgba(32,224,242,.6));opacity:.72;transition:all .2s ease}\n.hexabot-scanline{position:absolute;left:10%;right:10%;top:18%;height:1px;background:linear-gradient(90deg,transparent,rgba(108,244,255,.85),transparent);opacity:0;pointer-events:none}\n#hexabot-widget[data-bot-state="greeting"] .hexabot-brow{opacity:.9;top:25%}\n#hexabot-widget[data-bot-state="greeting"] .hexabot-eye{transform:translate(var(--hexabot-look-x),var(--hexabot-look-y)) scaleX(1.08) scaleY(.68)}\n#hexabot-widget[data-bot-state="greeting"] .hexabot-mouth{left:35%;width:30%;height:14%;border-bottom-width:3px;opacity:1}\n#hexabot-widget[data-bot-state="attentive"] .hexabot-core{transform:translateY(-1px) scale(1.025)}\n#hexabot-widget[data-bot-state="attentive"] .hexabot-eye{transform:translate(var(--hexabot-look-x),var(--hexabot-look-y)) scaleX(.9) scaleY(1.05)}\n#hexabot-widget[data-bot-state="attentive"] .hexabot-brow--left{transform:translateY(-1px) rotate(-6deg)}\n#hexabot-widget[data-bot-state="attentive"] .hexabot-brow--right{transform:translateY(-1px) rotate(6deg)}\n#hexabot-widget[data-bot-state="attentive"] .hexabot-mouth{width:14%;left:43%;border-radius:999px;opacity:.9}\n#hexabot-widget[data-bot-state="thinking"] .hexabot-brow--left{transform:translateY(1px) rotate(14deg)}\n#hexabot-widget[data-bot-state="thinking"] .hexabot-brow--right{transform:translateY(-1px) rotate(-12deg)}\n#hexabot-widget[data-bot-state="thinking"] .hexabot-mouth{left:41%;width:18%;border-bottom-width:1px;opacity:.5}\n#hexabot-widget[data-bot-state="thinking"] .hexabot-scanline{opacity:.9;animation:hexabot-scan 1s linear infinite}\n#hexabot-widget[data-bot-state="speaking"] .hexabot-mouth{animation:hexabot-talk-mouth .34s ease-in-out infinite;opacity:1}\n#hexabot-widget[data-bot-state="speaking"] .hexabot-brow{opacity:.88}\n#hexabot-widget[data-bot-state="success"] .hexabot-eye{transform:translate(var(--hexabot-look-x),var(--hexabot-look-y)) scaleX(1.12) scaleY(.5)}\n#hexabot-widget[data-bot-state="success"] .hexabot-brow--left{transform:translateY(-1px) rotate(8deg)}\n#hexabot-widget[data-bot-state="success"] .hexabot-brow--right{transform:translateY(-1px) rotate(-8deg)}\n#hexabot-widget[data-bot-state="success"] .hexabot-mouth{left:34%;width:32%;height:15%;border-bottom-width:3px;opacity:1}\n#hexabot-widget[data-bot-state="success"] .hexabot-core__spark{background:#9fffd0;box-shadow:0 0 5px #fff,0 0 14px #39d98a}\n#hexabot-widget[data-bot-state="error"] .hexabot-brow{background:#ff9d94;box-shadow:0 0 6px rgba(255,91,77,.55);opacity:1}\n#hexabot-widget[data-bot-state="error"] .hexabot-brow--left{transform:rotate(16deg)}\n#hexabot-widget[data-bot-state="error"] .hexabot-brow--right{transform:rotate(-16deg)}\n#hexabot-widget[data-bot-state="error"] .hexabot-mouth{border-bottom-color:#ff8f83;border-radius:999px 999px 0 0;border-bottom:0;border-top:2px solid #ff8f83;bottom:18%;opacity:1}\n@keyframes hexabot-talk-mouth{0%,100%{height:7%;width:18%;left:41%}50%{height:15%;width:24%;left:38%}}\n@keyframes hexabot-scan{0%{top:20%;opacity:0}20%{opacity:.9}80%{opacity:.9}100%{top:76%;opacity:0}}\n@media(prefers-reduced-motion:reduce){.hexabot-brow,.hexabot-mouth,.hexabot-scanline{animation:none!important;transition:none!important}}\n
+/* HexaBot v25 · interactive desktop companion */
+#hexabot-companion{position:absolute;right:16px;bottom:68px;width:136px;height:154px;border:0;background:transparent;padding:0;cursor:pointer;z-index:4;filter:drop-shadow(0 15px 26px rgba(2,10,24,.36));transition:transform .28s ease,opacity .25s ease;transform-origin:bottom center}
+#hexabot-companion:hover{transform:translateY(-3px) scale(1.025)}
+.hexabot-companion__stage{position:absolute;inset:0;display:block;perspective:500px}
+.hexabot-companion__speech{position:absolute;right:88px;top:8px;min-width:132px;max-width:185px;padding:8px 11px;border-radius:13px 13px 3px 13px;background:rgba(3,13,29,.94);border:1px solid rgba(108,244,255,.35);color:#eefcff;font-size:.72rem;font-weight:700;line-height:1.25;text-align:left;box-shadow:0 10px 25px rgba(0,0,0,.22),0 0 18px rgba(32,224,242,.08);opacity:0;transform:translateY(8px) scale(.96);transition:opacity .25s ease,transform .25s ease;pointer-events:none}
+#hexabot-widget[data-companion-speech="show"] .hexabot-companion__speech{opacity:1;transform:translateY(0) scale(1)}
+.hexabot-character{position:absolute;left:29px;top:8px;width:82px;height:136px;display:block;transform-origin:50% 88%;animation:hexabot-character-idle 4.8s ease-in-out infinite}
+.hexabot-head{position:absolute;left:12px;top:13px;width:58px;height:54px;display:block;background:linear-gradient(145deg,#74f6ff 0%,#268ef8 20%,#142b4b 48%,#07111f 78%,#36dff0 100%);clip-path:polygon(20% 3%,77% 2%,98% 25%,94% 76%,70% 97%,25% 92%,3% 68%,5% 27%);box-shadow:0 0 0 1px rgba(255,255,255,.22) inset,0 0 20px rgba(32,224,242,.18)}
+.hexabot-head::after{content:"";position:absolute;inset:7px;background:linear-gradient(145deg,#0f2847,#020713 68%);clip-path:inherit}
+.hexabot-face--character{z-index:2;inset:14px 11px 13px!important;border-radius:38% 38% 44% 44%!important}
+.hexabot-antenna{position:absolute;left:39px;top:0;width:4px;height:17px;border-radius:4px;background:linear-gradient(#64f6ff,#238edb);transform-origin:bottom center;animation:hexabot-antenna-sway 3.2s ease-in-out infinite}
+.hexabot-antenna span{position:absolute;left:-3px;top:-3px;width:10px;height:10px;border-radius:50%;background:#b9fbff;box-shadow:0 0 7px #fff,0 0 14px #20e0f2;animation:hexabot-antenna-pulse 1.8s ease-in-out infinite}
+.hexabot-neck{position:absolute;left:34px;top:64px;width:15px;height:10px;border-radius:2px;background:linear-gradient(90deg,#0b1727,#3ab7db,#0a1727)}
+.hexabot-body{position:absolute;left:20px;top:70px;width:43px;height:49px;border-radius:15px 15px 19px 19px;background:linear-gradient(145deg,#183656,#081322 68%);border:1px solid rgba(109,227,255,.35);box-shadow:0 0 16px rgba(32,224,242,.12) inset}
+.hexabot-body::before{content:"";position:absolute;left:6px;right:6px;top:7px;height:4px;border-radius:99px;background:linear-gradient(90deg,transparent,#55edff,transparent);opacity:.75}
+.hexabot-chest-mark{position:absolute;left:50%;top:20px;transform:translateX(-50%);width:19px;height:19px;display:grid;place-items:center;clip-path:polygon(25% 4%,75% 4%,96% 25%,96% 75%,75% 96%,25% 96%,4% 75%,4% 25%);background:linear-gradient(145deg,#66f4ff,#117ff3 52%,#092048);color:white;font-size:.68rem;font-weight:900;text-shadow:0 0 6px #20e0f2}
+.hexabot-arm{position:absolute;top:77px;width:13px;height:39px;border-radius:10px;background:linear-gradient(145deg,#1f5479,#081421);transform-origin:50% 5px;border:1px solid rgba(92,218,246,.22)}
+.hexabot-arm--left{left:8px;transform:rotate(16deg)}
+.hexabot-arm--right{right:7px;transform:rotate(-18deg)}
+.hexabot-hand{position:absolute;left:1px;bottom:-7px;width:11px;height:12px;border-radius:50% 50% 45% 45%;background:linear-gradient(145deg,#5ceafa,#136da6)}
+.hexabot-shadow{position:absolute;left:30px;right:25px;bottom:4px;height:12px;border-radius:50%;background:radial-gradient(ellipse,rgba(32,224,242,.28),rgba(0,0,0,.2) 50%,transparent 72%);filter:blur(2px);animation:hexabot-shadow-breathe 4.8s ease-in-out infinite}
+.hexabot-orbit{position:absolute;left:18px;top:20px;width:102px;height:102px;border:1px solid rgba(76,226,246,.15);border-radius:50%;transform:rotateX(68deg);opacity:.45}
+.hexabot-orbit--one{animation:hexabot-orbit-spin 7s linear infinite}
+.hexabot-orbit--two{width:84px;height:84px;left:27px;top:29px;border-style:dashed;animation:hexabot-orbit-spin 5.4s linear infinite reverse}
+.hexabot-thoughts{position:absolute;right:-4px;top:16px;width:24px;height:34px;opacity:0;transition:opacity .2s ease}
+.hexabot-thoughts i{position:absolute;width:7px;height:7px;border-radius:50%;background:#8df8ff;box-shadow:0 0 8px rgba(32,224,242,.9);animation:hexabot-thought-rise 1.2s ease-in-out infinite}
+.hexabot-thoughts i:nth-child(2){left:9px;top:8px;animation-delay:.2s}.hexabot-thoughts i:nth-child(3){left:3px;top:20px;animation-delay:.4s}
+#hexabot-widget[data-bot-state="thinking"] .hexabot-thoughts{opacity:1}
+#hexabot-widget[data-bot-state="thinking"] .hexabot-character{animation:hexabot-character-think 1.15s ease-in-out infinite}
+#hexabot-widget[data-bot-state="speaking"] .hexabot-character{animation:hexabot-character-speak .55s ease-in-out infinite}
+#hexabot-widget[data-bot-state="greeting"] .hexabot-arm--right,#hexabot-widget[data-bot-state="success"] .hexabot-arm--right{animation:hexabot-wave .54s ease-in-out 4;transform-origin:50% 5px}
+#hexabot-widget[data-bot-state="attentive"] .hexabot-character{transform:translateY(-2px) rotate(-1deg) scale(1.02)}
+#hexabot-widget[data-bot-state="error"] .hexabot-character{animation:hexabot-error-shake .42s ease-in-out 2}
+#hexabot-widget[data-bot-state="error"] .hexabot-antenna span{background:#ff8f83;box-shadow:0 0 8px #ff8f83,0 0 15px rgba(255,91,77,.75)}
+#hexabot-panel.open~*{} /* keep selector block intentional */
+#hexabot-widget:has(#hexabot-panel.open) #hexabot-companion{transform:translateX(-332px) translateY(-20px) scale(.88);opacity:.96}
+@supports not selector(:has(*)){#hexabot-widget.hexabot-open #hexabot-companion{transform:translateX(-332px) translateY(-20px) scale(.88);opacity:.96}}
+@keyframes hexabot-character-idle{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
+@keyframes hexabot-shadow-breathe{0%,100%{transform:scaleX(.9);opacity:.45}50%{transform:scaleX(1.08);opacity:.28}}
+@keyframes hexabot-antenna-sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(6deg)}}
+@keyframes hexabot-antenna-pulse{0%,100%{transform:scale(.8);opacity:.72}50%{transform:scale(1.12);opacity:1}}
+@keyframes hexabot-orbit-spin{to{transform:rotateX(68deg) rotateZ(360deg)}}
+@keyframes hexabot-thought-rise{0%,100%{transform:translateY(4px) scale(.65);opacity:.2}50%{transform:translateY(-5px) scale(1);opacity:1}}
+@keyframes hexabot-character-think{0%,100%{transform:translateY(-1px) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
+@keyframes hexabot-character-speak{0%,100%{transform:translateY(-1px) scale(1)}50%{transform:translateY(-3px) scale(1.025)}}
+@keyframes hexabot-wave{0%,100%{transform:rotate(-18deg)}50%{transform:translateY(-5px) rotate(-72deg)}}
+@keyframes hexabot-error-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+@media(max-width:640px){#hexabot-companion{right:6px;bottom:65px;width:112px;height:132px}.hexabot-character{transform:scale(.88);transform-origin:50% 100%}.hexabot-companion__speech{right:75px;top:9px;min-width:118px;font-size:.66rem}#hexabot-widget:has(#hexabot-panel.open) #hexabot-companion{opacity:0;pointer-events:none;transform:translateY(12px) scale(.86)}}
+@media(prefers-reduced-motion:reduce){#hexabot-companion,.hexabot-character,.hexabot-antenna,.hexabot-antenna span,.hexabot-shadow,.hexabot-orbit,.hexabot-thoughts i,.hexabot-arm--right{animation:none!important;transition:none!important}.hexabot-thoughts{display:none}}
+
+
+/* HexaBot v26 · autonomous page guide */
+#hexabot-companion.hexabot-roaming{
+  position:fixed;
+  right:auto;
+  bottom:auto;
+  z-index:100001;
+  transition:left 2.35s cubic-bezier(.22,.8,.2,1),top 2.35s cubic-bezier(.22,.8,.2,1),transform .28s ease,opacity .25s ease;
+  will-change:left,top;
+}
+#hexabot-companion.hexabot-roaming::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:52px;
+  height:7px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(32,224,242,.25),transparent 70%);
+  filter:blur(1px);
+  pointer-events:none;
+}
+#hexabot-companion[data-intent="diagnostic"] .hexabot-companion__speech{
+  min-width:205px;
+  border-color:rgba(76,238,255,.62);
+  background:linear-gradient(145deg,rgba(3,13,29,.97),rgba(8,39,67,.97));
+  box-shadow:0 14px 32px rgba(0,0,0,.26),0 0 26px rgba(32,224,242,.18);
+}
+#hexabot-companion[data-intent="diagnostic"] .hexabot-companion__speech::after{
+  content:"DIAGNÓSTICO GRATIS →";
+  display:block;
+  margin-top:7px;
+  color:#83f7ff;
+  font-size:.64rem;
+  letter-spacing:.06em;
+  font-weight:900;
+}
+html[lang="en"] #hexabot-companion[data-intent="diagnostic"] .hexabot-companion__speech::after{content:"FREE ASSESSMENT →"}
+#hexabot-companion[data-intent="diagnostic"] .hexabot-arm--left{
+  animation:hexabot-point-cta .72s ease-in-out infinite alternate;
+  transform-origin:50% 5px;
+}
+#hexabot-companion[data-intent="diagnostic"] .hexabot-antenna span{
+  animation-duration:.8s;
+}
+#hexabot-companion[data-intent="diagnostic"]{filter:drop-shadow(0 15px 26px rgba(2,10,24,.36)) drop-shadow(0 0 14px rgba(32,224,242,.18))}
+@keyframes hexabot-point-cta{
+  from{transform:translateY(-2px) rotate(28deg)}
+  to{transform:translateY(-8px) rotate(66deg)}
+}
+@media(max-width:759px){#hexabot-companion.hexabot-roaming{position:absolute;left:auto!important;top:auto!important;right:6px!important;bottom:65px!important;transition:none!important}}
+@media(prefers-reduced-motion:reduce){#hexabot-companion.hexabot-roaming{position:absolute;left:auto!important;top:auto!important;right:16px!important;bottom:68px!important;transition:none!important}#hexabot-companion[data-intent="diagnostic"] .hexabot-arm--left{animation:none!important}}
