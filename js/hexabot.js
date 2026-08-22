@@ -2,8 +2,8 @@
   'use strict';
 
   const API_URL = 'https://chat.hexasecsas.com/api/chat/message';
-  const STORAGE_SESSION = 'hexabot_session_v25';
-  const STORAGE_HISTORY = 'hexabot_history_v25';
+  const STORAGE_SESSION = 'hexabot_session_v24';
+  const STORAGE_HISTORY = 'hexabot_history_v24';
   const MAX_HISTORY = 30;
 
   const widget = document.getElementById('hexabot-widget');
@@ -16,9 +16,6 @@
   const sendBtn = document.getElementById('hexabot-send');
   const status = document.getElementById('hexabot-status');
   const clearBtn = document.getElementById('hexabot-clear');
-  const companion = document.getElementById('hexabot-companion');
-  const gapSection = document.getElementById('diagnostico');
-  const gapButton = document.getElementById('openGapModalBtn2') || document.getElementById('openGapModalBtn');
 
   if (!widget || !toggle || !panel || !closeBtn || !messages || !form || !input || !sendBtn) return;
 
@@ -36,14 +33,6 @@
         clearConfirm: 'Start a new conversation?',
         attentive: 'I’m listening…',
         done: 'Ready. What else can I help with?',
-        companionHello: 'Hi! I’m HexaBot.',
-        companionThink: 'Analyzing…',
-        companionDone: 'Done ✓',
-        companionListen: 'I’m listening.',
-        companionGap: 'Try the FREE ASSESSMENT. Click me to start.',
-        companionServices: 'Want to see how HexaSec can strengthen your security?',
-        companionMethod: 'Here I can show you how we work.',
-        companionContact: 'Need an expert? I can guide you to the team.',
       }
     : {
         hello: 'Hola 👋 Soy HexaBot, el asistente virtual de HexaSec. Puedo orientarte sobre auditorías de ciberseguridad, análisis de vulnerabilidades, ISO/IEC 27001:2022 y diagnóstico GAP. ¿Cómo puedo ayudarte?',
@@ -57,14 +46,6 @@
         clearConfirm: '¿Iniciar una conversación nueva?',
         attentive: 'Te escucho…',
         done: 'Listo. ¿En qué más puedo ayudarte?',
-        companionHello: '¡Hola! Soy HexaBot.',
-        companionThink: 'Analizando…',
-        companionDone: 'Listo ✓',
-        companionListen: 'Te escucho.',
-        companionGap: 'Haz tu DIAGNÓSTICO GRATUITO. Haz clic en mí para comenzar.',
-        companionServices: '¿Quieres ver cómo HexaSec puede fortalecer tu seguridad?',
-        companionMethod: 'Aquí te muestro cómo trabajamos.',
-        companionContact: '¿Necesitas un experto? Te guío hasta el equipo.',
       };
 
   input.placeholder = copy.placeholder;
@@ -90,183 +71,6 @@
   let sessionId = getSessionId();
   let busy = false;
   let stateTimer = null;
-  let companionSpeechTimer = null;
-  let idleBehaviorTimer = null;
-  let roamingTimer = null;
-  let promotionTimer = null;
-  let companionIntent = 'chat';
-  let lastRoamAt = 0;
-  let lastPromotionAt = 0;
-
-  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-  const finePointer = window.matchMedia?.('(pointer:fine)').matches ?? false;
-  const canRoam = () => finePointer && !reducedMotion && window.innerWidth >= 760 && !panel.classList.contains('open');
-
-  const setCompanionSpeech = (text, duration = 1800) => {
-    const bubble = companion?.querySelector('.hexabot-companion__speech');
-    if (!bubble) return;
-    bubble.textContent = text;
-    widget.dataset.companionSpeech = 'show';
-    if (companionSpeechTimer) window.clearTimeout(companionSpeechTimer);
-    companionSpeechTimer = window.setTimeout(() => {
-      widget.dataset.companionSpeech = 'hide';
-    }, duration);
-  };
-
-  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-
-  const companionSize = () => ({
-    width: companion?.offsetWidth || 136,
-    height: companion?.offsetHeight || 154,
-  });
-
-  const setCompanionIntent = (intent = 'chat', duration = 0) => {
-    companionIntent = intent;
-    if (companion) companion.dataset.intent = intent;
-    if (duration > 0) {
-      window.setTimeout(() => {
-        if (companionIntent === intent) {
-          companionIntent = 'chat';
-          if (companion) companion.dataset.intent = 'chat';
-        }
-      }, duration);
-    }
-  };
-
-  const moveCompanionTo = (x, y, { mood = 'idle', speech = '', duration = 0, intent = 'chat' } = {}) => {
-    if (!companion || !canRoam()) return;
-    const size = companionSize();
-    const safeX = clamp(x, 18, Math.max(18, window.innerWidth - size.width - 18));
-    const safeY = clamp(y, 82, Math.max(82, window.innerHeight - size.height - 22));
-    companion.classList.add('hexabot-roaming');
-    companion.style.left = `${Math.round(safeX)}px`;
-    companion.style.top = `${Math.round(safeY)}px`;
-    companion.style.right = 'auto';
-    companion.style.bottom = 'auto';
-    setBotState(mood, duration || 1300);
-    setCompanionIntent(intent, duration || 4200);
-    if (speech) setCompanionSpeech(speech, duration || 3200);
-    lastRoamAt = Date.now();
-  };
-
-  const getVisibleGuideTarget = () => {
-    const candidates = [
-      { id: 'diagnostico', speech: copy.companionGap, intent: 'diagnostic', mood: 'greeting' },
-      { id: 'servicios', speech: copy.companionServices, intent: 'chat', mood: 'attentive' },
-      { id: 'metodo', speech: copy.companionMethod, intent: 'chat', mood: 'attentive' },
-      { id: 'contacto', speech: copy.companionContact, intent: 'chat', mood: 'greeting' },
-    ];
-    let best = null;
-    let bestVisible = 0;
-    for (const item of candidates) {
-      const el = document.getElementById(item.id);
-      if (!el) continue;
-      const rect = el.getBoundingClientRect();
-      const visible = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
-      const ratio = visible / Math.max(1, Math.min(rect.height, window.innerHeight));
-      if (ratio > bestVisible) {
-        bestVisible = ratio;
-        best = { ...item, el, rect };
-      }
-    }
-    return bestVisible > .28 ? best : null;
-  };
-
-  const roamNearTarget = (target) => {
-    if (!target || !canRoam()) return false;
-    const rect = target.el.getBoundingClientRect();
-    const size = companionSize();
-    const preferRight = rect.left + rect.width / 2 < window.innerWidth / 2;
-    let x = preferRight ? rect.right - size.width * .55 : rect.left - size.width * .45;
-    let y = clamp(rect.top + Math.min(rect.height * .28, 160), 92, window.innerHeight - size.height - 28);
-
-    if (target.id === 'diagnostico' && gapButton) {
-      const btnRect = gapButton.getBoundingClientRect();
-      x = btnRect.left - size.width - 18;
-      if (x < 18) x = btnRect.right + 18;
-      y = btnRect.top - size.height * .38;
-    }
-
-    moveCompanionTo(x, y, {
-      mood: target.mood,
-      speech: target.speech,
-      duration: target.id === 'diagnostico' ? 6200 : 3500,
-      intent: target.intent,
-    });
-    return true;
-  };
-
-  const wanderFreely = () => {
-    if (!canRoam() || busy || document.visibilityState !== 'visible') return;
-    const size = companionSize();
-    const margin = 24;
-    const x = margin + Math.random() * Math.max(0, window.innerWidth - size.width - margin * 2);
-    const yMin = 105;
-    const yMax = Math.max(yMin, window.innerHeight - size.height - 34);
-    const y = yMin + Math.random() * Math.max(0, yMax - yMin);
-    moveCompanionTo(x, y, { mood: Math.random() > .62 ? 'attentive' : 'idle', duration: 1600 });
-  };
-
-  const scheduleRoaming = () => {
-    if (roamingTimer) window.clearTimeout(roamingTimer);
-    const delay = 9000 + Math.random() * 8000;
-    roamingTimer = window.setTimeout(() => {
-      if (canRoam() && !busy && document.visibilityState === 'visible') {
-        const target = getVisibleGuideTarget();
-        const shouldGuide = target && Math.random() > .42;
-        if (!shouldGuide || !roamNearTarget(target)) wanderFreely();
-      }
-      scheduleRoaming();
-    }, delay);
-  };
-
-  const promoteDiagnostic = () => {
-    if (!canRoam() || busy || panel.classList.contains('open')) return;
-    const now = Date.now();
-    if (now - lastPromotionAt < 45000) return;
-    lastPromotionAt = now;
-    const target = {
-      id: 'diagnostico', el: gapSection || document.body, speech: copy.companionGap,
-      intent: 'diagnostic', mood: 'greeting'
-    };
-    if (gapSection) {
-      gapSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      window.setTimeout(() => roamNearTarget(target), 650);
-    } else {
-      moveCompanionTo(window.innerWidth * .55, window.innerHeight * .45, {
-        mood: 'greeting', speech: copy.companionGap, duration: 6200, intent: 'diagnostic'
-      });
-    }
-  };
-
-  const scheduleDiagnosticPromotion = () => {
-    if (promotionTimer) window.clearTimeout(promotionTimer);
-    promotionTimer = window.setTimeout(() => {
-      if (!panel.classList.contains('open') && !busy && document.visibilityState === 'visible') {
-        // Do not auto-scroll the first time. Move near the visible edge and invite the visitor.
-        const size = companionSize();
-        moveCompanionTo(window.innerWidth - size.width - 28, Math.max(105, window.innerHeight * .36), {
-          mood: 'greeting', speech: copy.companionGap, duration: 6500, intent: 'diagnostic'
-        });
-        lastPromotionAt = Date.now();
-      }
-      promotionTimer = window.setTimeout(scheduleDiagnosticPromotion, 55000);
-    }, 11500);
-  };
-
-  const scheduleIdleBehavior = () => {
-    if (idleBehaviorTimer) window.clearTimeout(idleBehaviorTimer);
-    const delay = 7500 + Math.random() * 6500;
-    idleBehaviorTimer = window.setTimeout(() => {
-      if (!busy && !panel.classList.contains('open') && document.visibilityState === 'visible') {
-        const behaviors = ['greeting', 'attentive', 'idle'];
-        const pick = behaviors[Math.floor(Math.random() * behaviors.length)];
-        setBotState(pick, 1200);
-        if (Math.random() > .7 && Date.now() - lastPromotionAt > 12000) setCompanionSpeech(copy.companionHello, 1500);
-      }
-      scheduleIdleBehavior();
-    }, delay);
-  };
 
   const setBotState = (state = 'idle', duration = 0) => {
     widget.dataset.botState = state;
@@ -453,12 +257,7 @@
   };
 
   const openChat = () => {
-    companion?.classList.remove('hexabot-roaming');
-    if (companion) { companion.style.left = ''; companion.style.top = ''; companion.style.right = ''; companion.style.bottom = ''; }
-    setCompanionIntent('chat');
-    widget.classList.add('hexabot-open');
     setBotState('greeting', 1200);
-    setCompanionSpeech(copy.companionHello, 1300);
     panel.classList.add('open');
     panel.setAttribute('aria-hidden', 'false');
     toggle.setAttribute('aria-expanded', 'true');
@@ -468,13 +267,11 @@
   };
 
   const closeChat = () => {
-    widget.classList.remove('hexabot-open');
     panel.classList.remove('open');
     panel.setAttribute('aria-hidden', 'true');
     toggle.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('hexabot-is-open');
     toggle.focus({ preventScroll: true });
-    window.setTimeout(() => { if (canRoam()) wanderFreely(); }, 700);
   };
 
   const resetConversation = () => {
@@ -511,7 +308,6 @@
     input.value = '';
     input.style.height = '';
     setBusy(true);
-    setCompanionSpeech(copy.companionThink, 1400);
     showTyping();
 
     try {
@@ -543,7 +339,6 @@
       hideTyping();
       appendMessage('assistant', data.reply);
       setBotState('speaking');
-      setCompanionSpeech(copy.companionDone, 1600);
       setStatus(copy.online, 'ready');
       window.setTimeout(() => {
         if (!busy) {
@@ -562,18 +357,6 @@
       input.focus({ preventScroll: true });
     }
   };
-
-  companion?.addEventListener('click', () => {
-    if (companionIntent === 'diagnostic' && gapButton) {
-      setBotState('success', 1500);
-      setCompanionSpeech(lang === 'en' ? 'Great choice. Let’s measure your security maturity.' : 'Excelente elección. Midamos tu nivel de madurez.', 2200);
-      gapButton.click();
-      setCompanionIntent('chat');
-      return;
-    }
-    if (!panel.classList.contains('open')) openChat();
-    else input.focus({ preventScroll: true });
-  });
 
   toggle.addEventListener('click', () => {
     panel.classList.contains('open') ? closeChat() : openChat();
@@ -601,7 +384,6 @@
   input.addEventListener('focus', () => {
     if (!busy) {
       setBotState('attentive');
-      setCompanionSpeech(copy.companionListen, 1100);
       setStatus(copy.attentive, 'ready');
     }
   });
@@ -628,12 +410,11 @@
   });
 
   // Subtle eye tracking makes HexaBot feel present without turning the chat into a distracting animation.
-  const canTrackPointer = finePointer && !reducedMotion;
+  const canTrackPointer = window.matchMedia?.('(pointer:fine)').matches && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   if (canTrackPointer) {
     window.addEventListener('pointermove', (event) => {
-      const targetEl = panel.classList.contains('open') ? panel : companion;
-      if (!targetEl) return;
-      const rect = targetEl.getBoundingClientRect();
+      if (!panel.classList.contains('open')) return;
+      const rect = panel.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + Math.min(rect.height * 0.2, 110);
       const dx = Math.max(-1, Math.min(1, (event.clientX - cx) / Math.max(rect.width * 0.55, 1)));
@@ -644,39 +425,6 @@
   }
 
   widget.dataset.botState = 'idle';
-  widget.dataset.companionSpeech = 'hide';
-  scheduleIdleBehavior();
-  scheduleRoaming();
-  scheduleDiagnosticPromotion();
-  window.setTimeout(() => {
-    setCompanionSpeech(copy.companionHello, 2200);
-    if (canRoam()) {
-      const size = companionSize();
-      moveCompanionTo(window.innerWidth - size.width - 24, window.innerHeight - size.height - 88, { mood: 'greeting', duration: 1800 });
-    }
-  }, 900);
-
-  // When the free assessment enters the viewport, HexaBot may approach it and point it out.
-  if ('IntersectionObserver' in window && gapSection) {
-    const gapObserver = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      if (!entry?.isIntersecting || entry.intersectionRatio < .35 || busy || panel.classList.contains('open')) return;
-      if (Date.now() - lastPromotionAt < 18000) return;
-      lastPromotionAt = Date.now();
-      roamNearTarget({ id: 'diagnostico', el: gapSection, speech: copy.companionGap, intent: 'diagnostic', mood: 'greeting' });
-    }, { threshold: [.35, .6] });
-    gapObserver.observe(gapSection);
-  }
-
-  window.addEventListener('resize', () => {
-    if (!canRoam()) {
-      companion?.classList.remove('hexabot-roaming');
-      if (companion) { companion.style.left = ''; companion.style.top = ''; companion.style.right = ''; companion.style.bottom = ''; }
-    } else if (companion?.classList.contains('hexabot-roaming')) {
-      const rect = companion.getBoundingClientRect();
-      moveCompanionTo(rect.left, rect.top);
-    }
-  }, { passive: true });
   restoreHistory();
   setStatus(copy.ready, 'ready');
 })();
