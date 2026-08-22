@@ -2,8 +2,8 @@
   'use strict';
 
   const API_URL = 'https://chat.hexasecsas.com/api/chat/message';
-  const STORAGE_SESSION = 'hexabot_session_v22';
-  const STORAGE_HISTORY = 'hexabot_history_v22';
+  const STORAGE_SESSION = 'hexabot_session_v24';
+  const STORAGE_HISTORY = 'hexabot_history_v24';
   const MAX_HISTORY = 30;
 
   const widget = document.getElementById('hexabot-widget');
@@ -31,6 +31,8 @@
         empty: 'Write a message before sending.',
         local: 'To test HexaBot locally, open the site through a local web server instead of file://.',
         clearConfirm: 'Start a new conversation?',
+        attentive: 'I’m listening…',
+        done: 'Ready. What else can I help with?',
       }
     : {
         hello: 'Hola 👋 Soy HexaBot, el asistente virtual de HexaSec. Puedo orientarte sobre auditorías de ciberseguridad, análisis de vulnerabilidades, ISO/IEC 27001:2022 y diagnóstico GAP. ¿Cómo puedo ayudarte?',
@@ -42,6 +44,8 @@
         empty: 'Escribe un mensaje antes de enviar.',
         local: 'Para probar HexaBot localmente, abre el sitio mediante un servidor web local y no con file://.',
         clearConfirm: '¿Iniciar una conversación nueva?',
+        attentive: 'Te escucho…',
+        done: 'Listo. ¿En qué más puedo ayudarte?',
       };
 
   input.placeholder = copy.placeholder;
@@ -66,6 +70,41 @@
 
   let sessionId = getSessionId();
   let busy = false;
+  let stateTimer = null;
+
+  const setBotState = (state = 'idle', duration = 0) => {
+    widget.dataset.botState = state;
+    if (stateTimer) {
+      window.clearTimeout(stateTimer);
+      stateTimer = null;
+    }
+    if (duration > 0) {
+      stateTimer = window.setTimeout(() => {
+        if (!busy) widget.dataset.botState = 'idle';
+      }, duration);
+    }
+  };
+
+  const createBotAvatar = (variant = 'message') => {
+    const avatar = document.createElement('div');
+    avatar.className = `hexabot-avatar hexabot-avatar--${variant}`;
+    avatar.setAttribute('aria-hidden', 'true');
+    avatar.innerHTML = `
+      <span class="hexabot-core hexabot-core--${variant}">
+        <span class="hexabot-face">
+          <span class="hexabot-brow hexabot-brow--left"></span>
+          <span class="hexabot-brow hexabot-brow--right"></span>
+          <span class="hexabot-eyes">
+            <span class="hexabot-eye"></span>
+            <span class="hexabot-eye"></span>
+          </span>
+          <span class="hexabot-mouth"></span>
+          <span class="hexabot-scanline"></span>
+        </span>
+        <span class="hexabot-core__spark"></span>
+      </span>`;
+    return avatar;
+  };
 
   const escapeHtml = (value) => String(value)
     .replace(/&/g, '&amp;')
@@ -139,10 +178,12 @@
     row.dataset.role = role;
     row.dataset.raw = text;
 
-    const avatar = document.createElement('div');
-    avatar.className = 'hexabot-avatar';
-    avatar.setAttribute('aria-hidden', 'true');
-    avatar.textContent = role === 'assistant' ? 'H' : 'Tú';
+    const avatar = role === 'assistant' ? createBotAvatar('message') : document.createElement('div');
+    if (role !== 'assistant') {
+      avatar.className = 'hexabot-avatar hexabot-avatar--user';
+      avatar.setAttribute('aria-hidden', 'true');
+      avatar.textContent = lang === 'en' ? 'You' : 'Tú';
+    }
 
     const bubble = document.createElement('div');
     bubble.className = 'hexabot-bubble';
@@ -189,17 +230,23 @@
     input.disabled = value;
     form.classList.toggle('is-busy', value);
     setStatus(value ? copy.typing : copy.ready, value ? 'typing' : 'ready');
+    if (value) {
+      setBotState('thinking');
+    } else if (widget.dataset.botState === 'thinking') {
+      setBotState('idle');
+    }
   };
 
   let typingRow = null;
   const showTyping = () => {
     typingRow = document.createElement('div');
     typingRow.className = 'hexabot-message hexabot-message--assistant hexabot-message--typing';
-    typingRow.innerHTML = `
-      <div class="hexabot-avatar" aria-hidden="true">H</div>
-      <div class="hexabot-bubble" aria-label="${escapeHtml(copy.typing)}">
-        <span></span><span></span><span></span>
-      </div>`;
+    typingRow.appendChild(createBotAvatar('message'));
+    const typingBubble = document.createElement('div');
+    typingBubble.className = 'hexabot-bubble';
+    typingBubble.setAttribute('aria-label', copy.typing);
+    typingBubble.innerHTML = '<span></span><span></span><span></span>';
+    typingRow.appendChild(typingBubble);
     messages.appendChild(typingRow);
     scrollToBottom();
   };
@@ -210,6 +257,7 @@
   };
 
   const openChat = () => {
+    setBotState('greeting', 1200);
     panel.classList.add('open');
     panel.setAttribute('aria-hidden', 'false');
     toggle.setAttribute('aria-expanded', 'true');
@@ -290,11 +338,19 @@
 
       hideTyping();
       appendMessage('assistant', data.reply);
+      setBotState('speaking');
       setStatus(copy.online, 'ready');
+      window.setTimeout(() => {
+        if (!busy) {
+          setBotState('success', 1700);
+          setStatus(copy.done, 'ready');
+        }
+      }, 1500);
     } catch (error) {
       console.error('[HexaBot]', error);
       hideTyping();
       appendMessage('assistant', copy.error);
+      setBotState('error', 2600);
       setStatus(copy.error, 'error');
     } finally {
       setBusy(false);
@@ -325,10 +381,50 @@
     input.style.height = `${Math.min(input.scrollHeight, 120)}px`;
   });
 
+  input.addEventListener('focus', () => {
+    if (!busy) {
+      setBotState('attentive');
+      setStatus(copy.attentive, 'ready');
+    }
+  });
+
+  input.addEventListener('blur', () => {
+    if (!busy && widget.dataset.botState === 'attentive') {
+      setBotState('idle');
+      setStatus(copy.ready, 'ready');
+    }
+  });
+
+  input.addEventListener('input', () => {
+    if (!busy && input.value.trim()) {
+      setBotState('attentive');
+      setStatus(copy.attentive, 'ready');
+    } else if (!busy && document.activeElement !== input) {
+      setBotState('idle');
+      setStatus(copy.ready, 'ready');
+    }
+  });
+
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && panel.classList.contains('open')) closeChat();
   });
 
+  // Subtle eye tracking makes HexaBot feel present without turning the chat into a distracting animation.
+  const canTrackPointer = window.matchMedia?.('(pointer:fine)').matches && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  if (canTrackPointer) {
+    window.addEventListener('pointermove', (event) => {
+      if (!panel.classList.contains('open')) return;
+      const rect = panel.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + Math.min(rect.height * 0.2, 110);
+      const dx = Math.max(-1, Math.min(1, (event.clientX - cx) / Math.max(rect.width * 0.55, 1)));
+      const dy = Math.max(-1, Math.min(1, (event.clientY - cy) / Math.max(rect.height * 0.35, 1)));
+      widget.style.setProperty('--hexabot-look-x', `${(dx * 2.2).toFixed(2)}px`);
+      widget.style.setProperty('--hexabot-look-y', `${(dy * 1.6).toFixed(2)}px`);
+    }, { passive: true });
+  }
+
+  widget.dataset.botState = 'idle';
   restoreHistory();
   setStatus(copy.ready, 'ready');
 })();
