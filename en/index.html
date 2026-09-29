@@ -193,7 +193,7 @@
 <label>Message
             <textarea maxlength="1000" name="message" required="" rows="5"></textarea>
 </label>
-<input name="request_id" type="hidden" value=""/><input name="form_language" type="hidden" value="en"/><input name="_subject" type="hidden" value="New website request | HexaSec S.A.S."/><input name="source" type="hidden" value="https://hexasecsas.com/en/"/><input name="_next" type="hidden" value="https://hexasecsas.com/en/thanks.html"/><input name="_url" type="hidden" value="https://hexasecsas.com/en/"/><input name="_template" type="hidden" value="table"/><input name="_autoresponse" type="hidden" value="Hello. We have successfully received your request at HexaSec S.A.S. Our team will review the information and contact you within approximately one business day. We help organizations identify risks, assess controls and strengthen security through cybersecurity audits, vulnerability assessments, GAP assessments and ISO/IEC 27001:2022 readiness services. Learn more at https://hexasecsas.com. Thank you for contacting HexaSec S.A.S."/><input autocomplete="off" class="hp-field" name="_honey" tabindex="-1" type="text"/>
+<input name="request_id" type="hidden" value=""/><input name="form_language" type="hidden" value="en"/><input name="_subject" type="hidden" value="New website request | HexaSec S.A.S."/><input name="source" type="hidden" value="https://hexasecsas.com/en/"/><input name="_next" type="hidden" value="https://hexasecsas.com/en/thanks.html"/><input name="_url" type="hidden" value="https://hexasecsas.com/en/"/><input name="_template" type="hidden" value="table"/><input autocomplete="off" class="hp-field" name="_honey" tabindex="-1" type="text"/>
 <input id="gap_score" name="gap_score" type="hidden"/>
 <input id="gap_top_gaps" name="gap_top_gaps" type="hidden"/>
 <input id="gap_answers" name="gap_answers" type="hidden"/>
@@ -202,7 +202,8 @@
             I confirm that I am human
           </label>
 <button class="btn btn--motion" type="submit">Send message</button>
-<p aria-live="polite" class="small muted" id="formStatus">After sending, you will receive an automatic confirmation email.</p>
+<p aria-live="polite" class="small muted" id="formStatus">The submission status will appear here. You can also contact us by email.</p>
+<p class="small"><a id="contactEmailFallback" href="mailto:admin@hexasecsas.com">Open my email app with this message</a><br/>This opens your email app; you must send the message there.</p>
 </form>
 </div>
 </div>
@@ -262,7 +263,7 @@
 </div>
 </div>
 </div>
-<script defer="" src="../js/script-en.js?v=22"></script>
+<script defer="" src="../js/script-en.js?v=contact2"></script>
 
 <!-- HexaBot Widget v24 · animated avatar -->
 <div id="hexabot-widget" data-lang="en">
@@ -292,5 +293,6 @@
   </section>
 </div>
 <script defer src="../js/hexabot.js?v=24"></script>
+<script defer src="/js/contact-form.js?v=1"></script>
 </body>
 </html>
