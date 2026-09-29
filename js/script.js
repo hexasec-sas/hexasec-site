@@ -608,3 +608,18 @@ function createContactReference() {
   form.addEventListener('reset', () => requestAnimationFrame(update));
   update();
 })();
+
+/* Contexto comercial de las páginas de servicios. Sin cookies ni analítica. */
+(() => {
+  const form = document.querySelector('#contactForm');
+  if (!form) return;
+  const params = new URLSearchParams(window.location.search);
+  const services = {iso27001: 'Preparación ISO/IEC 27001', auditoria: 'Auditoría de ciberseguridad', vulnerabilidades: 'Análisis de vulnerabilidades'};
+  const selected = services[params.get('servicio')];
+  const field = form.querySelector('[name="service"]');
+  if (selected && field) field.value = selected;
+  const origin = params.get('origen');
+  const allowed = ['consultoria-iso-27001', 'auditoria-ciberseguridad', 'analisis-vulnerabilidades', 'cobertura'];
+  const landing = form.querySelector('[name="landing_page"]');
+  if (landing && allowed.includes(origin)) landing.value = '/' + origin + '/';
+})();
