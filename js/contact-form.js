@@ -5,31 +5,20 @@
   if (!form) return;
   const status = document.querySelector('#formStatus');
   const button = form.querySelector('[type="submit"]');
-  const fallback = document.querySelector('#contactEmailFallback');
   const en = document.documentElement.lang.startsWith('en');
   const originalLabel = button.textContent;
   let pending = false;
   const text = {
     sending: en ? 'Sending…' : 'Enviando…',
     success: en ? 'Your request has been sent successfully. Reference: ' : 'Tu solicitud se ha enviado correctamente. Referencia: ',
-    failure: en ? 'We could not confirm submission. Your information remains in the form. You can retry or open your email app using the link below.' : 'No pudimos confirmar el envío. Tus datos siguen en el formulario. Puedes reintentar o abrir tu correo con el enlace de abajo.'
+    failure: en ? 'We could not confirm submission. Your information remains in the form. Please try again in a few moments.' : 'No pudimos confirmar el envío. Tus datos siguen en el formulario. Intenta nuevamente en unos momentos.'
   };
-  const updateEmail = () => {
-    const data = new FormData(form);
-    const fields = ['name', 'email', 'company_name', 'service', 'city', 'message', 'gap_score', 'gap_top_gaps', 'request_id'];
-    const body = fields.filter(key => data.get(key)).map(key => `${key}: ${data.get(key)}`).join('\n\n');
-    fallback.href = `mailto:admin@hexasecsas.com?subject=${encodeURIComponent(en ? 'Website enquiry | HexaSec' : 'Solicitud desde la web | HexaSec')}&body=${encodeURIComponent(body)}`;
-  };
-  form.addEventListener('input', updateEmail);
-  fallback.addEventListener('click', updateEmail);
-  updateEmail();
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (pending || !form.reportValidity()) return;
     if (String(new FormData(form).get('_gotcha') || '').trim()) return;
     const reference = form.querySelector('[name="request_id"]');
     if (!reference.value) reference.value = `HX-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-    updateEmail();
     pending = true;
     button.disabled = true;
     button.textContent = text.sending;
