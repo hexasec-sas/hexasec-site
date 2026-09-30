@@ -415,6 +415,7 @@ const GAP_CONTROLS = [
 
     const labels = GAP_CONTROLS.map((c) => c.id);
     const values = answers.map((a) => typeof a.numeric === 'number' ? a.numeric : 0);
+    gapPreview.hidden = false;
     drawRadar(labels, values);
 
     const topText = worst.map(w => `${w.id} ${w.title} (${w.numeric}%)`).join(' | ');
@@ -447,7 +448,17 @@ Deseo recibir una cotización y conocer el plan de acción recomendado.`;
       };
     }
 
-    gapPreview.hidden = false;
+    // The result lives in the modal's scroll container, not the page viewport.
+    requestAnimationFrame(() => {
+      const body = gapPreview.closest('.modal__body');
+      if (!body || gapPreview.hidden) return;
+      gapPreview.setAttribute('tabindex', '-1');
+      gapPreview.focus({ preventScroll: true });
+      body.scrollTo({
+        top: body.scrollTop + gapPreview.getBoundingClientRect().top - body.getBoundingClientRect().top - 16,
+        behavior: 'auto'
+      });
+    });
   });
 
   window.addEventListener('resize', () => {
