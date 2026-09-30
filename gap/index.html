@@ -12,9 +12,9 @@
           img-src 'self' data: https:;
           style-src 'self';
           script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-inline';
-          connect-src 'self' https://formsubmit.co https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com;
+          connect-src 'self' https://formspree.io https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com;
           base-uri 'self';
-          form-action 'self' https://formsubmit.co;
+          form-action 'self' https://formspree.io;
           frame-src https://chat.hexasecsas.com;
           frame-ancestors 'none';
         " http-equiv="Content-Security-Policy"/>
@@ -228,7 +228,7 @@
 <p>Lun–Vie: 8:00–18:00</p>
 </div>
 </div>
-<form action="https://formsubmit.co/admin@hexasecsas.com" accept-charset="UTF-8" autocomplete="on" class="form" data-reveal="" id="contactForm" method="POST">
+<form action="https://formspree.io/f/xyezodoz" accept-charset="UTF-8" autocomplete="on" class="form" data-reveal="" id="contactForm" method="POST">
 <label>
               Nombre
               <input maxlength="80" name="name" required="" type="text"/>
@@ -242,7 +242,7 @@
               <textarea maxlength="1000" name="message" required="" rows="5"></textarea>
 </label>
 <!-- honeypot -->
-<input name="request_id" type="hidden" value=""/><input name="form_language" type="hidden" value="es"/><input name="_subject" type="hidden" value="Nueva solicitud desde el diagnóstico GAP | HexaSec S.A.S."/><input name="source" type="hidden" value="https://hexasecsas.com/gap/"/><input name="_next" type="hidden" value="https://hexasecsas.com/gracias.html?origen=gap"/><input name="_url" type="hidden" value="https://hexasecsas.com/gap/"/><input name="_template" type="hidden" value="table"/><input autocomplete="off" class="hp-field" name="_honey" tabindex="-1" type="text"/>
+<input name="request_id" type="hidden" value=""/><input name="form_language" type="hidden" value="es"/><input name="_subject" type="hidden" value="Nueva solicitud desde el diagnóstico GAP | HexaSec S.A.S."/><input name="source" type="hidden" value="https://hexasecsas.com/gap/"/><input autocomplete="off" class="hp-field" name="_gotcha" tabindex="-1" type="text"/>
 <!-- Campos ocultos del diagnóstico -->
 <input id="gap_score" name="gap_score" type="hidden"/>
 <input id="gap_top_gaps" name="gap_top_gaps" type="hidden"/>
@@ -345,6 +345,6 @@
   </section>
 </div>
 <script defer src="../js/hexabot.js?v=22"></script>
-<script defer src="/js/contact-form.js?v=1"></script>
+<script defer src="/js/contact-form.js?v=2"></script>
 </body>
 </html>

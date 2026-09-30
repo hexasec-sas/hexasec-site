@@ -11,7 +11,7 @@
   let pending = false;
   const text = {
     sending: en ? 'Sending…' : 'Enviando…',
-    success: en ? 'The delivery service accepted your request. This does not confirm arrival in our inbox. Reference: ' : 'El servicio de envío aceptó tu solicitud. Esto no confirma su llegada a nuestro correo. Referencia: ',
+    success: en ? 'Your request has been sent successfully. Reference: ' : 'Tu solicitud se ha enviado correctamente. Referencia: ',
     failure: en ? 'We could not confirm submission. Your information remains in the form. You can retry or open your email app using the link below.' : 'No pudimos confirmar el envío. Tus datos siguen en el formulario. Puedes reintentar o abrir tu correo con el enlace de abajo.'
   };
   const updateEmail = () => {
@@ -26,7 +26,7 @@
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (pending || !form.reportValidity()) return;
-    if (String(new FormData(form).get('_honey') || '').trim()) return;
+    if (String(new FormData(form).get('_gotcha') || '').trim()) return;
     const reference = form.querySelector('[name="request_id"]');
     if (!reference.value) reference.value = `HX-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     updateEmail();
@@ -38,7 +38,7 @@
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 20000);
     try {
-      const response = await fetch('https://formsubmit.co/ajax/admin@hexasecsas.com', {
+      const response = await fetch(form.action, {
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: new FormData(form),
@@ -46,7 +46,7 @@
       });
       if (!response.ok) throw new Error('Provider error');
       const result = await response.json();
-      if (result.success !== true && result.success !== 'true') throw new Error('Unconfirmed submission');
+      if (result.ok !== true) throw new Error('Unconfirmed submission');
       status.textContent = text.success + reference.value;
     } catch (_) {
       status.textContent = text.failure;
