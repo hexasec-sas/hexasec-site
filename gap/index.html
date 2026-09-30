@@ -229,28 +229,25 @@
 </div>
 </div>
 <form action="https://formspree.io/f/xyezodoz" accept-charset="UTF-8" autocomplete="on" class="form" data-reveal="" id="contactForm" method="POST">
-<label>
-              Nombre
-              <input maxlength="80" name="name" required="" type="text"/>
+<div class="form__intro"><span class="eyebrow">HABLEMOS DE TU NECESIDAD</span><h3>Solicita una evaluación</h3><p>Te responderemos en un plazo estimado de un día hábil.</p></div><label>Empresa<input maxlength="120" name="company_name" placeholder="Nombre de la organización" type="text"/></label><label>Nombre
+            <input maxlength="80" name="name" required="" type="text"/>
 </label>
-<label>
-              Correo
-              <input maxlength="120" name="email" required="" type="email"/>
+<label>Correo
+            <input maxlength="120" name="email" required="" type="email"/>
+</label><label>Servicio de interés<select name="service"><option value="">Selecciona una opción</option><option>Auditoría de ciberseguridad</option><option>Análisis de vulnerabilidades</option><option>Preparación ISO/IEC 27001</option><option>Capacitación y asesoría</option></select></label>
+<label>Ciudad de la empresa<input autocomplete="address-level2" maxlength="100" name="city" placeholder="Ej. Medellín, Cali o Ibagué" type="text"/></label>
+<input name="landing_page" type="hidden" value="/gap/"/>
+<label>Mensaje
+            <textarea maxlength="1000" name="message" required="" rows="5"></textarea>
 </label>
-<label>
-              Mensaje
-              <textarea maxlength="1000" name="message" required="" rows="5"></textarea>
-</label>
-<!-- honeypot -->
 <input name="request_id" type="hidden" value=""/><input name="form_language" type="hidden" value="es"/><input name="_subject" type="hidden" value="Nueva solicitud desde el diagnóstico GAP | HexaSec S.A.S."/><input name="source" type="hidden" value="https://hexasecsas.com/gap/"/><input autocomplete="off" class="hp-field" name="_gotcha" tabindex="-1" type="text"/>
-<!-- Campos ocultos del diagnóstico -->
 <input id="gap_score" name="gap_score" type="hidden"/>
 <input id="gap_top_gaps" name="gap_top_gaps" type="hidden"/>
 <input id="gap_answers" name="gap_answers" type="hidden"/>
 <label class="humanRow">
 <input id="humanCheck" required="" type="checkbox"/>
-              Confirmo que soy humano
-            </label>
+            Confirmo que soy humano
+          </label>
 <button class="btn btn--motion" type="submit">Enviar mensaje</button>
 <p aria-live="polite" class="small muted" id="formStatus">El estado del envío aparecerá aquí. También puedes contactarnos por correo.</p>
 </form>
