@@ -12,9 +12,9 @@
           img-src 'self' data: https:;
           style-src 'self';
           script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-inline';
-          connect-src 'self' https://formsubmit.co https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com;
+          connect-src 'self' https://formspree.io https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com;
           base-uri 'self';
-          form-action 'self' https://formsubmit.co;
+          form-action 'self' https://formspree.io;
           frame-src https://chat.hexasecsas.com;
           frame-ancestors 'none';
         " http-equiv="Content-Security-Policy"/>
@@ -125,6 +125,51 @@
 </section>
 <section class="section gap-process" id="how"><div class="container"><span class="gap-kicker">FROM ANSWERS TO ACTION</span><h2>How it works</h2><p class="gap-process__intro">Four steps to understand where to start.</p><ol class="gap-journey"><li class="gap-journey__step"><div class="gap-journey__node"><span class="gap-journey__number">01</span></div><div class="gap-journey__card"><svg aria-hidden="true" viewBox="0 0 24 24" class="gap-journey__icon"><path d="M8 5h12v17H4V5h4M8 3h8v4H8zM8 12h8M8 16h5"/></svg><h3>Answer</h3><p>Select the status of 12 security controls.</p></div></li><li class="gap-journey__step"><div class="gap-journey__node"><span class="gap-journey__number">02</span></div><div class="gap-journey__card"><svg aria-hidden="true" viewBox="0 0 24 24" class="gap-journey__icon"><path d="M4 20V4M4 20h17M8 16v-4M13 16V8M18 16V5"/></svg><h3>Calculate</h3><p>Get a maturity score and your main gaps.</p></div></li><li class="gap-journey__step"><div class="gap-journey__node"><span class="gap-journey__number">03</span></div><div class="gap-journey__card"><svg aria-hidden="true" viewBox="0 0 24 24" class="gap-journey__icon"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 3v9l7 5M3 12h9"/></svg><h3>Visualize</h3><p>Explore results in a radar chart by control.</p></div></li><li class="gap-journey__step"><div class="gap-journey__node"><span class="gap-journey__number">04</span></div><div class="gap-journey__card"><svg aria-hidden="true" viewBox="0 0 24 24" class="gap-journey__icon"><path d="M5 20V4M5 4h14l-3 5 3 5H5M10 18l3 3 7-7"/></svg><h3>Decide</h3><p>Prioritize actions and request support if needed.</p></div></li></ol></div></section>
 <section class="section gap-start" id="start"><div class="container"><div class="gap-start__panel"><span class="gap-kicker">YOUR FIRST STEP IN CYBERSECURITY</span><h2>Find where to focus<br/>your security efforts.</h2><p>Start the free GAP assessment and get initial guidance to prioritize actions in your business.</p><ul class="gap-start__benefits"><li>12 controls</li><li>No registration</li><li>Instant result</li></ul><div class="gap-start__action"><button class="btn btn--motion" id="openGapModalBtn2" type="button">Start free assessment</button></div><p class="gap-start__note">Preliminary assessment based on your answers. It does not replace an audit.</p></div></div></section>
+<section class="section" id="contact">
+<div class="container">
+<h2 data-reveal="">Contact</h2>
+<p class="muted" data-reveal="">Request the complete report, an audit proposal or advisory support.</p>
+<div class="contact">
+<div class="contact__info" data-reveal="">
+<div class="info-box" data-reveal="">
+<h3>Email</h3>
+<p><a href="mailto:admin@hexasecsas.com">admin@hexasecsas.com</a></p>
+</div>
+<div class="info-box" data-reveal="">
+<h3>Location</h3>
+<p>Bogotá D.C., Colombia</p>
+</div>
+<div class="info-box" data-reveal="">
+<h3>Focus</h3>
+<p>Cybersecurity • Audit • ISO/IEC 27001</p>
+</div>
+</div>
+<form action="https://formspree.io/f/xyezodoz" accept-charset="UTF-8" autocomplete="on" class="form" data-reveal="" id="contactForm" method="POST">
+<div class="form__intro"><span class="eyebrow">LET’S DISCUSS YOUR NEEDS</span><h3>Request an assessment</h3><p>We will respond within approximately one business day.</p></div><label>Company<input maxlength="120" name="company_name" placeholder="Organization name" type="text"/></label><label>Name
+            <input maxlength="80" name="name" required="" type="text"/>
+</label>
+<label>Email
+            <input maxlength="120" name="email" required="" type="email"/>
+</label><label>Service of interest<select name="service"><option value="">Select an option</option><option>Cybersecurity audit</option><option>Vulnerability assessment</option><option>ISO/IEC 27001 preparation</option><option>Training and advisory</option></select></label>
+<label>Company city<input autocomplete="address-level2" maxlength="100" name="city" placeholder="E.g. Medellín, Cali or Ibagué" type="text"/></label>
+<input name="landing_page" type="hidden" value="/en/gap/"/>
+<label>Message
+            <textarea maxlength="1000" name="message" required="" rows="5"></textarea>
+</label>
+<input name="request_id" type="hidden" value=""/><input name="form_language" type="hidden" value="en"/><input name="_subject" type="hidden" value="New website request | HexaSec S.A.S."/><input name="source" type="hidden" value="https://hexasecsas.com/en/gap/"/><input autocomplete="off" class="hp-field" name="_gotcha" tabindex="-1" type="text"/>
+<input id="gap_score" name="gap_score" type="hidden"/>
+<input id="gap_top_gaps" name="gap_top_gaps" type="hidden"/>
+<input id="gap_answers" name="gap_answers" type="hidden"/>
+<label class="humanRow">
+<input id="humanCheck" required="" type="checkbox"/>
+            I confirm that I am human
+          </label>
+<button class="btn btn--motion" type="submit">Send message</button>
+<p aria-live="polite" class="small muted" id="formStatus">The submission status will appear here. You can also contact us by email.</p>
+</form>
+</div>
+</div>
+</section>
 </main>
 <footer class="footer"><div class="container footer__grid"><div class="footer__brand"><div class="brand brand--footer"><img alt="" class="brand__logo" src="/img/H.png"/><div><strong>HexaSec S.A.S.</strong><p>Cybersecurity, audit and compliance with a practical, risk-based approach.</p></div></div></div><div><h3>Services</h3><a href="/en/index.html#servicios">Audit</a><a href="/en/index.html#servicios">Vulnerabilities</a><a href="/en/index.html#servicios">ISO/IEC 27001</a></div><div><h3>Resources</h3><a href="/en/gap/index.html">GAP Assessment</a><a href="/en/index.html#metodo">Methodology</a></div><div><h3>Contact</h3><a href="mailto:admin@hexasecsas.com">admin@hexasecsas.com</a><span>Bogotá D.C., Colombia</span><a href="/index.html">Spanish version</a></div></div><div class="container footer__bottom"><span class="footer__legal">© <span id="year"></span> HexaSec S.A.S. · Bogotá D.C., Colombia · All rights reserved.</span></div></footer>
 <!-- GAP MODAL (same structure, English labels loaded via JS) -->
@@ -170,7 +215,7 @@
 </div>
 </div>
 </div>
-<script defer="" src="../../js/script-en.js?v=22"></script>
+<script defer="" src="../../js/script-en.js?v=contact2"></script>
 
 <!-- HexaBot Widget v22 -->
 <div id="hexabot-widget" data-lang="en">
@@ -200,5 +245,6 @@
   </section>
 </div>
 <script defer src="../../js/hexabot.js?v=22"></script>
+<script defer src="/js/contact-form.js?v=3"></script>
 </body>
 </html>
