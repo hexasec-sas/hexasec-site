@@ -27,3 +27,22 @@
 @media(max-width:960px){.holo-scene{max-width:26rem}.holo-art{max-height:350px}.holo-orbit--two{display:none}.holo-shield{animation-duration:16s}.holo-radar{width:7rem}}
 @media(hover:none){.holo-reflect::before{display:none}}
 @media(prefers-reduced-motion:reduce){.holo-art *,.holo-radar *{animation:none!important}.holo-reflect,.holo-reflect::before{transition:none}.holo-pause{display:none}}
+
+/* Brand emblem: one focal point, restrained motion, balanced hero. */
+.hero:has(.holo-emblem){padding:4rem 0 3.5rem}
+.hero:has(.holo-emblem) h1{font-size:clamp(2.45rem,4.1vw,3.65rem);line-height:1.08;letter-spacing:-.045em}
+.hero:has(.holo-emblem) .hero__grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:3rem}
+.hero:has(.holo-emblem) .lead{font-size:1.05rem;line-height:1.7;margin-top:1.25rem}
+.hero:has(.holo-emblem) .hero__actions{margin-top:1.5rem}
+.hero:has(.holo-emblem) .checks{font-size:.85rem;gap:.4rem;margin-top:1.25rem}
+.holo-scene:has(.holo-emblem){max-width:27rem}
+.holo-scene:has(.holo-emblem) .holo-art{aspect-ratio:1.1;perspective:none}
+.holo-emblem{width:86%;height:auto;overflow:visible;filter:drop-shadow(0 18px 22px #0005);animation:emblem-float 9s ease-in-out infinite}
+.holo-emblem .holo-trace{animation-duration:14s;filter:drop-shadow(0 0 3px #a6faff)}
+.holo-scene:has(.holo-emblem) .holo-halo{inset:10% 0;background:radial-gradient(ellipse,#157fba24,transparent 65%);box-shadow:none}
+.holo-scene:has(.holo-emblem) .holo-floor{bottom:1%;width:55%;height:5%;background:radial-gradient(ellipse,#1ebcfb35,transparent 70%)}
+.holo-wordmark{position:relative;margin-top:.25rem}.holo-wordmark strong{display:block;font-size:2.55rem;font-weight:700;letter-spacing:-.035em;line-height:1.15;color:#f0f8ff}.holo-wordmark span{display:block;margin-top:.7rem;font-size:.62rem;font-weight:600;letter-spacing:.35em;color:#6bb8dd}
+.holo-scene:has(.holo-emblem) .holo-pause{margin-top:1.6rem;font-size:.65rem;opacity:.8}
+@keyframes emblem-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@media(max-width:960px){.hero:has(.holo-emblem) .hero__grid{grid-template-columns:1fr;gap:2.5rem}.hero:has(.holo-emblem){padding:3rem 0}.holo-scene:has(.holo-emblem){width:min(100%,21rem)}.holo-wordmark strong{font-size:2.1rem}}
+@media(prefers-reduced-motion:reduce){.holo-emblem{animation:none!important}}
