@@ -1,0 +1,29 @@
+/* Decorative motion only; all selectors are isolated from forms and chat. */
+.hero:has(.holo-scene) .hero__orb{animation:none;opacity:.12}
+.hero:has(.holo-scene)::before{animation:none;opacity:.12}
+.hero:has(.holo-scene) .text-gradient{animation:none}
+.holo-scene{position:relative;isolation:isolate;text-align:center;max-width:34rem;margin:auto;color:#dcf9ff}
+.holo-art{position:relative;display:grid;place-items:center;aspect-ratio:1/1;perspective:900px;pointer-events:none}
+.holo-halo{position:absolute;inset:5%;border-radius:50%;background:radial-gradient(ellipse,#1ebce329,transparent 68%);box-shadow:inset 0 0 65px #13b2e20a}
+.holo-shield{position:relative;width:76%;height:auto;overflow:visible;filter:drop-shadow(0 0 12px #34b8db35);animation:holo-turn 12s ease-in-out infinite;transform-origin:center}
+.holo-trace{animation:holo-trace 8s linear infinite;filter:drop-shadow(0 0 5px #a6faff)}
+.holo-orbit{position:absolute;inset:9%;border:1px solid #61dbea30;border-radius:50%;box-shadow:0 0 18px #3ebcd20b;transform:rotateX(62deg) rotateZ(-30deg);animation:holo-orbit 18s linear infinite}
+.holo-orbit::after{content:'';position:absolute;left:15%;top:10%;width:7px;height:7px;border-radius:50%;background:#d2fcff;box-shadow:0 0 14px #42dfff}
+.holo-orbit--two{inset:2%;border-color:#8992ed25;transform:rotateY(65deg) rotateZ(20deg);animation:holo-orbit-two 24s linear infinite reverse}
+.holo-floor{position:absolute;bottom:0;width:55%;height:6%;border-radius:50%;background:radial-gradient(ellipse,#4eddf73d,transparent 70%);filter:blur(8px)}
+.holo-caption{position:relative;padding:.4rem 1rem}.holo-caption>span{display:block;font:600 .65rem/1.5 var(--font-mono);letter-spacing:.22em;color:#7dcde4;margin-bottom:.75rem}.holo-caption strong{display:block;font-size:clamp(1.1rem,2vw,1.4rem);line-height:1.4;font-weight:600;max-width:26ch;margin:auto}.holo-caption p{font-size:.78rem;letter-spacing:.08em;color:#a5bed2;margin:.8rem 0}
+.holo-pause{background:transparent;border:1px solid #80b6c940;border-radius:999px;color:#bbd5e5;font:inherit;font-size:.7rem;padding:.4rem .85rem;margin-top:.75rem;cursor:pointer}.holo-pause:hover{border-color:#78dff3;color:white}.holo-pause:focus-visible{outline:2px solid #88edff;outline-offset:4px}
+.holo-radar{width:9rem;aspect-ratio:1;position:relative;justify-self:center;border-radius:50%;overflow:hidden;border:1px solid #6cdbe84f;background:repeating-radial-gradient(circle,transparent 0 22px,#69cedc26 23px 24px),linear-gradient(90deg,transparent 49.5%,#76d9e52b 50%,transparent 50.5%),linear-gradient(transparent 49.5%,#76d9e52b 50%,transparent 50.5%),#071d30;pointer-events:none}
+.holo-radar i{position:absolute;inset:0;background:conic-gradient(from 0deg,transparent 0 265deg,#41d9e842 335deg,#7ff9ffb0 359deg,transparent 360deg);animation:holo-sweep 8s linear infinite}.holo-radar b,.holo-radar span{position:absolute;left:65%;top:27%;width:5px;height:5px;border-radius:50%;background:#b5faff;box-shadow:0 0 9px #6ee8ff}.holo-radar span{left:28%;top:62%;width:4px;height:4px}
+.holo-reflect{position:relative;--shine-x:50%;--shine-y:0%;transition:border-color .25s,box-shadow .25s}
+.holo-reflect::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;border:1px solid transparent;background:radial-gradient(300px circle at var(--shine-x) var(--shine-y),#35bded16,transparent 70%);opacity:0;transition:opacity .25s}
+.holo-reflect:hover::before{opacity:1}.holo-reflect:hover{border-color:#37a6d5;box-shadow:0 12px 35px #126a9d15}
+@keyframes holo-turn{0%,100%{transform:rotateY(-13deg) rotateZ(-2deg) translateY(0)}50%{transform:rotateY(13deg) rotateZ(2deg) translateY(-8px)}}
+@keyframes holo-trace{to{stroke-dashoffset:-100}}
+@keyframes holo-orbit{to{transform:rotateX(62deg) rotateZ(330deg)}}
+@keyframes holo-orbit-two{to{transform:rotateY(65deg) rotateZ(380deg)}}
+@keyframes holo-sweep{to{transform:rotate(360deg)}}
+.holo-effects-paused .holo-art *,.holo-effects-paused .holo-radar *,.holo-offscreen *{animation-play-state:paused!important}
+@media(max-width:960px){.holo-scene{max-width:26rem}.holo-art{max-height:350px}.holo-orbit--two{display:none}.holo-shield{animation-duration:16s}.holo-radar{width:7rem}}
+@media(hover:none){.holo-reflect::before{display:none}}
+@media(prefers-reduced-motion:reduce){.holo-art *,.holo-radar *{animation:none!important}.holo-reflect,.holo-reflect::before{transition:none}.holo-pause{display:none}}
